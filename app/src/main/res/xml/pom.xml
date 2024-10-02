@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns:android="http://schemas.android.com/apk/res/android">
+    <dependency>
+        <groupId>io.github.jan-tennert.supabase</groupId>
+        <artifactId>bom</artifactId>
+        <version>VERSION</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.github.jan-tennert.supabase</groupId>
+        <artifactId>postgrest-kt</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.github.jan-tennert.supabase</groupId>
+        <artifactId>gotrue-kt</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.github.jan-tennert.supabase</groupId>
+        <artifactId>realtime-kt</artifactId>
+    </dependency>
+
+</project>

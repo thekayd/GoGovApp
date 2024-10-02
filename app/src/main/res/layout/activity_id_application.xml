@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:ignore="MissingDefaultResource"
+    tools:context=".activities.IDApplicationActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/et_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/et_id_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Number"
+            android:inputType="number"
+            android:layout_marginBottom="12dp"/>
+
+        <Spinner
+            android:id="@+id/sp_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/gender_options"
+            android:layout_marginBottom="12dp"/>
+
+        <Spinner
+            android:id="@+id/sp_province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/province_options"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPostalAddress"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/et_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/et_postal_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Postal Code"
+            android:inputType="number"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Upload Documents Button -->
+        <Button
+            android:id="@+id/btn_upload_documents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Documents"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white"/>
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btn_submit_application"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Application"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+</ScrollView>

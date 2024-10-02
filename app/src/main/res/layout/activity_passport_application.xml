@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Name -->
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name" />
+
+        <!-- Surname -->
+        <EditText
+            android:id="@+id/etSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Surname" />
+
+        <!-- ID Number -->
+        <EditText
+            android:id="@+id/etIdNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Number"
+            android:inputType="number" />
+
+        <!-- Gender Dropdown -->
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Province Dropdown -->
+        <Spinner
+            android:id="@+id/spinnerProvince"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Address -->
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address" />
+
+        <!-- City -->
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City" />
+
+        <!-- Postcode -->
+        <EditText
+            android:id="@+id/etPostcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Postcode"
+            android:inputType="number" />
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <!-- Phone Number -->
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="phone" />
+
+        <!-- Document Uploads -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Documents" />
+
+        <!-- Passport Photo Upload -->
+        <Button
+            android:id="@+id/btnUploadPassportPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Passport Photo" />
+
+        <!-- Proof of Address Upload -->
+        <Button
+            android:id="@+id/btnUploadProofOfAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Proof of Address" />
+
+        <!-- ID Document Upload -->
+        <Button
+            android:id="@+id/btnUploadIdDocument"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload ID Document" />
+
+        <!-- NDA Checkbox -->
+        <CheckBox
+            android:id="@+id/checkboxNda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I want to protect my data by signing an NDA" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btnSubmitPassportApplication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
+
+        <!-- Footer (Links and Details) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Footer Links and Details" />
+    </LinearLayout>
+</ScrollView>

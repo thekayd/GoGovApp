@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.HomePageActivity"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Banner Section -->
+        <ImageView
+            android:id="@+id/bannerImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/parliament_building" />
+
+        <!-- Welcome Text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discover an unparalleled journey filled with adventures"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="16dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to the South African Citizen Portal"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:textColor="@android:color/black" />
+
+        <!-- Create Account Button -->
+        <Button
+            android:id="@+id/createAccountButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create your go.gov Account"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp" />
+
+        <!-- Members of Parliament Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meet the Members of Parliament"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black" />
+
+        <!-- Parliament Members Section (as before) -->
+
+        <!-- About Us Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="24dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/parliament_building"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="South Africa is a diverse and vibrant country, known for its rich culture, scenic beauty, and strong democratic values. As a nation, we strive to provide accessible government services for all citizens."
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:padding="8dp" />
+        </LinearLayout>
+
+        <!-- Selectable Department Cards -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Departments"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <!-- Transportation Button -->
+            <Button
+                android:id="@+id/btn_transportation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transportation"
+                android:backgroundTint="@color/black"
+                android:textColor="@android:color/white"
+                android:layout_margin="8dp" />
+
+            <!-- Health Button -->
+            <Button
+                android:id="@+id/btn_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health"
+                android:backgroundTint="@color/black"
+                android:textColor="@android:color/white"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Education Button -->
+            <Button
+                android:id="@+id/btn_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Education"
+                android:backgroundTint="@color/black"
+                android:textColor="@android:color/white"
+                android:layout_margin="8dp" />
+
+            <!-- Home Affairs Button -->
+            <Button
+                android:id="@+id/btn_home_affairs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home Affairs"
+                android:backgroundTint="@color/black"
+                android:textColor="@android:color/white"
+                android:layout_margin="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

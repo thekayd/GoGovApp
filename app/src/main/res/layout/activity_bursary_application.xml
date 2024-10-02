@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Name Input -->
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Surname Input -->
+        <EditText
+            android:id="@+id/et_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Surname"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp" />
+
+        <!-- ID Number Input -->
+        <EditText
+            android:id="@+id/et_id_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Number"
+            android:inputType="number"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Course Input -->
+        <EditText
+            android:id="@+id/et_course"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course of Study"
+            android:inputType="text"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Province Spinner -->
+        <Spinner
+            android:id="@+id/sp_province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:entries="@array/provinces" />
+
+        <!-- Grade Spinner -->
+        <Spinner
+            android:id="@+id/sp_grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:entries="@array/grades" />
+
+        <!-- Upload Documents Button -->
+        <Button
+            android:id="@+id/btn_upload_documents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Documents"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Application"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

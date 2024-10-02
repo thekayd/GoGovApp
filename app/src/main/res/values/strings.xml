@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">GoGovMobile</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login_to_continue">Login To Continue</string>
+    <string name="email">Email</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="name">Name</string>
+    <string name="add_image">Add Image</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="select_user">Select User</string>
+    <string name="type_a_message">Type a Message...</string>
+    <string name="active">Active</string>
+    <string name="sign_in_with_google">Sign In With Google</string>
+
+
+    <!-- Gender Options -->
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <!-- Vaccination Types -->
+    <string-array name="vaccination_types">
+        <item>COVID-19 Vaccine</item>
+        <item>Influenza Vaccine</item>
+        <item>Hepatitis B Vaccine</item>
+    </string-array>
+
+    <!-- Vaccination Centers -->
+    <string-array name="vaccination_centers">
+        <item>Johannesburg Vaccination Center</item>
+        <item>Cape Town Vaccination Center</item>
+        <item>Durban Vaccination Center</item>
+        <item>Pretoria Vaccination Center</item>
+    </string-array>
+
+
+    <!-- South African Provinces -->
+    <string-array name="province_options">
+        <item>Eastern Cape</item>
+        <item>Free State</item>
+        <item>Gauteng</item>
+        <item>KwaZulu-Natal</item>
+        <item>Limpopo</item>
+        <item>Mpumalanga</item>
+        <item>Northern Cape</item>
+        <item>North West</item>
+        <item>Western Cape</item>
+    </string-array>
+
+
+
+    <!-- Grades Array -->
+    <string-array name="grades">
+        <item>Grade 1</item>
+        <item>Grade 2</item>
+        <item>Grade 3</item>
+        <item>Grade 4</item>
+        <item>Grade 5</item>
+        <item>Grade 6</item>
+        <item>Grade 7</item>
+        <item>Grade 8</item>
+        <item>Grade 9</item>
+        <item>Grade 10</item>
+        <item>Grade 11</item>
+        <item>Grade 12</item>
+    </string-array>
+
+    <!-- Province Array for Bursary Application -->
+    <string-array name="provinces">
+        <item>Gauteng</item>
+        <item>Western Cape</item>
+        <item>Eastern Cape</item>
+        <item>KwaZulu-Natal</item>
+        <item>Free State</item>
+        <item>Mpumalanga</item>
+        <item>Limpopo</item>
+        <item>North West</item>
+        <item>Northern Cape</item>
+    </string-array>
+
+
+    <!-- License Category Options -->
+    <string-array name="license_category_options">
+        <item>Code A - Motorcycles</item>
+        <item>Code B - Light Motor Vehicles</item>
+        <item>Code C - Heavy Motor Vehicles</item>
+    </string-array>
+
+    <!-- Test Center Options -->
+    <string-array name="test_center_options">
+        <item>Johannesburg Testing Center</item>
+        <item>Pretoria Testing Center</item>
+        <item>Durban Testing Center</item>
+        <item>Cape Town Testing Center</item>
+    </string-array>
+</resources>

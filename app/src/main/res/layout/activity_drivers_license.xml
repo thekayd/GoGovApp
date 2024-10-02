@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource"
+    tools:context=".DriversLicenseActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Name -->
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+        <!-- Surname -->
+        <EditText
+            android:id="@+id/etSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Surname"
+            android:inputType="textPersonName" />
+
+        <!-- ID Number -->
+        <EditText
+            android:id="@+id/etIdNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Number"
+            android:inputType="number" />
+
+        <!-- Gender Dropdown -->
+        <Spinner
+            android:id="@+id/spGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/gender_options" />
+
+        <!-- Province Dropdown -->
+        <Spinner
+            android:id="@+id/spProvince"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/province_options" />
+
+        <!-- Address -->
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPostalAddress" />
+
+        <!-- City -->
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City" />
+
+        <!-- Postcode -->
+        <EditText
+            android:id="@+id/etPostcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Postcode"
+            android:inputType="number" />
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <!-- Phone Number -->
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="phone" />
+
+        <!-- Category of License Dropdown -->
+        <Spinner
+            android:id="@+id/spLicenseCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/license_category_options" />
+
+        <!-- Test Center Dropdown -->
+        <Spinner
+            android:id="@+id/spTestCenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/test_center_options" />
+
+        <!-- Date of Birth -->
+        <TextView
+            android:id="@+id/tvDobLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth" />
+        <Button
+            android:id="@+id/btnPickDob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Date of Birth" />
+
+        <CheckBox
+            android:id="@+id/checkboxNda1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I want to protect my data by signing an NDA" />
+
+        <!-- Document Uploads -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Documents:" />
+
+        <!-- Upload ID Document -->
+        <Button
+            android:id="@+id/btnUploadIdDocument"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload ID Document" />
+
+        <!-- Upload Passport Photo -->
+        <Button
+            android:id="@+id/btnUploadPassportPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Passport Photo" />
+
+        <!-- Upload Proof of Address -->
+        <Button
+            android:id="@+id/btnUploadProofOfAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Proof of Address" />
+
+        <!-- Upload Eye Test Certificate -->
+        <Button
+            android:id="@+id/btnUploadEyeTestCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Eye Test Certificate" />
+
+        <!-- NDA CheckBox -->
+        <CheckBox
+            android:id="@+id/cbNDA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I want to protect my data by signing an NDA" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
+
+        <!-- Footer Links -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Footer Links"
+            android:textStyle="bold"
+            android:paddingTop="20dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Privacy Policy"
+                android:textColor="?android:attr/colorAccent"
+                android:paddingEnd="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terms of Service"
+                android:textColor="?android:attr/colorAccent"
+                android:paddingEnd="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
