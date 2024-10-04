@@ -2,12 +2,15 @@ package com.kayodedaniel.gogovmobile.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.gogovmobile.R
+import com.kayodedaniel.gogovmobile.activities.ViewAppointmentActivity
 
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +21,31 @@ class HomePageActivity : AppCompatActivity() {
         val healthButton: Button = findViewById(R.id.btn_health)
         val educationButton: Button = findViewById(R.id.btn_education)
         val homeAffairsButton: Button = findViewById(R.id.btn_home_affairs)
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        // Set Home as selected
+        bottomNavigationView.selectedItemId = R.id.nav_home
+
+        // Handle navigation item clicks
+        bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.nav_home -> true // Stay on this activity
+                R.id.nav_schedule -> {
+                    // Navigate to ScheduleAppointmentActivity
+                    startActivity(Intent(this, ScheduleAppointmentActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.nav_view_appointment -> {
+                    // Navigate to ViewAppointmentActivity
+                    startActivity(Intent(this, ViewAppointmentActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                else -> false
+            }
+        }
 
         // Transportation Button Click
         transportationButton.setOnClickListener {
