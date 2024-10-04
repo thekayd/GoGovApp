@@ -1,99 +1,114 @@
 package com.kayodedaniel.gogovmobile.activities
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.gogovmobile.R
-import okhttp3.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONArray
 import org.json.JSONObject
-import java.io.IOException
 
 class ApplicationProgressActivity : AppCompatActivity() {
 
-    private lateinit var tvFormName: TextView
-    private lateinit var tvStatus: TextView
-    private lateinit var tvDetails: TextView
+    private lateinit var tvApplicationDetails: TextView
+    private lateinit var progressBar: ProgressBar
     private lateinit var btnBack: Button
 
-    private val supabaseUrl =
-        "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/drivers_license_applications" // Replace with your actual endpoint
-    private val supabaseKey =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sRSJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
+    private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/drivers_license_applications"
+    private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_progress)
 
-        // Initialize views
-        tvFormName = findViewById(R.id.tvFormName)
-        tvStatus = findViewById(R.id.tvStatus)
-        tvDetails = findViewById(R.id.tvDetails)
+        tvApplicationDetails = findViewById(R.id.tvApplicationDetails)
+        progressBar = findViewById(R.id.progressBar)
         btnBack = findViewById(R.id.btnBack)
 
-        // Fetch and display application details
-        fetchApplicationDetails()
-
-        // Back button listener
         btnBack.setOnClickListener {
-            finish() // Close this activity and return to the previous one
+            finish()
         }
+
+        fetchApplicationDetails()
     }
 
     private fun fetchApplicationDetails() {
-        // Get user ID from shared preferences or intent
-        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        val userId = sharedPreferences.getString("user_id", null)
+        progressBar.visibility = View.VISIBLE
 
-        // Validate user ID
-        if (userId == null) {
-            Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
+        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
+
+        if (userEmail.isEmpty()) {
+            Toast.makeText(this, "User email not found", Toast.LENGTH_SHORT).show()
+            progressBar.visibility = View.GONE
             return
         }
 
-        // Build the request URL to get application details for the user
-        val requestUrl = "$supabaseUrl?select=*&user_id=eq.$userId"
+        val url = "$supabaseUrl?email=eq.$userEmail"
 
-        // Build OkHttp3 request
-        val request = Request.Builder()
-            .url(requestUrl)
-            .addHeader("apikey", supabaseKey)
-            .addHeader("Authorization", "Bearer $supabaseKey")
-            .build()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val client = OkHttpClient()
+                val request = Request.Builder()
+                    .url(url)
+                    .get()
+                    .addHeader("apikey", supabaseKey)
+                    .addHeader("Authorization", "Bearer $supabaseKey")
+                    .build()
 
-        // Execute request asynchronously
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(
-                        this@ApplicationProgressActivity,
-                        "Failed to fetch data: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                val response = client.newCall(request).execute()
+                val responseBody = response.body?.string()
+
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful && !responseBody.isNullOrEmpty()) {
+                        val jsonArray = JSONArray(responseBody)
+                        if (jsonArray.length() > 0) {
+                            val applicationDetails = jsonArray.getJSONObject(0)
+                            displayApplicationDetails(applicationDetails)
+                        } else {
+                            tvApplicationDetails.text = "No application found for this email."
+                        }
+                    } else {
+                        Toast.makeText(this@ApplicationProgressActivity, "Failed to fetch application details", Toast.LENGTH_SHORT).show()
+                    }
+                    progressBar.visibility = View.GONE
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@ApplicationProgressActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
                 }
             }
+        }
+    }
 
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body?.string()
-                    val jsonResponse = JSONObject(responseBody ?: "")
+    private fun displayApplicationDetails(details: JSONObject) {
+        val formattedDetails = StringBuilder()
+        formattedDetails.append("Application Status: ${details.optString("status", "N/A")}\n\n")
+        formattedDetails.append("Personal Details:\n")
+        formattedDetails.append("Name: ${details.optString("name", "N/A")}\n")
+        formattedDetails.append("Surname: ${details.optString("surname", "N/A")}\n")
+        formattedDetails.append("ID Number: ${details.optString("id_number", "N/A")}\n")
+        formattedDetails.append("Gender: ${details.optString("gender", "N/A")}\n")
+        formattedDetails.append("Date of Birth: ${details.optString("date_of_birth", "N/A")}\n\n")
+        formattedDetails.append("Contact Details:\n")
+        formattedDetails.append("Email: ${details.optString("email", "N/A")}\n")
+        formattedDetails.append("Phone Number: ${details.optString("phone_number", "N/A")}\n\n")
+        formattedDetails.append("Address:\n")
+        formattedDetails.append("${details.optString("address", "N/A")}\n")
+        formattedDetails.append("${details.optString("city", "N/A")}, ${details.optString("province", "N/A")}\n")
+        formattedDetails.append("Postcode: ${details.optString("postcode", "N/A")}\n\n")
+        formattedDetails.append("License Details:\n")
+        formattedDetails.append("License Category: ${details.optString("license_category", "N/A")}\n")
+        formattedDetails.append("Test Center: ${details.optString("test_center", "N/A")}\n")
 
-                    runOnUiThread {
-                        // Assuming the application form has fields like 'form_name', 'status', and 'details'
-                        tvFormName.text = jsonResponse.optString("form_name", "N/A")
-                        tvStatus.text = jsonResponse.optString("status", "N/A")
-                        tvDetails.text = jsonResponse.optString("details", "N/A")
-                    }
-                } else {
-                    runOnUiThread {
-                        Toast.makeText(
-                            this@ApplicationProgressActivity,
-                            "Failed to fetch application details.",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            }
-        })
+        tvApplicationDetails.text = formattedDetails.toString()
     }
 }

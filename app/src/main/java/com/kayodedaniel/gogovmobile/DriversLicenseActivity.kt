@@ -1,13 +1,17 @@
 package com.kayodedaniel.gogovmobile
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.gogovmobile.activities.ApplicationProgressActivity
-import kotlinx.io.IOException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -17,11 +21,8 @@ import java.util.*
 
 class DriversLicenseActivity : AppCompatActivity() {
 
-    // Hardcoded Supabase URL and API Key for testing
-    private val supabaseUrl =
-        "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/drivers_license_applications" // Use the correct endpoint for your table
-    private val supabaseKey =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
+    private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/drivers_license_applications"
+    private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
     private lateinit var etName: EditText
     private lateinit var etSurname: EditText
@@ -49,24 +50,25 @@ class DriversLicenseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drivers_license)
 
-        // Initialize views
         initializeViews()
 
-        // Date Picker for Date of Birth
         btnPickDob.setOnClickListener {
             pickDateOfBirth()
         }
 
-        // File upload buttons
         findViewById<Button>(R.id.btnUploadIdDocument).setOnClickListener { pickFile(1) }
         findViewById<Button>(R.id.btnUploadPassportPhoto).setOnClickListener { pickFile(2) }
         findViewById<Button>(R.id.btnUploadProofOfAddress).setOnClickListener { pickFile(3) }
         findViewById<Button>(R.id.btnUploadEyeTestCertificate).setOnClickListener { pickFile(4) }
 
-        // Submit Button Click Listener
         btnSubmit.setOnClickListener {
             submitForm()
         }
+
+        // Load the user's email from SharedPreferences
+        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
+        etEmail.setText(userEmail)
     }
 
     private fun initializeViews() {
@@ -87,24 +89,22 @@ class DriversLicenseActivity : AppCompatActivity() {
         btnSubmit = findViewById(R.id.btnSubmit)
     }
 
-    // Function to pick Date of Birth
     private fun pickDateOfBirth() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog =
-            DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                selectedDob = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                btnPickDob.text = selectedDob
-            }, year, month, day)
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            selectedDob = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            btnPickDob.text = selectedDob
+        }, year, month, day)
         datePickerDialog.show()
     }
 
     private fun pickFile(requestCode: Int) {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*" // Use a more specific MIME type if possible
+        intent.type = "*/*"
         startActivityForResult(intent, requestCode)
     }
 
@@ -133,9 +133,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         }
     }
 
-    // Function to validate and submit the form
     private fun submitForm() {
-        // Collect data from form inputs
         val name = etName.text.toString()
         val surname = etSurname.text.toString()
         val idNumber = etIdNumber.text.toString()
@@ -150,13 +148,11 @@ class DriversLicenseActivity : AppCompatActivity() {
         val testCenter = spTestCenter.selectedItem.toString()
         val dob = selectedDob ?: ""
 
-        // Validate required fields
         if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty()) {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Create JSON body
         val json = JSONObject().apply {
             put("name", name)
             put("surname", surname)
@@ -174,41 +170,35 @@ class DriversLicenseActivity : AppCompatActivity() {
             put("status", "Sent For Validation")
         }
 
-        // Convert JSON to request body
         val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
-        // Build OkHttp3 request
         val request = Request.Builder()
-            .url(supabaseUrl)  // Use your actual endpoint
+            .url(supabaseUrl)
             .post(requestBody)
-            .addHeader("apikey", supabaseKey)  // Your Supabase API Key
+            .addHeader("apikey", supabaseKey)
             .addHeader("Content-Type", "application/json")
             .build()
 
-        // Execute request asynchronously
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(this@DriversLicenseActivity, "Failed to submit form: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val client = OkHttpClient()
+                val response = client.newCall(request).execute()
 
-            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                val responseBody = response.body?.string()
-                if (response.isSuccessful) {
-                    runOnUiThread {
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
                         Toast.makeText(this@DriversLicenseActivity, "Form submitted successfully!", Toast.LENGTH_SHORT).show()
-                        // Navigate to Progress Activity
                         val intent = Intent(this@DriversLicenseActivity, ApplicationProgressActivity::class.java)
                         startActivity(intent)
-                    }
-                } else {
-                    runOnUiThread {
-                        Toast.makeText(this@DriversLicenseActivity, "Failed to submit form: $responseBody", Toast.LENGTH_LONG).show()
+                    } else {
+                        val errorBody = response.body?.string() ?: "Unknown error"
+                        Toast.makeText(this@DriversLicenseActivity, "Failed to submit form: $errorBody", Toast.LENGTH_LONG).show()
                     }
                 }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@DriversLicenseActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
             }
-        })
+        }
     }
 }

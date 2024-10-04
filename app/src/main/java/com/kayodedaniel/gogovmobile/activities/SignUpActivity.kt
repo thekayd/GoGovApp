@@ -1,5 +1,6 @@
 package com.kayodedaniel.gogovmobile.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import com.kayodedaniel.gogovmobile.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.kayodedaniel.gogovmobile.R
-import com.kayodedaniel.gogovmobile.SignInActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -78,8 +78,10 @@ class SignUpActivity : AppCompatActivity() {
                     val responseBody = response.body?.string() ?: "Unknown error"
                     if (response.isSuccessful) {
                         withContext(Dispatchers.Main) {
+                            // Save email to SharedPreferences
+                            saveEmailToPreferences(email)
+
                             Toast.makeText(this@SignUpActivity, "Sign-up successful! Please check your email to confirm your account.", Toast.LENGTH_LONG).show()
-                            // Optionally, navigate to a "Check your email" screen or back to sign in
                             navigateToSignIn()
                         }
                     } else {
@@ -111,5 +113,13 @@ class SignUpActivity : AppCompatActivity() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun saveEmailToPreferences(email: String) {
+        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("USER_EMAIL", email)
+            apply()
+        }
     }
 }
