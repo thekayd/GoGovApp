@@ -4,18 +4,24 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import java.util.Calendar
+import com.kayodedaniel.gogovmobile.activities.ApplicationProgressActivity
+import kotlinx.io.IOException
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import java.util.*
 
 class DriversLicenseActivity : AppCompatActivity() {
+
+    // Hardcoded Supabase URL and API Key for testing
+    private val supabaseUrl =
+        "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/drivers_license_applications" // Use the correct endpoint for your table
+    private val supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
     private lateinit var etName: EditText
     private lateinit var etSurname: EditText
@@ -44,6 +50,26 @@ class DriversLicenseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_drivers_license)
 
         // Initialize views
+        initializeViews()
+
+        // Date Picker for Date of Birth
+        btnPickDob.setOnClickListener {
+            pickDateOfBirth()
+        }
+
+        // File upload buttons
+        findViewById<Button>(R.id.btnUploadIdDocument).setOnClickListener { pickFile(1) }
+        findViewById<Button>(R.id.btnUploadPassportPhoto).setOnClickListener { pickFile(2) }
+        findViewById<Button>(R.id.btnUploadProofOfAddress).setOnClickListener { pickFile(3) }
+        findViewById<Button>(R.id.btnUploadEyeTestCertificate).setOnClickListener { pickFile(4) }
+
+        // Submit Button Click Listener
+        btnSubmit.setOnClickListener {
+            submitForm()
+        }
+    }
+
+    private fun initializeViews() {
         etName = findViewById(R.id.etName)
         etSurname = findViewById(R.id.etSurname)
         etIdNumber = findViewById(R.id.etIdNumber)
@@ -59,30 +85,6 @@ class DriversLicenseActivity : AppCompatActivity() {
         btnPickDob = findViewById(R.id.btnPickDob)
         cbNDA = findViewById(R.id.cbNDA)
         btnSubmit = findViewById(R.id.btnSubmit)
-
-        // Date Picker for Date of Birth
-        btnPickDob.setOnClickListener {
-            pickDateOfBirth()
-        }
-
-        // File upload buttons
-        findViewById<Button>(R.id.btnUploadIdDocument).setOnClickListener {
-            pickFile(1)
-        }
-        findViewById<Button>(R.id.btnUploadPassportPhoto).setOnClickListener {
-            pickFile(2)
-        }
-        findViewById<Button>(R.id.btnUploadProofOfAddress).setOnClickListener {
-            pickFile(3)
-        }
-        findViewById<Button>(R.id.btnUploadEyeTestCertificate).setOnClickListener {
-            pickFile(4)
-        }
-
-        // Submit Button Click Listener
-        btnSubmit.setOnClickListener {
-            submitForm()
-        }
     }
 
     // Function to pick Date of Birth
@@ -92,17 +94,17 @@ class DriversLicenseActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            selectedDob = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-            btnPickDob.text = selectedDob
-        }, year, month, day)
+        val datePickerDialog =
+            DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                selectedDob = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                btnPickDob.text = selectedDob
+            }, year, month, day)
         datePickerDialog.show()
     }
 
-    // Function to pick a file (like ID Document, Passport Photo, etc.)
     private fun pickFile(requestCode: Int) {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"
+        intent.type = "*/*" // Use a more specific MIME type if possible
         startActivityForResult(intent, requestCode)
     }
 
@@ -111,19 +113,19 @@ class DriversLicenseActivity : AppCompatActivity() {
         if (resultCode == RESULT_OK && data != null) {
             val fileUri = data.data
             when (requestCode) {
-                1 -> { // ID Document
+                1 -> {
                     idDocumentUri = fileUri
                     findViewById<Button>(R.id.btnUploadIdDocument).text = "ID Document Uploaded"
                 }
-                2 -> { // Passport Photo
+                2 -> {
                     passportPhotoUri = fileUri
                     findViewById<Button>(R.id.btnUploadPassportPhoto).text = "Passport Photo Uploaded"
                 }
-                3 -> { // Proof of Address
+                3 -> {
                     proofOfAddressUri = fileUri
                     findViewById<Button>(R.id.btnUploadProofOfAddress).text = "Proof of Address Uploaded"
                 }
-                4 -> { // Eye Test Certificate
+                4 -> {
                     eyeTestCertificateUri = fileUri
                     findViewById<Button>(R.id.btnUploadEyeTestCertificate).text = "Eye Test Certificate Uploaded"
                 }
@@ -133,24 +135,80 @@ class DriversLicenseActivity : AppCompatActivity() {
 
     // Function to validate and submit the form
     private fun submitForm() {
+        // Collect data from form inputs
         val name = etName.text.toString()
         val surname = etSurname.text.toString()
         val idNumber = etIdNumber.text.toString()
+        val gender = spGender.selectedItem.toString()
+        val province = spProvince.selectedItem.toString()
+        val address = etAddress.text.toString()
+        val city = etCity.text.toString()
+        val postcode = etPostcode.text.toString()
         val email = etEmail.text.toString()
         val phoneNumber = etPhoneNumber.text.toString()
+        val licenseCategory = spLicenseCategory.selectedItem.toString()
+        val testCenter = spTestCenter.selectedItem.toString()
+        val dob = selectedDob ?: ""
 
-        // Add additional validations as required (e.g. email format, required fields)
-
-        // Check if NDA is agreed
-        if (!cbNDA.isChecked) {
-            Toast.makeText(this, "You must agree to the NDA", Toast.LENGTH_SHORT).show()
+        // Validate required fields
+        if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty()) {
+            Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Assuming all data is valid, proceed with form submission
-        // Here, you can collect all data and send it to your backend
-        Toast.makeText(this, "Form Submitted", Toast.LENGTH_SHORT).show()
+        // Create JSON body
+        val json = JSONObject().apply {
+            put("name", name)
+            put("surname", surname)
+            put("id_number", idNumber)
+            put("gender", gender)
+            put("province", province)
+            put("address", address)
+            put("city", city)
+            put("postcode", postcode)
+            put("email", email)
+            put("phone_number", phoneNumber)
+            put("license_category", licenseCategory)
+            put("test_center", testCenter)
+            put("date_of_birth", dob)
+            put("status", "Sent For Validation")
+        }
 
-        // Code to send data to the backend (not implemented here)
+        // Convert JSON to request body
+        val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
+
+        // Build OkHttp3 request
+        val request = Request.Builder()
+            .url(supabaseUrl)  // Use your actual endpoint
+            .post(requestBody)
+            .addHeader("apikey", supabaseKey)  // Your Supabase API Key
+            .addHeader("Content-Type", "application/json")
+            .build()
+
+        // Execute request asynchronously
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(this@DriversLicenseActivity, "Failed to submit form: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                val responseBody = response.body?.string()
+                if (response.isSuccessful) {
+                    runOnUiThread {
+                        Toast.makeText(this@DriversLicenseActivity, "Form submitted successfully!", Toast.LENGTH_SHORT).show()
+                        // Navigate to Progress Activity
+                        val intent = Intent(this@DriversLicenseActivity, ApplicationProgressActivity::class.java)
+                        startActivity(intent)
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@DriversLicenseActivity, "Failed to submit form: $responseBody", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        })
     }
 }

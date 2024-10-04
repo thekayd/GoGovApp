@@ -1,8 +1,9 @@
-package com.kayodedaniel.gogovmobile
+package com.kayodedaniel.gogovmobile.activities
 
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.kayodedaniel.gogovmobile.R
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -14,8 +15,11 @@ class ApplicationProgressActivity : AppCompatActivity() {
     private lateinit var tvDetails: TextView
     private lateinit var btnBack: Button
 
-    private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/Drivers_License_Application" // Replace with your actual endpoint
-    private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo" // Add your Supabase API Key here
+    private val supabaseUrl =
+        "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/drivers_license_applications" // Replace with your actual endpoint
+    private val supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sRSJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_progress)
@@ -36,8 +40,9 @@ class ApplicationProgressActivity : AppCompatActivity() {
     }
 
     private fun fetchApplicationDetails() {
-        // Get user ID or any unique identifier for the application from shared preferences or intent
-        val userId = getSharedPreferences("user_prefs", MODE_PRIVATE).getString("user_id", null)
+        // Get user ID from shared preferences or intent
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        val userId = sharedPreferences.getString("user_id", null)
 
         // Validate user ID
         if (userId == null) {
@@ -45,8 +50,8 @@ class ApplicationProgressActivity : AppCompatActivity() {
             return
         }
 
-        // Build the request URL to get application details for the logged-in user
-        val requestUrl = "$supabaseUrl?user_id=eq.$userId" // Assuming you have a user_id field
+        // Build the request URL to get application details for the user
+        val requestUrl = "$supabaseUrl?select=*&user_id=eq.$userId"
 
         // Build OkHttp3 request
         val request = Request.Builder()
@@ -60,56 +65,35 @@ class ApplicationProgressActivity : AppCompatActivity() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    Toast.makeText(this@ApplicationProgressActivity, "Failed to fetch data: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@ApplicationProgressActivity,
+                        "Failed to fetch data: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string()
-                    responseBody?.let {
-                        parseAndDisplayApplicationData(it)
+                    val jsonResponse = JSONObject(responseBody ?: "")
+
+                    runOnUiThread {
+                        // Assuming the application form has fields like 'form_name', 'status', and 'details'
+                        tvFormName.text = jsonResponse.optString("form_name", "N/A")
+                        tvStatus.text = jsonResponse.optString("status", "N/A")
+                        tvDetails.text = jsonResponse.optString("details", "N/A")
                     }
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@ApplicationProgressActivity, "Failed to fetch application details", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@ApplicationProgressActivity,
+                            "Failed to fetch application details.",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
         })
-    }
-
-    private fun parseAndDisplayApplicationData(responseBody: String) {
-        val jsonArray = JSONObject(responseBody).getJSONArray("data")
-        if (jsonArray.length() > 0) {
-            val application = jsonArray.getJSONObject(0)
-            val formName = "Driver's License"
-            val status = application.getString("status")
-            val details = """
-                Name: ${application.getString("name")}
-                Surname: ${application.getString("surname")}
-                ID Number: ${application.getString("id_number")}
-                Gender: ${application.getString("gender")}
-                Province: ${application.getString("province")}
-                Address: ${application.getString("address")}
-                City: ${application.getString("city")}
-                Postcode: ${application.getString("postcode")}
-                Email: ${application.getString("email")}
-                Phone Number: ${application.getString("phone_number")}
-                License Category: ${application.getString("license_category")}
-                Test Center: ${application.getString("test_center")}
-                Date of Birth: ${application.getString("date_of_birth")}
-            """.trimIndent()
-
-            runOnUiThread {
-                tvFormName.text = formName
-                tvStatus.text = status
-                tvDetails.text = details
-            }
-        } else {
-            runOnUiThread {
-                Toast.makeText(this, "No application found for this user.", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 }
