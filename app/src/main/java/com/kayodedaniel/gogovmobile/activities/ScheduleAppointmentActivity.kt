@@ -1,7 +1,6 @@
 package com.kayodedaniel.gogovmobile.activities
 
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -30,7 +29,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var phoneEditText: EditText
     private lateinit var dateTextView: TextView
-    private lateinit var timeTextView: TextView
+    private lateinit var timeSpinner: Spinner
     private lateinit var scheduleButton: Button
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -50,6 +49,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         setupListeners()
         loadUserEmail()
         setupBottomNavigation()
+        setupTimeSpinner() // Setup time dropdown menu
     }
 
     private fun initializeViews() {
@@ -58,14 +58,13 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.etEmail)
         phoneEditText = findViewById(R.id.etPhone)
         dateTextView = findViewById(R.id.tvSelectedDate)
-        timeTextView = findViewById(R.id.tvSelectedTime)
+        timeSpinner = findViewById(R.id.spinnerTimeSlot) // Update time view to Spinner
         scheduleButton = findViewById(R.id.btnScheduleAppointment)
         bottomNavigationView = findViewById(R.id.bottom_navigation)
     }
 
     private fun setupListeners() {
         dateTextView.setOnClickListener { showDatePicker() }
-        timeTextView.setOnClickListener { showTimePicker() }
         scheduleButton.setOnClickListener { validateAndScheduleAppointment() }
     }
 
@@ -96,6 +95,25 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupTimeSpinner() {
+        // Create time slots in 30-minute intervals from 10:00 AM to 4:00 PM
+        val timeSlots = mutableListOf<String>()
+        val startHour = 10
+        val endHour = 16
+
+        for (hour in startHour..endHour) {
+            val timeFormat = String.format("%02d:%02d", hour, 0)
+            val timeFormatHalf = String.format("%02d:%02d", hour, 30)
+            timeSlots.add("$timeFormat")
+            if (hour != endHour) timeSlots.add("$timeFormatHalf")
+        }
+
+        // Set up ArrayAdapter for Spinner
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeSlots)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        timeSpinner.adapter = adapter
+    }
+
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         DatePickerDialog(
@@ -112,29 +130,15 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun showTimePicker() {
-        val calendar = Calendar.getInstance()
-        TimePickerDialog(
-            this,
-            { _, hour, minute ->
-                val selectedTime = String.format("%02d:%02d:00", hour, minute)
-                timeTextView.text = selectedTime
-            },
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
-            true
-        ).show()
-    }
-
     private fun validateAndScheduleAppointment() {
         val name = nameEditText.text.toString()
         val surname = surnameEditText.text.toString()
         val email = emailEditText.text.toString()
         val phone = phoneEditText.text.toString()
         val selectedDate = dateTextView.text.toString()
-        val selectedTime = timeTextView.text.toString()
+        val selectedTime = timeSpinner.selectedItem?.toString() ?: ""
 
-        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || phone.isEmpty() || selectedDate == "Select Date" || selectedTime == "Select Time") {
+        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || phone.isEmpty() || selectedDate == "Select Date" || selectedTime.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
         } else {
             saveAppointment(name, surname, email, phone, selectedDate, selectedTime)
@@ -151,6 +155,8 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                val currentTimestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+
                 val json = JSONObject().apply {
                     put("email", email)
                     put("name", name)
@@ -160,6 +166,8 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                     put("appointment_time", time)
                     put("reason", "yes")
                     put("status", "yes")
+                    put("created_at", currentTimestamp)
+                    put("updated_at", currentTimestamp)
                 }
 
                 val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
@@ -184,9 +192,6 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                             val errorBody = response.body?.string() ?: "No error body"
                             Log.e(TAG, "Failed to schedule appointment: ${response.code}")
                             Log.e(TAG, "Error body: $errorBody")
-                            Log.e(TAG, "Request URL: ${request.url}")
-                            Log.e(TAG, "Request headers: ${request.headers}")
-                            Log.e(TAG, "Request body: ${body.toString()}")
                             Toast.makeText(
                                 this@ScheduleAppointmentActivity,
                                 "Failed to schedule appointment: ${response.code}",
