@@ -1,9 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:padding="16dp"
-    android:backgroundTint="@color/cardview_light_background">
+    android:backgroundTint="@color/cardview_light_background"
+    android:elevation="4dp"
+    android:radius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,24 +17,54 @@
             android:id="@+id/tvAppointmentName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name" />
+            android:text="Name"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingBottom="8dp" />
 
         <TextView
             android:id="@+id/tvAppointmentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Appointment Date" />
+            android:text="Appointment Date"
+            android:paddingBottom="4dp" />
 
         <TextView
             android:id="@+id/tvAppointmentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Appointment Time" />
+            android:text="Appointment Time"
+            android:paddingBottom="4dp" />
 
         <TextView
             android:id="@+id/tvAppointmentStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status" />
+            android:text="Status"
+            android:textStyle="italic"
+            android:paddingBottom="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btnUpdateAppointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnCancelAppointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_red_light" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
