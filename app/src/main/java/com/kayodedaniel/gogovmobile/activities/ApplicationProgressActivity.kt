@@ -75,6 +75,16 @@ class ApplicationProgressActivity : AppCompatActivity() {
                 val vaccinationResponse = client.newCall(vaccinationRequest).execute()
                 val vaccinationResponseBody = vaccinationResponse.body?.string()
 
+                // Fetch passport application
+                val passportRequest = Request.Builder()
+                    .url("$supabaseUrl/rest/v1/passport_applications?email=eq.$userEmail")
+                    .get()
+                    .addHeader("apikey", supabaseKey)
+                    .addHeader("Authorization", "Bearer $supabaseKey")
+                    .build()
+                val passportResponse = client.newCall(passportRequest).execute()
+                val passportResponseBody = passportResponse.body?.string()
+
                 withContext(Dispatchers.Main) {
                     val applicationDetails = StringBuilder()
 
@@ -82,7 +92,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                         val driverLicenseJson = JSONArray(driverLicenseResponseBody)
                         if (driverLicenseJson.length() > 0) {
                             applicationDetails.append("Driver's License Application:\n")
-                            applicationDetails.append(formatApplicationDetails(driverLicenseJson.getJSONObject(0), isDriverLicense = true))
+                            applicationDetails.append(formatApplicationDetails(driverLicenseJson.getJSONObject(0), "driver_license"))
                             applicationDetails.append("\n\n")
                         }
                     }
@@ -91,7 +101,17 @@ class ApplicationProgressActivity : AppCompatActivity() {
                         val vaccinationJson = JSONArray(vaccinationResponseBody)
                         if (vaccinationJson.length() > 0) {
                             applicationDetails.append("Vaccination Application:\n")
-                            applicationDetails.append(formatApplicationDetails(vaccinationJson.getJSONObject(0), isDriverLicense = false))
+                            applicationDetails.append(formatApplicationDetails(vaccinationJson.getJSONObject(0), "vaccination"))
+                            applicationDetails.append("\n\n")
+                        }
+                    }
+
+                    if (!passportResponseBody.isNullOrEmpty()) {
+                        val passportJson = JSONArray(passportResponseBody)
+                        if (passportJson.length() > 0) {
+                            applicationDetails.append("Passport Application:\n")
+                            applicationDetails.append(formatApplicationDetails(passportJson.getJSONObject(0), "passport"))
+                            applicationDetails.append("\n\n")
                         }
                     }
 
@@ -111,7 +131,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
         }
     }
 
-    private fun formatApplicationDetails(details: JSONObject, isDriverLicense: Boolean): String {
+    private fun formatApplicationDetails(details: JSONObject, applicationType: String): String {
         val formattedDetails = StringBuilder()
         formattedDetails.append("Application Status: ${details.optString("status", "N/A")}\n\n")
         formattedDetails.append("Personal Details:\n")
@@ -125,20 +145,25 @@ class ApplicationProgressActivity : AppCompatActivity() {
         formattedDetails.append("Phone Number: ${details.optString("phone_number", "N/A")}\n\n")
         formattedDetails.append("Address:\n")
         formattedDetails.append("${details.optString("address", "N/A")}\n")
-        formattedDetails.append("${details.optString("city", "N/A")}")
-        if (isDriverLicense) {
-            formattedDetails.append(", ${details.optString("province", "N/A")}")
-        }
-        formattedDetails.append("\nPostcode: ${details.optString("postcode", "N/A")}\n\n")
+        formattedDetails.append("${details.optString("city", "N/A")}, ${details.optString("province", "N/A")}\n")
+        formattedDetails.append("Postcode: ${details.optString("postcode", "N/A")}\n\n")
 
-        if (isDriverLicense) {
-            formattedDetails.append("License Details:\n")
-            formattedDetails.append("License Category: ${details.optString("license_category", "N/A")}\n")
-            formattedDetails.append("Test Center: ${details.optString("test_center", "N/A")}\n")
-        } else {
-            formattedDetails.append("Vaccination Details:\n")
-            formattedDetails.append("Vaccine Type: ${details.optString("vaccine_type", "N/A")}\n")
-            formattedDetails.append("Vaccination Center: ${details.optString("vaccination_center", "N/A")}\n")
+        when (applicationType) {
+            "driver_license" -> {
+                formattedDetails.append("License Details:\n")
+                formattedDetails.append("License Category: ${details.optString("license_category", "N/A")}\n")
+                formattedDetails.append("Test Center: ${details.optString("test_center", "N/A")}\n")
+            }
+            "vaccination" -> {
+                formattedDetails.append("Vaccination Details:\n")
+                formattedDetails.append("Vaccine Type: ${details.optString("vaccine_type", "N/A")}\n")
+                formattedDetails.append("Vaccination Center: ${details.optString("vaccination_center", "N/A")}\n")
+            }
+            "passport" -> {
+                formattedDetails.append("Passport Details:\n")
+                formattedDetails.append("Passport Type: ${details.optString("passport_type", "N/A")}\n")
+                formattedDetails.append("Processing Center: ${details.optString("processing_center", "N/A")}\n")
+            }
         }
 
         return formattedDetails.toString()

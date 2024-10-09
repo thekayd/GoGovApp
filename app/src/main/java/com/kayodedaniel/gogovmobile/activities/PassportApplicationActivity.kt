@@ -1,120 +1,216 @@
 package com.kayodedaniel.gogovmobile.activities
 
-import android.app.Activity
+import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.kayodedaniel.gogovmobile.R
-
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import java.util.*
 
 class PassportApplicationActivity : AppCompatActivity() {
 
-    private lateinit var etName: EditText
-    private lateinit var etSurname: EditText
-    private lateinit var etIdNumber: EditText
-    private lateinit var spinnerGender: Spinner
-    private lateinit var spinnerProvince: Spinner
-    private lateinit var etAddress: EditText
-    private lateinit var etCity: EditText
-    private lateinit var etPostcode: EditText
-    private lateinit var etEmail: EditText
-    private lateinit var etPhoneNumber: EditText
-    private lateinit var btnUploadPassportPhoto: Button
-    private lateinit var btnUploadProofOfAddress: Button
-    private lateinit var btnUploadIdDocument: Button
-    private lateinit var btnSubmitPassportApplication: Button
-    private lateinit var checkboxNda: CheckBox
+    private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/passport_applications"
+    private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
-    private val REQUEST_CODE_UPLOAD = 101
+    private lateinit var tilName: TextInputLayout
+    private lateinit var tilSurname: TextInputLayout
+    private lateinit var tilIdNumber: TextInputLayout
+    private lateinit var spGender: Spinner
+    private lateinit var spProvince: Spinner
+    private lateinit var tilAddress: TextInputLayout
+    private lateinit var tilCity: TextInputLayout
+    private lateinit var tilPostcode: TextInputLayout
+    private lateinit var tilEmail: TextInputLayout
+    private lateinit var tilPhoneNumber: TextInputLayout
+    private lateinit var btnPickDob: Button
+    private lateinit var cbNDA: CheckBox
+    private lateinit var btnSubmit: Button
+
+    private var selectedDob: String? = null
+    private var passportPhotoUri: Uri? = null
+    private var proofOfAddressUri: Uri? = null
+    private var idDocumentUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passport_application)
 
-        // Initialize views
-        etName = findViewById(R.id.etName)
-        etSurname = findViewById(R.id.etSurname)
-        etIdNumber = findViewById(R.id.etIdNumber)
-        spinnerGender = findViewById(R.id.spinnerGender)
-        spinnerProvince = findViewById(R.id.spinnerProvince)
-        etAddress = findViewById(R.id.etAddress)
-        etCity = findViewById(R.id.etCity)
-        etPostcode = findViewById(R.id.etPostcode)
-        etEmail = findViewById(R.id.etEmail)
-        etPhoneNumber = findViewById(R.id.etPhoneNumber)
-        btnUploadPassportPhoto = findViewById(R.id.btnUploadPassportPhoto)
-        btnUploadProofOfAddress = findViewById(R.id.btnUploadProofOfAddress)
-        btnUploadIdDocument = findViewById(R.id.btnUploadIdDocument)
-        checkboxNda = findViewById(R.id.checkboxNda)
-        btnSubmitPassportApplication = findViewById(R.id.btnSubmitPassportApplication)
+        initializeViews()
 
-        // Handle document uploads
-        btnUploadPassportPhoto.setOnClickListener {
-            openFileChooser()
-        }
-        btnUploadProofOfAddress.setOnClickListener {
-            openFileChooser()
-        }
-        btnUploadIdDocument.setOnClickListener {
-            openFileChooser()
+        btnPickDob.setOnClickListener {
+            pickDateOfBirth()
         }
 
-        // Populate Gender and Province spinners
-        populateSpinners()
+        findViewById<Button>(R.id.btnUploadPassportPhoto).setOnClickListener { pickFile(1) }
+        findViewById<Button>(R.id.btnUploadProofOfAddress).setOnClickListener { pickFile(2) }
+        findViewById<Button>(R.id.btnUploadIdDocument).setOnClickListener { pickFile(3) }
 
-        // Handle form submission
-        btnSubmitPassportApplication.setOnClickListener {
-            if (validateForm()) {
-                val intent = Intent(this, TestDateSelectionActivity::class.java)
-                startActivity(intent)
-            }
+        btnSubmit.setOnClickListener {
+            submitForm()
+        }
+
+        // Load the user's email from SharedPreferences
+        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
+        tilEmail.editText?.setText(userEmail)
+    }
+
+    private fun initializeViews() {
+        tilName = findViewById(R.id.tilName)
+        tilSurname = findViewById(R.id.tilSurname)
+        tilIdNumber = findViewById(R.id.tilIdNumber)
+        spGender = findViewById(R.id.spGender)
+        spProvince = findViewById(R.id.spProvince)
+        tilAddress = findViewById(R.id.tilAddress)
+        tilCity = findViewById(R.id.tilCity)
+        tilPostcode = findViewById(R.id.tilPostcode)
+        tilEmail = findViewById(R.id.tilEmail)
+        tilPhoneNumber = findViewById(R.id.tilPhoneNumber)
+        btnPickDob = findViewById(R.id.btnPickDob)
+        cbNDA = findViewById(R.id.cbNDA)
+        btnSubmit = findViewById(R.id.btnSubmit)
+
+        // Set up spinners
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.gender_options,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spGender.adapter = adapter
+        }
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.province_options,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spProvince.adapter = adapter
         }
     }
 
-    private fun openFileChooser() {
+    private fun pickDateOfBirth() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            selectedDob = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            btnPickDob.text = selectedDob
+        }, year, month, day)
+        datePickerDialog.show()
+    }
+
+    private fun pickFile(requestCode: Int) {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
-        startActivityForResult(intent, REQUEST_CODE_UPLOAD)
+        startActivityForResult(intent, requestCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_UPLOAD && resultCode == Activity.RESULT_OK) {
-            val selectedFile: Uri? = data?.data
-            // Handle the selected file here (e.g., display file name or upload to the server)
+        if (resultCode == RESULT_OK && data != null) {
+            val fileUri = data.data
+            when (requestCode) {
+                1 -> {
+                    passportPhotoUri = fileUri
+                    findViewById<Button>(R.id.btnUploadPassportPhoto).text = "Passport Photo Uploaded"
+                }
+                2 -> {
+                    proofOfAddressUri = fileUri
+                    findViewById<Button>(R.id.btnUploadProofOfAddress).text = "Proof of Address Uploaded"
+                }
+                3 -> {
+                    idDocumentUri = fileUri
+                    findViewById<Button>(R.id.btnUploadIdDocument).text = "ID Document Uploaded"
+                }
+            }
         }
     }
 
-    private fun populateSpinners() {
-        // Gender options
-        val genderOptions = arrayOf("Male", "Female", "Other")
-        spinnerGender.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, genderOptions)
+    private fun submitForm() {
+        val name = tilName.editText?.text.toString()
+        val surname = tilSurname.editText?.text.toString()
+        val idNumber = tilIdNumber.editText?.text.toString()
+        val gender = spGender.selectedItem.toString()
+        val province = spProvince.selectedItem.toString()
+        val address = tilAddress.editText?.text.toString()
+        val city = tilCity.editText?.text.toString()
+        val postcode = tilPostcode.editText?.text.toString()
+        val email = tilEmail.editText?.text.toString()
+        val phoneNumber = tilPhoneNumber.editText?.text.toString()
+        val dob = selectedDob ?: ""
 
-        // Province options
-        val provinceOptions = arrayOf(
-            "Eastern Cape", "Free State", "Gauteng", "KwaZulu-Natal", "Limpopo", "Mpumalanga",
-            "Northern Cape", "North West", "Western Cape"
-        )
-        spinnerProvince.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, provinceOptions)
-    }
-
-    private fun validateForm(): Boolean {
-        if (etName.text.isEmpty() || etSurname.text.isEmpty() || etIdNumber.text.isEmpty() ||
-            etAddress.text.isEmpty() || etCity.text.isEmpty() || etPostcode.text.isEmpty() ||
-            etEmail.text.isEmpty() || etPhoneNumber.text.isEmpty() || !checkboxNda.isChecked) {
-            Toast.makeText(this, "Please fill out all fields and agree to the NDA", Toast.LENGTH_SHORT).show()
-            return false
+        if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty() ||
+            address.isEmpty() || city.isEmpty() || postcode.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()) {
+            Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
+            return
         }
-        return true
+
+        if (!cbNDA.isChecked) {
+            Toast.makeText(this, "Please agree to the NDA", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val json = JSONObject().apply {
+            put("name", name)
+            put("surname", surname)
+            put("id_number", idNumber)
+            put("gender", gender)
+            put("province", province)
+            put("address", address)
+            put("city", city)
+            put("postcode", postcode)
+            put("email", email)
+            put("phone_number", phoneNumber)
+            put("date_of_birth", dob)
+            put("status", "Sent For Validation")
+        }
+
+        val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
+
+        val request = Request.Builder()
+            .url(supabaseUrl)
+            .post(requestBody)
+            .addHeader("apikey", supabaseKey)
+            .addHeader("Content-Type", "application/json")
+            .build()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val client = OkHttpClient()
+                val response = client.newCall(request).execute()
+
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@PassportApplicationActivity, "Passport application submitted successfully!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@PassportApplicationActivity, ApplicationProgressActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        val errorBody = response.body?.string() ?: "Unknown error"
+                        Toast.makeText(this@PassportApplicationActivity, "Failed to submit form: $errorBody", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@PassportApplicationActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 }
