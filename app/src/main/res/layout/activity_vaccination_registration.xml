@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingDefaultResource"
     tools:context=".activities.VaccinationRegistrationActivity">
 
     <LinearLayout
@@ -12,60 +11,100 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Name Input -->
         <EditText
-            android:id="@+id/et_name"
+            android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:inputType="textPersonName"
-            android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:hint="Name"
+            android:inputType="textPersonName" />
 
-        <!-- ID Number Input -->
         <EditText
-            android:id="@+id/et_id_number"
+            android:id="@+id/etSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Surname"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etIdNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID Number"
-            android:inputType="number"
-            android:padding="12dp"
-            android:layout_marginBottom="12dp" />
+            android:inputType="number" />
 
-        <!-- Vaccination Type Dropdown -->
         <Spinner
-            android:id="@+id/sp_vaccination_type"
+            android:id="@+id/spGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:entries="@array/gender_options" />
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPostalAddress" />
+
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City" />
+
+        <EditText
+            android:id="@+id/etPostcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Postcode"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="phone" />
+
+        <Spinner
+            android:id="@+id/spVaccineType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:entries="@array/vaccination_types" />
 
-        <!-- Vaccination Center Dropdown -->
         <Spinner
-            android:id="@+id/sp_vaccination_center"
+            android:id="@+id/spVaccinationCenter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:entries="@array/vaccination_centers" />
 
-        <!-- Date Picker Button -->
-        <Button
-            android:id="@+id/btn_select_date"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Date"
-            android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white" />
+            android:text="Date of Birth" />
+        <Button
+            android:id="@+id/btnPickDob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Date of Birth" />
 
-        <!-- Submit Button -->
+        <CheckBox
+            android:id="@+id/cbConsent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I consent to receive the COVID-19 vaccine" />
+
         <Button
-            android:id="@+id/btn_submit"
+            android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white" />
+            android:text="Submit" />
 
     </LinearLayout>
 </ScrollView>
