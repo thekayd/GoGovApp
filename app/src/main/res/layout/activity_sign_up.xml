@@ -8,6 +8,7 @@
     android:clipToPadding="false"
     android:overScrollMode="never"
     android:padding="24dp"
+    android:background="@color/white"
     android:scrollbars="none"
     tools:context=".activities.SignUpActivity">
 
@@ -17,22 +18,22 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <!-- Adjusted title to match the sign in style -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/_64ssp"
             android:text="@string/create_new_account"
-            android:textColor="@color/primary_text"
-            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
+        <!-- Adjusted image layout to match the style -->
         <FrameLayout
             android:id="@+id/layoutImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
-
-
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/imageProfile"
@@ -52,10 +53,11 @@
                 android:textSize="10dp" />
         </FrameLayout>
 
+        <!-- Updated EditTexts to follow the Sign In input style -->
         <EditText
             android:id="@+id/inputName"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="54dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/background_input"
             android:hint="@string/name"
@@ -64,13 +66,14 @@
             android:inputType="text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="13dp" />
 
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="54dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/background_input"
             android:hint="@string/email"
@@ -79,13 +82,14 @@
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="13dp" />
 
         <EditText
             android:id="@+id/InputPassword"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="54dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/background_input"
             android:hint="@string/password"
@@ -94,13 +98,14 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="13dp" />
 
         <EditText
             android:id="@+id/InputConfirmPassword"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="54dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/background_input"
             android:hint="@string/confirm_password"
@@ -109,24 +114,16 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="13dp" />
 
+        <!-- Sign up button and progress bar styled similarly to Sign In -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:animateLayoutChanges="true">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="@string/sign_up"
-                android:textColor="@color/white"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                app:cornerRadius="8dp" />
 
             <ProgressBar
                 android:id="@+id/ProgressBar"
@@ -134,8 +131,19 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/buttonSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40ssp"
+                android:text="@string/sign_up"
+                android:backgroundTint="@color/darker_blue"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                app:cornerRadius="@dimen/_8ssp" />
         </FrameLayout>
 
+        <!-- Create account link -->
         <TextView
             android:id="@+id/textSignIn"
             android:layout_width="wrap_content"
