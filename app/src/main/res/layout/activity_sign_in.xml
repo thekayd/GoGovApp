@@ -8,6 +8,7 @@
     android:clipToPadding="false"
     android:overScrollMode="never"
     android:padding="24dp"
+    android:background="@color/white"
     android:scrollbars="none"
     tools:context=".activities.SignInActivity">
 
@@ -20,10 +21,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="@dimen/_64ssp"
             android:text="@string/welcome_back"
-            android:textColor="@color/primary_text"
-            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:textSize="24dp"
             android:textStyle="bold" />
 
         <TextView
@@ -31,14 +32,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/login_to_continue"
-            android:textColor="@color/secondary_text"
-            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="54dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/background_input"
             android:hint="@string/email"
@@ -47,13 +48,14 @@
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="13dp" />
 
         <EditText
             android:id="@+id/InputPassword"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="54dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/background_input"
             android:hint="@string/password"
@@ -62,7 +64,8 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="13dp" />
 
         <FrameLayout
@@ -78,31 +81,30 @@
                 android:layout_gravity="center"
                 android:visibility="invisible" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonSignIn"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
+                android:layout_height="@dimen/_40ssp"
                 android:text="@string/sign_in"
+                android:backgroundTint="@color/darker_blue"
                 android:textColor="@color/white"
-                android:textSize="13dp"
-                android:textStyle="bold"
-                app:cornerRadius="8dp" />
+                android:textSize="@dimen/_13ssp"
+
+                app:cornerRadius="@dimen/_8ssp"/>
 
         </FrameLayout>
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/buttonSSO"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="231dp"
+            android:layout_height="@dimen/_40ssp"
+            android:backgroundTint="@color/darker_blue"
             android:text="@string/sign_in_with_google"
             android:textColor="@color/white"
-            android:textSize="13dp"
-            android:textStyle="bold"
-            app:cornerRadius="8dp"
-            android:layout_marginTop="10dp"
-            />
+            android:textSize="@dimen/_13ssp"
+
+            app:cornerRadius="@dimen/_8ssp" />
 
 
         <TextView
@@ -111,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/create_new_account"
-            android:textColor="@color/primary"
+            android:textColor="#0C2A92"
             android:textSize="13dp"
             android:textStyle="bold" />
 

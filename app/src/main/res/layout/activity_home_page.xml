@@ -4,162 +4,449 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HomePageActivity">
+    tools:context=".MainActivity">
 
+    <!-- ScrollView that contains all the main content -->
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
-        tools:ignore="MissingDefaultResource">
+        android:fillViewport="true"
+        android:padding="16dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- Banner Section -->
+        <!-- Hero Section -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp">
+
             <ImageView
-                android:id="@+id/bannerImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/parliament_building" />
+                android:src="@drawable/mountain" />
 
-            <!-- Welcome Text -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Discover an unparalleled journey filled with adventures"
-                android:textSize="18sp"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="16dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#80000000" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Welcome to the South African Citizen Portal"
-                android:textSize="16sp"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="8dp"
-                android:textColor="@android:color/black" />
-
-            <!-- Create Account Button -->
-            <Button
-                android:id="@+id/createAccountButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create your go.gov Account"
-                android:backgroundTint="@color/black"
-                android:textColor="@android:color/white"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp" />
-
-            <!-- Members of Parliament Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Meet the Members of Parliament"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:paddingTop="24dp"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/black" />
-
-            <!-- About Us Section -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="24dp">
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/parliament_building"
-                    android:scaleType="centerCrop"
-                    android:layout_marginEnd="16dp" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="South Africa is a diverse and vibrant country, known for its rich culture, scenic beauty, and strong democratic values. As a nation, we strive to provide accessible government services for all citizens."
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
-                    android:padding="8dp" />
+                    android:text="Welcome to the\nSouth African\nCitizen Portal"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Discover an unparalleled journey filled with adventure."
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/darker_blue"
+                    android:textColor="@color/white"
+                    android:text="Create your Go.Gov account" />
+
             </LinearLayout>
 
-            <!-- Selectable Department Cards -->
+        </FrameLayout>
+
+        <!-- About Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:padding="16dp">
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Departments"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:paddingTop="24dp"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/black" />
+                android:layout_marginBottom="16dp"
+                android:text="About South Africa"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="16dp">
+                android:orientation="vertical">
 
-                <!-- Transportation Button -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Overview"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@color/black"
+                    android:text="South Africa is the southernmost country on the African continent, known for its varied topography, natural beauty, and cultural diversity. It shares borders with Botswana, Lesotho, Mozambique, Namibia, Swaziland, and Zimbabwe." />
+
                 <Button
-                    android:id="@+id/btn_transportation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Transportation"
-                    android:backgroundTint="@color/black"
-                    android:textColor="@android:color/white"
-                    android:layout_margin="8dp" />
+                    android:backgroundTint="@color/darker_blue"
+                    android:textColor="@color/white"
+                    android:text="Read More" />
 
-                <!-- Health Button -->
-                <Button
-                    android:id="@+id/btn_health"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Health"
-                    android:backgroundTint="@color/black"
-                    android:textColor="@android:color/white"
-                    android:layout_margin="8dp" />
             </LinearLayout>
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rhino" />
 
-                <!-- Education Button -->
-                <Button
-                    android:id="@+id/btn_education"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Education"
-                    android:backgroundTint="@color/black"
-                    android:textColor="@android:color/white"
-                    android:layout_margin="8dp" />
-
-                <!-- Home Affairs Button -->
-                <Button
-                    android:id="@+id/btn_home_affairs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Home Affairs"
-                    android:backgroundTint="@color/black"
-                    android:textColor="@android:color/white"
-                    android:layout_margin="8dp" />
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
 
+        <!-- Departments Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darker_blue"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="South African Departments"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Repeat this block for each department -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/homeaffairs" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="HOME AFFAIRS"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="• ID APPLICATIONS\n• PASSPORTS\n• BIRTH CERTIFICATES"
+                            android:textColor="@android:color/darker_gray" />
+
+                        <Button
+                            android:id="@+id/btn_home_affairs"
+                            android:layout_width="309dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:backgroundTint="@color/darker_blue"
+                            android:text="Read More on Home Affairs"
+                            android:textColor="@color/white"
+                            tools:ignore="MissingConstraints" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Home Affairs -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/homeaffairs" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="EDUCATION"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="• ID APPLICATIONS\n• PASSPORTS\n• BIRTH CERTIFICATES"
+                            android:textColor="@android:color/darker_gray" />
+
+                        <Button
+                            android:id="@+id/btn_education"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/darker_blue"
+                            android:text="Read More" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Transportation -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/homeaffairs" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="TRANSPORTATION"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="• DRIVER'S LICENSES\n• VEHICLE REGISTRATIONS\n• ROADWORTHINESS CERTIFICATES"
+                            android:textColor="@android:color/darker_gray" />
+
+                        <Button
+                            android:id="@+id/btn_transportation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/darker_blue"
+                            android:text="Read More" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Health -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/homeaffairs" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="HEALTH"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="• Medical Aid Applications\n• Vacation Records\n• Health Grants"
+                            android:textColor="@android:color/darker_gray" />
+
+                        <Button
+                            android:id="@+id/btn_health"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/darker_blue"
+                            android:text="Read More" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+                <!-- End of department block -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Members Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Members of Parliament"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Repeat this block for each member -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--                        android:layout_width="120dp"-->
+                    <!--                        android:layout_height="120dp"-->
+                    <!--                        android:src="@drawable/cyril_ramaphosa"-->
+                    <!--                        app:civ_border_color="#FF000000"-->
+                    <!--                        app:civ_border_width="2dp" />-->
+
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Cyril Ramaphosa"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="President"
+                        android:textColor="@android:color/darker_gray" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Gayton McKenzie"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Minister of Sports"
+                        android:textColor="@android:color/darker_gray" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Incumbent Siviwe Gwarube"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Minister of Education"
+                        android:textColor="@android:color/darker_gray" />
+
+                </LinearLayout>
+                <!-- End of member block -->
+
+            </LinearLayout>
+
+        </LinearLayout>
+        </LinearLayout>
+
+</ScrollView>
+    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -167,4 +454,5 @@
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_navigation_menu" />
+
 </RelativeLayout>
