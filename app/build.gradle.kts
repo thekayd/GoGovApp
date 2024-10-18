@@ -51,6 +51,12 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation("io.github.jan-tennert.supabase:realtime-kt")
 
+    // add the dependency for the Google AI client SDK for Android
+    implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("androidx.compose.material:material-icons-extended:1.7.4")
+
     // OkHttp dependencies
     implementation("com.squareup.okhttp3:okhttp:4.11.0") // OkHttp core
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0") // Logging interceptor for debugging
