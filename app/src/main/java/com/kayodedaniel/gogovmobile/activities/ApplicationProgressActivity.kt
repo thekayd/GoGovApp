@@ -85,6 +85,16 @@ class ApplicationProgressActivity : AppCompatActivity() {
                 val passportResponse = client.newCall(passportRequest).execute()
                 val passportResponseBody = passportResponse.body?.string()
 
+                // Fetch bursary application
+                val bursaryRequest = Request.Builder()
+                    .url("$supabaseUrl/rest/v1/bursary_applications?email=eq.$userEmail")
+                    .get()
+                    .addHeader("apikey", supabaseKey)
+                    .addHeader("Authorization", "Bearer $supabaseKey")
+                    .build()
+                val bursaryResponse = client.newCall(bursaryRequest).execute()
+                val bursaryResponseBody = bursaryResponse.body?.string()
+
                 withContext(Dispatchers.Main) {
                     val applicationDetails = StringBuilder()
 
@@ -111,6 +121,15 @@ class ApplicationProgressActivity : AppCompatActivity() {
                         if (passportJson.length() > 0) {
                             applicationDetails.append("Passport Application:\n")
                             applicationDetails.append(formatApplicationDetails(passportJson.getJSONObject(0), "passport"))
+                            applicationDetails.append("\n\n")
+                        }
+                    }
+
+                    if (!bursaryResponseBody.isNullOrEmpty()) {
+                        val bursaryJson = JSONArray(bursaryResponseBody)
+                        if (bursaryJson.length() > 0) {
+                            applicationDetails.append("Bursary Application:\n")
+                            applicationDetails.append(formatApplicationDetails(bursaryJson.getJSONObject(0), "bursary"))
                             applicationDetails.append("\n\n")
                         }
                     }
@@ -163,6 +182,15 @@ class ApplicationProgressActivity : AppCompatActivity() {
                 formattedDetails.append("Passport Details:\n")
                 formattedDetails.append("Passport Type: ${details.optString("passport_type", "N/A")}\n")
                 formattedDetails.append("Processing Center: ${details.optString("processing_center", "N/A")}\n")
+            }
+            "bursary" -> {
+                formattedDetails.append("Bursary Details:\n")
+                formattedDetails.append("Institution Name: ${details.optString("institution_name", "N/A")}\n")
+                formattedDetails.append("Course of Study: ${details.optString("course_of_study", "N/A")}\n")
+                formattedDetails.append("Study Year: ${details.optString("study_year", "N/A")}\n")
+                formattedDetails.append("Total Course Duration: ${details.optString("total_course_duration", "N/A")} years\n")
+                formattedDetails.append("Annual Tuition Fee: R${details.optString("annual_tuition_fee", "N/A")}\n")
+                formattedDetails.append("Other Funding Sources: ${details.optString("other_funding_sources", "N/A")}\n")
             }
         }
 

@@ -1,85 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingDefaultResource">
+    android:padding="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Name Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bursary Application"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
         <EditText
-            android:id="@+id/et_name"
+            android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="12dp" />
+            android:hint="Name"/>
 
-        <!-- Surname Input -->
         <EditText
-            android:id="@+id/et_surname"
+            android:id="@+id/etSurname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Surname"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="12dp" />
+            android:hint="Surname"/>
 
-        <!-- ID Number Input -->
         <EditText
-            android:id="@+id/et_id_number"
+            android:id="@+id/etIdNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ID Number"
-            android:inputType="number"
-            android:layout_marginBottom="12dp" />
+            android:hint="ID Number"/>
 
-        <!-- Course Input -->
-        <EditText
-            android:id="@+id/et_course"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Course of Study"
-            android:inputType="text"
-            android:layout_marginBottom="12dp" />
-
-        <!-- Province Spinner -->
         <Spinner
-            android:id="@+id/sp_province"
+            android:id="@+id/spGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:entries="@array/provinces" />
+            android:entries="@array/gender_options"/>
 
-        <!-- Grade Spinner -->
+        <Button
+            android:id="@+id/btnPickDob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Date of Birth"/>
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"/>
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="phone"/>
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"/>
+
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"/>
+
         <Spinner
-            android:id="@+id/sp_grade"
+            android:id="@+id/spProvince"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:entries="@array/grades" />
+            android:entries="@array/province_options"/>
 
-        <!-- Upload Documents Button -->
-        <Button
-            android:id="@+id/btn_upload_documents"
+        <EditText
+            android:id="@+id/etPostcode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Documents"
-            android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white" />
+            android:hint="Postcode"
+            android:inputType="number"/>
 
-        <!-- Submit Button -->
+        <EditText
+            android:id="@+id/etInstitutionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Institution Name"/>
+
+        <EditText
+            android:id="@+id/etCourseOfStudy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course of Study"/>
+
+        <EditText
+            android:id="@+id/etStudyYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Study Year"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/etTotalCourseDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Total Course Duration (years)"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/etAnnualTuitionFee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Annual Tuition Fee"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/etOtherFundingSources"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Other Funding Sources"/>
+
+        <EditText
+            android:id="@+id/etAcademicAchievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Academic Achievements"
+            android:inputType="textMultiLine"
+            android:lines="3"/>
+
+        <EditText
+            android:id="@+id/etFinancialNeedStatement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Financial Need Statement"
+            android:inputType="textMultiLine"
+            android:lines="5"/>
+
         <Button
-            android:id="@+id/btn_submit"
+            android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Application"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white" />
+            android:layout_marginTop="16dp"/>
+
     </LinearLayout>
 </ScrollView>
