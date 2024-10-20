@@ -15,35 +15,34 @@
     <string name="active">Active</string>
     <string name="sign_in_with_google">Sign In With Google</string>
 
-        <string name="personal_information">Personal Information</string>
-        <string name="full_name">Full Name</string>
-        <string name="id_number">ID/Passport Number</string>
-        <string name="date_of_birth">Date of Birth</string>
-        <string name="phone_number">Phone Number</string>
-        <string name="residential_address">Residential Address</string>
-        <string name="select_province">Select Province</string>
-        <string name="type_of_educational_service">Type of Educational Service</string>
-        <string name="service_type">Service Type</string>
-        <string name="institution_name">Institution Name</string>
-        <string name="select_grade_level">Select Grade/Level of Study</string>
-        <string name="preferred_start_date">Preferred Start Date</string>
-        <string name="special_requirements">Special Requirements</string>
-        <string name="education_history">Education History</string>
-        <string name="last_school_attended">Last School Attended</string>
-        <string name="highest_grade_completed">Highest Grade Completed</string>
-        <string name="year_of_completion">Year of Completion</string>
-        <string name="financial_aid_information">Financial Aid Information</string>
-        <string name="apply_for_financial_aid">Apply for Financial Aid?</string>
-        <string name="income_bracket">Household Income Bracket</string>
-        <string name="document_uploads">Required Document Uploads</string>
-        <string name="upload_id">Upload ID Copy</string>
-        <string name="upload_proof_of_residence">Upload Proof of Residence</string>
-        <string name="upload_transcripts">Upload School Records/Transcripts</string>
-        <string name="upload_motivation_letter">Upload Motivation Letter</string>
-        <string name="declaration_statement">I declare that the information provided is accurate.</string>
-        <string name="consent_to_data_use">I consent to the use of my data for educational application purposes.</string>
-        <string name="submit">Submit</string>
-
+    <string name="personal_information">Personal Information</string>
+    <string name="full_name">Full Name</string>
+    <string name="id_number">ID/Passport Number</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="residential_address">Residential Address</string>
+    <string name="select_province">Select Province</string>
+    <string name="type_of_educational_service">Type of Educational Service</string>
+    <string name="service_type">Service Type</string>
+    <string name="institution_name">Institution Name</string>
+    <string name="select_grade_level">Select Grade/Level of Study</string>
+    <string name="preferred_start_date">Preferred Start Date</string>
+    <string name="special_requirements">Special Requirements</string>
+    <string name="education_history">Education History</string>
+    <string name="last_school_attended">Last School Attended</string>
+    <string name="highest_grade_completed">Highest Grade Completed</string>
+    <string name="year_of_completion">Year of Completion</string>
+    <string name="financial_aid_information">Financial Aid Information</string>
+    <string name="apply_for_financial_aid">Apply for Financial Aid?</string>
+    <string name="income_bracket">Household Income Bracket</string>
+    <string name="document_uploads">Required Document Uploads</string>
+    <string name="upload_id">Upload ID Copy</string>
+    <string name="upload_proof_of_residence">Upload Proof of Residence</string>
+    <string name="upload_transcripts">Upload School Records/Transcripts</string>
+    <string name="upload_motivation_letter">Upload Motivation Letter</string>
+    <string name="declaration_statement">I declare that the information provided is accurate.</string>
+    <string name="consent_to_data_use">I consent to the use of my data for educational application purposes.</string>
+    <string name="submit">Submit</string>
 
 
     <!-- Gender Options -->
@@ -179,4 +178,11 @@
         <item>R800,000 - R1,200,000</item>
         <item>Above R1,200,000</item>
     </string-array>
+
+
+
+        <string name="chat_prompt_hint">Type a message…</string>
+        <string name="send_button_description">Send message</string>
+        <string name="add_image_button_description">Add image</string>
+
 </resources>

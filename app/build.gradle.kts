@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("plugin.serialization") version "1.9.0"
+    id("kotlin-kapt")
 }
 
 android {
@@ -17,6 +18,7 @@ android {
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -29,11 +31,24 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+    buildFeatures {
+        compose = true // Added from the second file
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2" // Added from the second file
+    }
+
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}" // Added from the second file
+        }
     }
 }
 
@@ -61,12 +76,24 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.11.0") // OkHttp core
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0") // Logging interceptor for debugging
     implementation ("com.google.android.gms:play-services-auth:20.5.0")
+    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.compiler:compiler:1.4.6")
+
 
     // Retrofit dependecies
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:4.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.compose.ui:ui:1.5.0")
+    implementation("androidx.compose.material3:material3:1.2.0-alpha02") // Material3 theme
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.5.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.5.0")
+
 
 
     // Firebase dependencies

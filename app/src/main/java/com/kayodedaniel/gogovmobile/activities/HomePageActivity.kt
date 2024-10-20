@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.activities.ViewAppointmentActivity
+import com.kayodedaniel.gogovmobile.chatbotactivity.ChatBotActivity
 
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,12 @@ class HomePageActivity : AppCompatActivity() {
                 R.id.nav_view_appointment -> {
                     // Navigate to ViewAppointmentActivity
                     startActivity(Intent(this, ViewAppointmentActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.nav_chat_bot -> {
+                    // Navigate to ViewAppointmentActivity
+                    startActivity(Intent(this, ChatBotActivity::class.java))
                     overridePendingTransition(0, 0)
                     true
                 }
