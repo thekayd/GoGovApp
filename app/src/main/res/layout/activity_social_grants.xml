@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Name -->
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name" />
+
+        <!-- Surname -->
+        <EditText
+            android:id="@+id/etSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Surname" />
+
+        <!-- ID Number -->
+        <EditText
+            android:id="@+id/etIdNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Number"
+            android:inputType="number" />
+
+        <!-- Gender Dropdown -->
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- South African Status Dropdown -->
+        <Spinner
+            android:id="@+id/spinnerSAStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Address -->
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address" />
+
+        <!-- City -->
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City" />
+
+        <!-- Postal Code -->
+        <EditText
+            android:id="@+id/etPostcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Postal Code"
+            android:inputType="number" />
+
+        <!-- Email -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <!-- Phone Number -->
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:inputType="phone" />
+
+        <!-- Passport Type Dropdown -->
+        <Spinner
+            android:id="@+id/spinnerPassportType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Date of Birth (Calendar) -->
+        <Button
+            android:id="@+id/btnDateOfBirth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Date of Birth" />
+
+        <!-- Document Uploads Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Required Documents" />
+
+        <!-- ID Document Upload -->
+        <Button
+            android:id="@+id/btnUploadIdDocument"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload ID Document" />
+
+        <!-- Bank Statement Upload -->
+        <Button
+            android:id="@+id/btnUploadBankStatement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Bank Statement" />
+
+        <!-- Passport Upload -->
+        <Button
+            android:id="@+id/btnUploadPassport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Passport" />
+
+        <!-- Proof of Income Upload -->
+        <Button
+            android:id="@+id/btnUploadProofOfIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Proof of Income" />
+
+        <!-- Proof of Address Upload -->
+        <Button
+            android:id="@+id/btnUploadProofOfAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Proof of Address" />
+
+        <!-- Medical Report Upload -->
+        <Button
+            android:id="@+id/btnUploadMedicalReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Medical Report" />
+
+        <!-- Marriage/Death Certificate Upload -->
+        <Button
+            android:id="@+id/btnUploadMarriageDeathCert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Marriage/Death Certificate" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btnSubmitSocialGrantsApplication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textAlignment="center" />
+    </LinearLayout>
+</ScrollView>

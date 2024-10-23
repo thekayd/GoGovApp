@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:ignore="MissingDefaultResource"
+    tools:context=".activities.HealthFormsActivity">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Health Department Forms"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp" />
+
+    <!-- Medical Aid Application Button -->
+    <Button
+        android:id="@+id/btn_medical_aid_application"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Medical Aid Application"
+        android:backgroundTint="@color/black"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Vaccination Registration Button -->
+    <Button
+        android:id="@+id/btn_vaccination_registration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vaccination Registration"
+        android:backgroundTint="@color/black"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

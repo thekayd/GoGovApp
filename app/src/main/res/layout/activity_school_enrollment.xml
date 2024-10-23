@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource"
+    tools:context=".activities.SchoolEnrollmentActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Student Name Input -->
+        <EditText
+            android:id="@+id/et_student_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Student Name"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Student Surname Input -->
+        <EditText
+            android:id="@+id/et_student_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Student Surname"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="12dp" />
+
+        <!-- ID Number Input -->
+        <EditText
+            android:id="@+id/et_student_id_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Number"
+            android:inputType="number"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Grade Spinner -->
+        <Spinner
+            android:id="@+id/sp_grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:entries="@array/grades" />
+
+        <!-- School Name Input -->
+        <EditText
+            android:id="@+id/et_school_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="School Name"
+            android:inputType="text"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Address Input -->
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="textPostalAddress"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Upload Documents Button -->
+        <Button
+            android:id="@+id/btn_upload_documents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Documents"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Enrollment"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

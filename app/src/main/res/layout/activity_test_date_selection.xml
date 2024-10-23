@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activities.TestDateSelectionActivity">
+
+    <!-- Date picker button -->
+    <Button
+        android:id="@+id/btnPickTestDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Test Date" />
+
+    <!-- Display selected date -->
+    <TextView
+        android:id="@+id/tvSelectedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Date: None"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"/>
+
+    <!-- List of available time slots -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Time Slots:" />
+
+    <RadioGroup
+        android:id="@+id/rgTimeSlots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+    <!-- Next step button -->
+    <Button
+        android:id="@+id/btnNextStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Step"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

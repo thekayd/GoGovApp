@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:ignore="MissingDefaultResource"
+    tools:context=".PaymentActivity">
+
+    <!-- Card Number -->
+    <EditText
+        android:id="@+id/etCardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Card Number"
+        android:inputType="number" />
+
+    <!-- Expiry Date -->
+    <EditText
+        android:id="@+id/etExpiryDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Expiry Date (MM/YY)"
+        android:inputType="number" />
+
+    <!-- CVV -->
+    <EditText
+        android:id="@+id/etCvv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CVV"
+        android:inputType="number" />
+
+    <!-- Name on Card -->
+    <EditText
+        android:id="@+id/etNameOnCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name on Card"
+        android:inputType="text" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSubmitPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Payment"
+        android:layout_marginTop="20dp" />
+</LinearLayout>
