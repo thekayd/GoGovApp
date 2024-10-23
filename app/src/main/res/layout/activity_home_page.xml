@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".MainActivity">
 
     <!-- ScrollView that contains all the main content -->
@@ -191,7 +192,7 @@
 
                         <Button
                             android:id="@+id/btn_home_affairs"
-                            android:layout_width="309dp"
+                            android:layout_width="291dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
@@ -452,7 +453,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@color/darker_blue"
+        app:itemActiveIndicatorStyle="@style/ShapeAppearance.Material3.Corner.None"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        />
 
 </RelativeLayout>

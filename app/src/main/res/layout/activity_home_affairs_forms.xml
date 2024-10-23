@@ -1,40 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:ignore="MissingDefaultResource"
-    tools:context=".activities.HomeAffairsFormsActivity">
+    android:background="@drawable/sa"
+    tools:context=".activities.HomeAffairsFormsActivity"
+    tools:ignore="MissingDefaultResource">
 
-    <!-- Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home Affairs Department Forms"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="16dp" />
 
-    <!-- Passport Application Button -->
-    <Button
-        android:id="@+id/btn_passport_application"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Passport Application"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="8dp" />
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:text="Home Affairs Department Forms"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <!-- ID Renewal Button -->
-    <Button
-        android:id="@+id/btn_id_renewal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ID Renewal"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40ssp"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="12dp">
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Passport Application"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="The Passport Application process allows citizens to apply for a new or renewed passport. This document is required for international travel and serves as proof of citizenship. To apply, applicants must provide their ID number, proof of residence, and other supporting documents."
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:id="@+id/btn_passport_application"
+                    android:layout_width="309dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/darker_blue"
+                    android:text="Passport Application"
+                    android:textColor="@color/white"
+                    tools:ignore="MissingConstraints" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30ssp"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#9C9999"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="ID Renewal"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text=" ID renewal is required when a citizen’s identification document (ID) has expired, been damaged, or lost. This document is essential for voting, accessing government services, and other identification purposes."
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:id="@+id/btn_id_renewal"
+                    android:layout_width="308dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="@color/darker_blue"
+                    android:text="ID Renewal"
+                    android:textColor="@color/white"
+                    tools:ignore="MissingConstraints" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
