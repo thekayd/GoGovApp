@@ -92,7 +92,10 @@
             android:id="@+id/btnPickDob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pick Date of Birth" />
+            android:text="Pick Date of Birth"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <CheckBox
             android:id="@+id/cbConsent"
@@ -104,7 +107,10 @@
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit" />
+            android:text="Submit"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
     </LinearLayout>
 </ScrollView>

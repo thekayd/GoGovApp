@@ -62,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Renewal"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"/>
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
     </LinearLayout>
 </ScrollView>

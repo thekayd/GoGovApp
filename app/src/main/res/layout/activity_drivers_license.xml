@@ -113,7 +113,10 @@
             android:id="@+id/btnPickDob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pick Date of Birth" />
+            android:text="Pick Date of Birth"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <CheckBox
             android:id="@+id/checkboxNda1"
@@ -132,28 +135,40 @@
             android:id="@+id/btnUploadIdDocument"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload ID Document" />
+            android:text="Upload ID Document"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Upload Passport Photo -->
         <Button
             android:id="@+id/btnUploadPassportPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Passport Photo" />
+            android:text="Upload Passport Photo"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Upload Proof of Address -->
         <Button
             android:id="@+id/btnUploadProofOfAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Proof of Address" />
+            android:text="Upload Proof of Address"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Upload Eye Test Certificate -->
         <Button
             android:id="@+id/btnUploadEyeTestCertificate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Eye Test Certificate" />
+            android:text="Upload Eye Test Certificate"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- NDA CheckBox -->
         <CheckBox
@@ -167,7 +182,10 @@
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit" />
+            android:text="Submit"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Footer Links -->
         <TextView

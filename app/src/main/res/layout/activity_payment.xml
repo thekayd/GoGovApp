@@ -44,8 +44,11 @@
     <!-- Submit Button -->
     <Button
         android:id="@+id/btnSubmitPayment"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit Payment"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/darker_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"/>
 </LinearLayout>

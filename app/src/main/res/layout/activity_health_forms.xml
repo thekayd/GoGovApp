@@ -24,8 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Medical Aid Application"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white"
+        android:backgroundTint="@color/darker_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"
         android:layout_marginBottom="8dp" />
 
     <!-- Vaccination Registration Button -->
@@ -34,7 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Vaccination Registration"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white" />
+        android:backgroundTint="@color/darker_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp" />
 
 </LinearLayout>
