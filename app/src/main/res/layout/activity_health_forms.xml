@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:ignore="MissingDefaultResource"
-    tools:context=".activities.HealthFormsActivity">
+    tools:context=".activities.HealthFormsActivity"
+    android:background="@color/white">
 
     <!-- Title -->
     <TextView

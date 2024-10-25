@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:ignore="MissingDefaultResource"
-    tools:context=".activities.EducationFormsActivity">
+    tools:context=".activities.EducationFormsActivity"
+    android:background="@color/white">
 
     <!-- Title -->
     <TextView
