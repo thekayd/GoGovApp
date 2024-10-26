@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".MainActivity">
 
     <!-- ScrollView that contains all the main content -->
@@ -13,7 +14,9 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation"
         android:fillViewport="true"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/white"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,12 +153,7 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- Repeat this block for each department -->
+                <!-- Home affairs -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -193,7 +191,7 @@
 
                             <Button
                                 android:id="@+id/btn_home_affairs"
-                                android:layout_width="309dp"
+                                android:layout_width="291dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
@@ -204,257 +202,267 @@
 
                         </LinearLayout>
 
+
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Home Affairs -->
-                    <androidx.cardview.widget.CardView
+                <!-- Education -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    >
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp">
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <LinearLayout
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/homeaffairs" />
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="vertical"
-                            android:padding="16dp">
+                            android:layout_marginTop="8dp"
+                            android:text="EDUCATION"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/homeaffairs" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="• ID APPLICATIONS\n• PASSPORTS\n• BIRTH CERTIFICATES"
+                            android:textColor="@android:color/darker_gray" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="EDUCATION"
-                                android:textColor="@color/black"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                        <Button
+                            android:id="@+id/btn_education"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:backgroundTint="@color/darker_blue"
+                            android:text="Read More"
+                            android:textColor="@color/white" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="• ID APPLICATIONS\n• PASSPORTS\n• BIRTH CERTIFICATES"
-                                android:textColor="@android:color/darker_gray" />
+                    </LinearLayout>
 
-                            <Button
-                                android:id="@+id/btn_education"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:backgroundTint="@color/darker_blue"
-                                android:text="Read More"
-                                android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
 
-                        </LinearLayout>
+                <!-- Transportation -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp">
 
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Transportation -->
-                    <androidx.cardview.widget.CardView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp">
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <LinearLayout
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/homeaffairs" />
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="vertical"
-                            android:padding="16dp">
+                            android:layout_marginTop="8dp"
+                            android:text="TRANSPORTATION"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/homeaffairs" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="• DRIVER'S LICENSES\n• VEHICLE REGISTRATIONS\n• ROADWORTHINESS CERTIFICATES"
+                            android:textColor="@android:color/darker_gray" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="TRANSPORTATION"
-                                android:textColor="@color/black"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                        <Button
+                            android:id="@+id/btn_transportation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:backgroundTint="@color/darker_blue"
+                            android:text="Read More"
+                            android:textColor="@color/white" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="• DRIVER'S LICENSES\n• VEHICLE REGISTRATIONS\n• ROADWORTHINESS CERTIFICATES"
-                                android:textColor="@android:color/darker_gray" />
+                    </LinearLayout>
 
-                            <Button
-                                android:id="@+id/btn_transportation"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:backgroundTint="@color/darker_blue"
-                                android:text="Read More"
-                                android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
 
-                        </LinearLayout>
+                <!-- Health -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
 
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Health -->
-                    <androidx.cardview.widget.CardView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="4dp">
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <LinearLayout
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/health" />
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="vertical"
-                            android:padding="16dp">
+                            android:layout_marginTop="8dp"
+                            android:text="HEALTH"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="150dp"
-                                android:scaleType="fitCenter"
-                                android:src="@drawable/health" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="• Medical Aid Applications\n• Vacation Records\n• Health Grants"
+                            android:textColor="@android:color/darker_gray" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="HEALTH"
-                                android:textColor="@color/black"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                        <Button
+                            android:id="@+id/btn_health"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:backgroundTint="@color/darker_blue"
+                            android:text="Read More"
+                            android:textColor="@color/white" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="• Medical Aid Applications\n• Vacation Records\n• Health Grants"
-                                android:textColor="@android:color/darker_gray" />
+                    </LinearLayout>
 
-                            <Button
-                                android:id="@+id/btn_health"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:backgroundTint="@color/darker_blue"
-                                android:text="Read More"
-                                android:textColor="@color/white" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-                    <!-- End of department block -->
-
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!-- End of department block -->
 
             </LinearLayout>
 
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:padding="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="Members of Parliament"
-                android:textColor="@color/black"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:padding="16dp">
 
-                <!-- Repeat this block for each member -->
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <!--                    <de.hdodenhof.circleimageview.CircleImageView-->
-                    <!--                        android:layout_width="120dp"-->
-                    <!--                        android:layout_height="120dp"-->
-                    <!--                        android:src="@drawable/cyril_ramaphosa"-->
-                    <!--                        app:civ_border_color="#FF000000"-->
-                    <!--                        app:civ_border_width="2dp" />-->
-
-                    <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Cyril Ramaphosa"
+                    android:layout_marginBottom="16dp"
+                    android:text="Members of Parliament"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="President"
-                        android:textColor="@android:color/darker_gray" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Gayton McKenzie"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <!-- Repeat this block for each member -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Minister of Sports"
-                        android:textColor="@android:color/darker_gray" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Incumbent Siviwe Gwarube"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Minister of Education"
-                        android:textColor="@android:color/darker_gray" />
+                        <!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+                        <!--                        android:layout_width="120dp"-->
+                        <!--                        android:layout_height="120dp"-->
+                        <!--                        android:src="@drawable/cyril_ramaphosa"-->
+                        <!--                        app:civ_border_color="#FF000000"-->
+                        <!--                        app:civ_border_width="2dp" />-->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Cyril Ramaphosa"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="President"
+                            android:textColor="@android:color/darker_gray" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Gayton McKenzie"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Minister of Sports"
+                            android:textColor="@android:color/darker_gray" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Incumbent Siviwe Gwarube"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Minister of Education"
+                            android:textColor="@android:color/darker_gray" />
+
+                    </LinearLayout>
+                    <!-- End of member block -->
 
                 </LinearLayout>
-                <!-- End of member block -->
 
             </LinearLayout>
+                </LinearLayout>
 
-        </LinearLayout>
-        </LinearLayout>
+            </ScrollView>
 
-</ScrollView>
+
+
+
+
     <!-- Bottom Navigation View -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/design_default_color_background"
-        app:menu="@menu/bottom_navigation_menu" />
+<com.google.android.material.bottomnavigation.BottomNavigationView
+android:id="@+id/bottom_navigation"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_alignParentBottom="true"
+android:background="@color/darker_blue"
+app:menu="@menu/bottom_navigation_menu"
+app:itemActiveIndicatorStyle="@style/ShapeAppearance.Material3.Corner.None"
+app:itemIconTint="@color/white"
+app:itemTextColor="@color/white" />
 
 </RelativeLayout>

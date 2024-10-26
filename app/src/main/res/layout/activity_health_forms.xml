@@ -48,7 +48,7 @@
     <!-- Medical Aid Application Section -->
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="206dp"
+        android:layout_height="214dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
         android:elevation="4dp"
@@ -62,8 +62,6 @@
             android:orientation="vertical">
 
             <!-- Title -->
-
-            <!-- Description, centered in the middle space -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,9 +69,10 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Medical Aid Application"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <!-- Description, centered in the middle space -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
@@ -99,7 +98,7 @@
     <!-- Vaccination Registration Section -->
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="198dp"
+        android:layout_height="227dp"
         android:backgroundTint="@color/white"
         android:elevation="4dp"
         android:padding="12dp"
@@ -112,17 +111,17 @@
             android:orientation="vertical">
 
             <!-- Title -->
-
-            <!-- Description, centered in the middle space -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Vaccination Registration"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <!-- Description, centered in the middle space -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
@@ -130,7 +129,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="The Vaccination Registration service provides a convenient and organized way for citizens to register for vaccinations. This service is part of the public health initiative to prevent the spread of infectious diseases and to protect individuals and communities from potential outbreaks."
+                android:text="The Medical Aid Application service is designed to assist citizens in accessing essential health care services through affordable medical coverage. By applying for medical aid, individuals can receive financial support for a wide range of health-related expenses, such as hospital visits, medications, specialist consultations, and emergency care."
                 android:textSize="14sp" />
 
             <!-- Button positioned at the bottom of the CardView -->

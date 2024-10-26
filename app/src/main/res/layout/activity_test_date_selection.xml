@@ -7,14 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.TestDateSelectionActivity">
+    tools:context=".activities.TestDateSelectionActivity"
+    android:background="@color/white">
 
     <!-- Date picker button -->
     <Button
         android:id="@+id/btnPickTestDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pick Test Date" />
+        android:text="Pick Test Date"
+        android:backgroundTint="@color/darker_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"/>
 
     <!-- Display selected date -->
     <TextView
@@ -40,8 +44,11 @@
     <!-- Next step button -->
     <Button
         android:id="@+id/btnNextStep"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Next Step"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/darker_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"/>
 </LinearLayout>

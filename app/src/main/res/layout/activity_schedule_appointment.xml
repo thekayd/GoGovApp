@@ -4,24 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.ScheduleAppointmentActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        android:fillViewport="true"
+        android:background="@color/grey"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@color/white"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Schedule Appointment"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -29,41 +35,73 @@
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/_40ssp"
                 android:hint="Name"
+                android:background="@drawable/background_input"
                 android:inputType="textPersonName"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="24dp" />
 
             <EditText
                 android:id="@+id/etSurname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Surname"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/_16ssp"
                 android:inputType="textPersonName"
-                android:layout_marginBottom="8dp"/>
+                android:hint="Surname"
+                android:background="@drawable/background_input"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="24dp" />
+
 
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/_16ssp"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:layout_marginBottom="8dp"/>
+                android:background="@drawable/background_input"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="24dp" />
 
             <EditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/_16ssp"
                 android:hint="Phone"
                 android:inputType="phone"
-                android:layout_marginBottom="8dp"/>
+                android:background="@drawable/background_input"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="24dp" />
 
             <TextView
                 android:id="@+id/tvSelectedDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16ssp"
                 android:text="Select Date"
-                android:textSize="18sp"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:textSize="24dp"
                 android:padding="12dp"
                 android:background="@android:drawable/editbox_background"
                 android:layout_marginBottom="8dp"/>
@@ -75,19 +113,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Time Slot"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp" />
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:layout_marginTop="24dp" />
 
             <Spinner
                 android:id="@+id/spinnerTimeSlot"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp" />
 
             <Button
                 android:id="@+id/btnScheduleAppointment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40ssp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/darker_blue"
                 android:text="Schedule Appointment"/>
 
         </LinearLayout>
@@ -99,6 +141,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navigation_menu"/>
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@color/darker_blue"
+        app:itemActiveIndicatorStyle="@style/ShapeAppearance.Material3.Corner.None"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

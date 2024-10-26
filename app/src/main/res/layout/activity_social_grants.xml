@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource"
+    android:background="@color/white">
 
     <LinearLayout
         android:orientation="vertical"
@@ -95,7 +96,10 @@
             android:id="@+id/btnDateOfBirth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Date of Birth" />
+            android:text="Select Date of Birth"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Document Uploads Section -->
         <TextView
@@ -106,58 +110,82 @@
         <!-- ID Document Upload -->
         <Button
             android:id="@+id/btnUploadIdDocument"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload ID Document" />
+            android:text="Upload ID Document"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Bank Statement Upload -->
         <Button
             android:id="@+id/btnUploadBankStatement"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Bank Statement" />
+            android:text="Upload Bank Statement"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Passport Upload -->
         <Button
             android:id="@+id/btnUploadPassport"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Passport" />
+            android:text="Upload Passport"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Proof of Income Upload -->
         <Button
             android:id="@+id/btnUploadProofOfIncome"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Proof of Income" />
+            android:text="Upload Proof of Income"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Proof of Address Upload -->
         <Button
             android:id="@+id/btnUploadProofOfAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Proof of Address" />
+            android:text="Upload Proof of Address"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Medical Report Upload -->
         <Button
             android:id="@+id/btnUploadMedicalReport"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Medical Report" />
+            android:text="Upload Medical Report"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Marriage/Death Certificate Upload -->
         <Button
             android:id="@+id/btnUploadMarriageDeathCert"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Marriage/Death Certificate" />
+            android:text="Upload Marriage/Death Certificate"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmitSocialGrantsApplication"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
     </LinearLayout>
 </ScrollView>

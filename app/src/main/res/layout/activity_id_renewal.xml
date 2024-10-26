@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     tools:ignore="MissingDefaultResource"
-    tools:context=".activities.IdRenewalActivity">
+    tools:context=".activities.IdRenewalActivity"
+    android:background="@color/white">
 
     <LinearLayout
         android:orientation="vertical"
@@ -62,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Renewal"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"/>
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
     </LinearLayout>
 </ScrollView>

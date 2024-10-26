@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:background="@drawable/forms_background">
 
@@ -11,151 +10,193 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Main Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Passport Application"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"/>
 
+        <!-- Supporting subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please fill the passport application below"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- Name -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
+            android:textColorHint="@color/black"
+            android:layout_marginBottom="8dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="8dp">
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textColorHint="@color/blue"
                 android:inputType="textPersonName"/>
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Surname -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSurname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Surname"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textPersonName"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- ID Number -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilIdNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ID Number"
+            android:hint="Enter ID Number"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="number"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Gender -->
         <Spinner
             android:id="@+id/spGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:hint="Gender"/>
 
+        <!-- Province -->
         <Spinner
             android:id="@+id/spProvince"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:hint="Province"/>
 
+        <!-- Address -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textPostalAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- City -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="City"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Postcode -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPostcode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Postcode"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="number"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Email -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Phone Number -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="phone"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnPickDob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pick Date of Birth"
-            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -163,6 +204,8 @@
             android:text="Upload Documents"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"/>
 
@@ -171,42 +214,63 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Upload Passport Photo"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <Button
             android:id="@+id/btnUploadProofOfAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Upload Proof of Address"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <Button
             android:id="@+id/btnUploadIdDocument"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Upload ID Document"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
         <CheckBox
             android:id="@+id/cbNDA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="I want to protect my data by signing an NDA"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13ssp"/>
 
+        <!-- Date Picker for Date of Birth -->
+        <Button
+            android:id="@+id/btnPickDob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Date of Birth"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Application"
-            android:layout_marginBottom="16dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Privacy Policy | Terms of Service"
-            android:textColor="@color/purple_500"
-            android:layout_gravity="center_horizontal"/>
-
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            />
     </LinearLayout>
 </ScrollView>

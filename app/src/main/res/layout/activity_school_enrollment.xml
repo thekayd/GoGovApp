@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource"
-    tools:context=".activities.SchoolEnrollmentActivity">
+    tools:context=".activities.SchoolEnrollmentActivity"
+    android:background="@color/white">
 
     <LinearLayout
         android:orientation="vertical"
@@ -72,8 +73,9 @@
             android:layout_height="wrap_content"
             android:text="Upload Documents"
             android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white" />
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
 
         <!-- Submit Button -->
         <Button
@@ -81,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Enrollment"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white" />
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
     </LinearLayout>
 </ScrollView>
