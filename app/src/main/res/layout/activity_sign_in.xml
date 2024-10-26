@@ -8,7 +8,7 @@
     android:clipToPadding="false"
     android:overScrollMode="never"
     android:padding="24dp"
-    android:background="@color/white"
+    android:background="@drawable/login_bg"
     android:scrollbars="none"
     tools:context=".activities.SignInActivity">
 
