@@ -68,6 +68,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Driver's License Application"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -80,6 +81,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Apply for The Driver's License Application process allows individuals to apply for a valid driver's license, enabling them to operate a motor vehicle legally. "
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <!-- Button -->

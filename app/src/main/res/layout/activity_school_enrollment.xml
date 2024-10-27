@@ -19,12 +19,14 @@
             android:layout_gravity="center"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:paddingBottom="8dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Personal Information"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
@@ -33,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Student Name"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -48,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Student Surname"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -63,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID Number"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -79,12 +84,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:entries="@array/grades" />
+            android:entries="@array/grades"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="School Information"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
@@ -93,6 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="School Name"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -108,6 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 

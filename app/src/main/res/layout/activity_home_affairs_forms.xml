@@ -75,9 +75,9 @@
 
                 <Button
                     android:id="@+id/btn_passport_application"
-                    android:layout_width="309dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="24dp"
                     android:backgroundTint="@color/darker_blue"
                     android:text="Passport Application"
@@ -122,10 +122,10 @@
 
                 <Button
                     android:id="@+id/btn_id_renewal"
-                    android:layout_width="308dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="10dp"
                     android:backgroundTint="@color/darker_blue"
                     android:text="ID Renewal"
                     android:textColor="@color/white"

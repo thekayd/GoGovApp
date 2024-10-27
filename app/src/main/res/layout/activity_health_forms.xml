@@ -69,6 +69,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Medical Aid Application"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -81,6 +82,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="The Medical Aid Application service is designed to assist citizens in accessing essential health care services through affordable medical coverage. By applying for medical aid, individuals can receive financial support for a wide range of health-related expenses, such as hospital visits, medications, specialist consultations, and emergency care."
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <!-- Button positioned at the bottom of the CardView -->
@@ -89,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/darker_blue"
                 android:text="Medical Aid Application"
                 android:textColor="@android:color/white" />
         </LinearLayout>
@@ -118,6 +120,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Vaccination Registration"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -130,6 +133,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="The Medical Aid Application service is designed to assist citizens in accessing essential health care services through affordable medical coverage. By applying for medical aid, individuals can receive financial support for a wide range of health-related expenses, such as hospital visits, medications, specialist consultations, and emergency care."
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <!-- Button positioned at the bottom of the CardView -->
@@ -138,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/darker_blue"
                 android:text="Vaccination Registration"
                 android:textColor="@android:color/white" />
         </LinearLayout>

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:background="@drawable/forms_background">
 
@@ -25,13 +26,16 @@
             android:layout_height="wrap_content"
             android:text="Personal Information"
             android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:textColorHint="@color/black"
+            />
 
         <!-- Name -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -46,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Surname"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -60,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID Number"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -73,6 +79,7 @@
         <!-- Gender Spinner -->
         <Spinner
             android:id="@+id/spGender"
+            android:textColorHint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/gender_options"
@@ -93,6 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact Information"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
@@ -101,14 +109,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@color/black"
             android:layout_marginBottom="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Phone Number -->
@@ -116,6 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -131,6 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -145,6 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="City"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -160,6 +175,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/province_options"
+            android:textColorHint="@color/black"
             android:layout_marginBottom="12dp"/>
 
         <!-- Postcode -->
@@ -167,6 +183,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Postcode"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -182,6 +199,7 @@
             android:layout_height="wrap_content"
             android:text="Schooling Information"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:paddingBottom="8dp" />
 
         <!-- Institution Name -->
@@ -189,6 +207,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Institution Name"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -203,6 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Course of Study"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -217,6 +237,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Study Year"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -232,6 +253,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Total Course Duration (years)"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -247,6 +269,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Annual Tuition Fee"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -261,6 +284,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Other Funding Sources"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -277,6 +301,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Academic Achievements"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -294,6 +319,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Financial Need Statement"
+            android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="12dp">
 
@@ -306,8 +332,6 @@
                 android:lines="5"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
 
         <!-- Submit Button -->
         <Button

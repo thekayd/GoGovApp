@@ -70,6 +70,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Bursary Application"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -82,6 +83,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Apply for a bursary to support your education. Bursaries are available to assist students with tuition fees, textbooks, and other educational expenses."
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <!-- Button -->
@@ -119,6 +121,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="School Enrollment"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -131,6 +134,7 @@
                 android:gravity="center"
                 android:paddingBottom="8dp"
                 android:text="Register for school enrollment assistance to help secure a place at the school of your choice. We guide you through the process and ensure all requirements are met."
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <!-- Button -->
