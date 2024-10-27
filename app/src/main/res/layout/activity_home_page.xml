@@ -223,8 +223,8 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/homeaffairs" />
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/education" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -272,8 +272,8 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/homeaffairs" />
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/transport" />
 
                         <TextView
                             android:layout_width="match_parent"

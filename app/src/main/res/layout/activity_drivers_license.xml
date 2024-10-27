@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource"
     tools:context=".DriversLicenseActivity"
-    android:background="@color/white">
+    android:background="@drawable/forms_background">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,103 +13,115 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Driver's License"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"/>
+
         <!-- Name -->
-        <EditText
-            android:id="@+id/etName"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Surname -->
-        <EditText
-            android:id="@+id/etSurname"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Surname"
-            android:inputType="textPersonName" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSurname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ID Number -->
-        <EditText
-            android:id="@+id/etIdNumber"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID Number"
-            android:inputType="number" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etIdNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Gender Dropdown -->
         <Spinner
             android:id="@+id/spGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/gender_options" />
+            android:entries="@array/gender_options"
+            android:layout_marginBottom="8dp" />
 
         <!-- Province Dropdown -->
         <Spinner
             android:id="@+id/spProvince"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/province_options" />
+            android:entries="@array/province_options"
+            android:layout_marginBottom="8dp" />
 
         <!-- Address -->
-        <EditText
-            android:id="@+id/etAddress"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
-            android:inputType="textPostalAddress" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp">
 
-        <!-- City -->
-        <EditText
-            android:id="@+id/etCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="City" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Postcode -->
-        <EditText
-            android:id="@+id/etPostcode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Postcode"
-            android:inputType="number" />
 
-        <!-- Email -->
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
-
-        <!-- Phone Number -->
-        <EditText
-            android:id="@+id/etPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:inputType="phone" />
-
-        <!-- Category of License Dropdown -->
+        <!-- License Category and Test Center Dropdowns -->
         <Spinner
             android:id="@+id/spLicenseCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/license_category_options" />
+            android:entries="@array/license_category_options"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Test Center Dropdown -->
         <Spinner
             android:id="@+id/spTestCenter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/test_center_options" />
+            android:entries="@array/test_center_options"
+            android:layout_marginBottom="8dp" />
 
         <!-- Date of Birth -->
         <TextView
             android:id="@+id/tvDobLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date of Birth" />
+            android:text="Date of Birth"
+            android:layout_marginBottom="4dp" />
+
         <Button
             android:id="@+id/btnPickDob"
             android:layout_width="match_parent"
@@ -117,15 +129,9 @@
             android:text="Pick Date of Birth"
             android:backgroundTint="@color/darker_blue"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+            android:layout_marginBottom="8dp" />
 
-        <CheckBox
-            android:id="@+id/checkboxNda1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I want to protect my data by signing an NDA" />
-
-        <!-- Document Uploads -->
+        <!-- Document Upload Buttons -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -138,8 +144,7 @@
             android:layout_height="wrap_content"
             android:text="Upload ID Document"
             android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+            android:textColor="@color/white"/>
 
         <!-- Upload Passport Photo -->
         <Button
@@ -148,8 +153,7 @@
             android:layout_height="wrap_content"
             android:text="Upload Passport Photo"
             android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+            android:textColor="@color/white"/>
 
         <!-- Upload Proof of Address -->
         <Button
@@ -158,8 +162,7 @@
             android:layout_height="wrap_content"
             android:text="Upload Proof of Address"
             android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+            android:textColor="@color/white"/>
 
         <!-- Upload Eye Test Certificate -->
         <Button
@@ -168,15 +171,15 @@
             android:layout_height="wrap_content"
             android:text="Upload Eye Test Certificate"
             android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+            android:textColor="@color/white"/>
 
         <!-- NDA CheckBox -->
         <CheckBox
-            android:id="@+id/cbNDA"
+            android:id="@+id/checkboxNda1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I want to protect my data by signing an NDA" />
+            android:text="I want to protect my data by signing an NDA"
+            android:layout_marginBottom="8dp" />
 
         <!-- Submit Button -->
         <Button
@@ -186,7 +189,7 @@
             android:text="Submit"
             android:backgroundTint="@color/darker_blue"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+            android:layout_marginBottom="16dp" />
 
         <!-- Footer Links -->
         <TextView
