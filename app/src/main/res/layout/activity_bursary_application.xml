@@ -37,7 +37,8 @@
             android:hint="Name"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
@@ -52,7 +53,8 @@
             android:hint="Surname"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSurname"
@@ -67,7 +69,8 @@
             android:hint="ID Number"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etIdNumber"
@@ -83,7 +86,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/gender_options"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:outlineAmbientShadowColor="@color/darker_blue"/>
 
         <!-- Date of Birth Button -->
         <Button
@@ -94,13 +98,12 @@
             android:backgroundTint="@color/darker_blue"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact Information"
-            android:textColor="@color/black"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
 
@@ -130,7 +133,8 @@
             android:hint="Phone Number"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPhoneNumber"
@@ -146,7 +150,8 @@
             android:hint="Address"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etAddress"
@@ -161,7 +166,8 @@
             android:hint="City"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCity"
@@ -176,7 +182,8 @@
             android:layout_height="wrap_content"
             android:entries="@array/province_options"
             android:textColorHint="@color/black"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp"
+            android:outlineAmbientShadowColor="@color/darker_blue"/>
 
         <!-- Postcode -->
         <com.google.android.material.textfield.TextInputLayout
@@ -185,7 +192,8 @@
             android:hint="Postcode"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPostcode"
@@ -199,7 +207,6 @@
             android:layout_height="wrap_content"
             android:text="Schooling Information"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:paddingBottom="8dp" />
 
         <!-- Institution Name -->
@@ -209,7 +216,8 @@
             android:hint="Institution Name"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etInstitutionName"
@@ -224,7 +232,8 @@
             android:hint="Course of Study"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCourseOfStudy"
@@ -239,7 +248,8 @@
             android:hint="Study Year"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etStudyYear"
@@ -255,7 +265,8 @@
             android:hint="Total Course Duration (years)"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTotalCourseDuration"
@@ -271,7 +282,8 @@
             android:hint="Annual Tuition Fee"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etAnnualTuitionFee"
@@ -286,7 +298,8 @@
             android:hint="Other Funding Sources"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <EditText
                 android:id="@+id/etOtherFundingSources"
@@ -303,7 +316,8 @@
             android:hint="Academic Achievements"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <EditText
                 android:id="@+id/etAcademicAchievements"
@@ -321,7 +335,8 @@
             android:hint="Financial Need Statement"
             android:textColorHint="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
             <EditText
                 android:id="@+id/etFinancialNeedStatement"
