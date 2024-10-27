@@ -4,22 +4,24 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingDefaultResource">
+    tools:ignore="MissingDefaultResource"
+    android:background="@drawable/forms_background">
 
     <DatePicker
         android:id="@+id/datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:headerBackground="@color/darker_blue"
+        android:layout_marginHorizontal="10dp"/>
+
     <Button
         android:id="@+id/btnSchedule"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="Schedule Appointment"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/darker_blue"
+        android:text="Schedule Appointment"
         android:textColor="@color/white"
         android:textSize="@dimen/_13ssp"/>
-
-
 
 
 </LinearLayout>

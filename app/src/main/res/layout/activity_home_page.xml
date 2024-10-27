@@ -191,12 +191,11 @@
 
                             <Button
                                 android:id="@+id/btn_home_affairs"
-                                android:layout_width="291dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
                                 android:backgroundTint="@color/darker_blue"
-                                android:text="Read More on Home Affairs"
+                                android:text="Read More"
                                 android:textColor="@color/white"
                                 tools:ignore="MissingConstraints" />
 
