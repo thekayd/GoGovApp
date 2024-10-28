@@ -2,11 +2,14 @@ package com.kayodedaniel.gogovmobile.activities
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.kayodedaniel.gogovmobile.R
@@ -25,6 +28,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private val client = OkHttpClient()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -32,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
         val emailInput = findViewById<EditText>(R.id.inputEmail)
         val passwordInput = findViewById<EditText>(R.id.InputPassword)
         val confirmPasswordInput = findViewById<EditText>(R.id.InputConfirmPassword)
-        val signUpButton = findViewById<MaterialButton>(R.id.buttonSignUp)
+        val signUpButton = findViewById<Button>(R.id.buttonSignUp)
         val signInText = findViewById<TextView>(R.id.textSignIn)
 
         signInText.setOnClickListener {
@@ -58,37 +62,46 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createUser(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val json = JSONObject()
-                json.put("email", email)
-                json.put("password", password)
+                // 1. First sign up the user
+                val signUpJson = JSONObject()
+                signUpJson.put("email", email)
+                signUpJson.put("password", password)
 
-                val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
+                val signUpBody = signUpJson.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
-                val request = Request.Builder()
+                val signUpRequest = Request.Builder()
                     .url("https://bgckkkxjfnkwgjzlancs.supabase.co/auth/v1/signup")
-                    .post(body)
+                    .post(signUpBody)
                     .addHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo")
                     .addHeader("Content-Type", "application/json")
                     .build()
 
-                client.newCall(request).execute().use { response ->
+                client.newCall(signUpRequest).execute().use { response ->
                     val responseBody = response.body?.string() ?: "Unknown error"
                     if (response.isSuccessful) {
+                        // Parse the response to get the user ID and access token
+                        val jsonResponse = JSONObject(responseBody)
+                        val userId = jsonResponse.getJSONObject("user").getString("id")
+                        val accessToken = jsonResponse.getString("access_token")
+
+                        // 2. Create the profile entry
+                        createProfile(userId, accessToken)
+
                         withContext(Dispatchers.Main) {
-                            // Save email to SharedPreferences
-                            saveEmailToPreferences(email)
+                            // Save email and access token to SharedPreferences
+                            saveUserDataToPreferences(email, accessToken, userId)
 
                             Toast.makeText(this@SignUpActivity, "Sign-up successful! Please check your email to confirm your account.", Toast.LENGTH_LONG).show()
                             navigateToSignIn()
                         }
                     } else {
                         Log.e("SignUpActivity", "Error response: $responseBody")
-                        val errorMessage = parseErrorMessage(responseBody)
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(this@SignUpActivity, errorMessage, Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@SignUpActivity,"Sign-Up failed",Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -99,26 +112,48 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun parseErrorMessage(responseBody: String): String {
-        return try {
-            val jsonObject = JSONObject(responseBody)
-            jsonObject.optString("msg", "An unknown error occurred")
-        } catch (e: Exception) {
-            "An unknown error occurred"
-        }
-    }
-
     private fun navigateToSignIn() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
         finish()
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private suspend fun createProfile(userId: String, accessToken: String) {
+        val profileJson = JSONObject()
+        profileJson.put("id", userId)
+        profileJson.put("name", "") // Empty name initially
+        profileJson.put("profile_image_url", "") // Empty image URL initially
+        profileJson.put("updated_at", getCurrentTimestamp())
 
-    private fun saveEmailToPreferences(email: String) {
+        val profileBody = profileJson.toString().toRequestBody("application/json".toMediaTypeOrNull())
+
+        val createProfileRequest = Request.Builder()
+            .url("https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/profiles")
+            .post(profileBody)
+            .addHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo")
+            .addHeader("Authorization", "Bearer $accessToken")
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Prefer", "return=minimal")
+            .build()
+
+        client.newCall(createProfileRequest).execute().use { response ->
+            if (!response.isSuccessful) {
+                Log.e("SignUpActivity", "Failed to create profile: ${response.body?.string()}")
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getCurrentTimestamp(): String {
+        return java.time.OffsetDateTime.now().toString()
+    }
+
+    private fun saveUserDataToPreferences(email: String, accessToken: String, userId: String) {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
             putString("USER_EMAIL", email)
+            putString("ACCESS_TOKEN", accessToken)
+            putString("USER_ID", userId)
             apply()
         }
     }
