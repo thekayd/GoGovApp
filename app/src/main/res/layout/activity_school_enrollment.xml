@@ -134,15 +134,49 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Upload Documents Button -->
-        <Button
-            android:id="@+id/btn_upload_documents"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Documents"
-            android:layout_marginBottom="12dp"
-            android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="106dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="91dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:padding="12dp"
+                app:cardCornerRadius="@dimen/_12ssp">
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Upload Documents" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="left|center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/documents" />
+
+                <Button
+                    android:id="@+id/btn_upload_documents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/green"
+                    android:text="Upload"
+                    android:textColor="@color/black" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
         <!-- Submit Button -->
         <Button

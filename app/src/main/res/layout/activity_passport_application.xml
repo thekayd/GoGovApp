@@ -25,10 +25,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please fill the passport application below"
+            android:text=" Please fill the passport application below "
             android:textSize="14sp"
             android:gravity="center"
             android:textColor="@color/black"
+            android:background="@drawable/labels"
             android:layout_gravity="center_horizontal"/>
 
         <!-- Name -->
@@ -201,43 +202,155 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Documents"
+            android:text=" Upload Documents "
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:background="@drawable/labels"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"/>
 
-        <Button
-            android:id="@+id/btnUploadPassportPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Passport Photo"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+        <!-- Upload passport photo -->
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="106dp">
 
-        <Button
-            android:id="@+id/btnUploadProofOfAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Proof of Address"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
 
-        <Button
-            android:id="@+id/btnUploadIdDocument"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload ID Document"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/darker_blue"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"/>
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="91dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:padding="12dp"
+                app:cardCornerRadius="@dimen/_12ssp">
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="66dp"
+                    android:layout_gravity="left|center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/passport" />
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Upload your
+                    Passport Photo" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnUploadPassportPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/green"
+                    android:textColor="@color/black"/>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+
+        <!-- Upload Proof of Address -->
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="106dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="91dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:padding="12dp"
+                app:cardCornerRadius="@dimen/_12ssp">
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="66dp"
+                    android:layout_gravity="left|center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/address" />
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Upload your Proof of Address" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnUploadProofOfAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/green"
+                    android:textColor="@color/black"/>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+
+        <!-- Upload ID Document -->
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="106dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="91dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:padding="12dp"
+                app:cardCornerRadius="@dimen/_12ssp">
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Upload your Identity Document" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="66dp"
+                    android:layout_gravity="left|center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/id" />
+
+                <Button
+                    android:id="@+id/btnUploadIdDocument"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/green"
+                    android:text="Upload"
+                    android:textColor="@color/black" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
 
         <CheckBox
             android:id="@+id/cbNDA"
