@@ -3,23 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     tools:ignore="MissingDefaultResource"
-    tools:context=".activities.IdRenewalActivity">
+    tools:context=".activities.IdRenewalActivity"
+    android:background="@drawable/forms_background">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_id_number"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID Renewal"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- ID Number -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID Number"
-            android:inputType="number"
-            android:layout_marginBottom="12dp"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_id_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Gender Dropdown -->
         <Spinner
             android:id="@+id/sp_gender"
             android:layout_width="match_parent"
@@ -27,42 +49,72 @@
             android:entries="@array/gender_options"
             android:layout_marginBottom="12dp"/>
 
+        <!-- Province Dropdown -->
         <Spinner
             android:id="@+id/sp_province"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/provinces"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginBottom="12dp" />
 
-        <EditText
-            android:id="@+id/et_address"
+        <!-- Address -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
-            android:inputType="textPostalAddress"
-            android:layout_marginBottom="12dp"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/et_city"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- City -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="City"
-            android:layout_marginBottom="12dp"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/et_postal_code"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Postal Code -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Postal Code"
-            android:inputType="number"
-            android:layout_marginBottom="12dp"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_postal_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Submit Button -->
         <Button
             android:id="@+id/btn_submit_renewal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Renewal"
-            android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"/>
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
     </LinearLayout>
 </ScrollView>

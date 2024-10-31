@@ -8,7 +8,7 @@
     android:clipToPadding="false"
     android:overScrollMode="never"
     android:padding="24dp"
-    android:background="@color/white"
+    android:background="@drawable/login_bg"
     android:scrollbars="none"
     tools:context=".activities.SignInActivity">
 
@@ -50,7 +50,7 @@
             android:paddingEnd="16dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="13dp" />
+            android:textSize="16dp" />
 
         <EditText
             android:id="@+id/InputPassword"
@@ -66,7 +66,7 @@
             android:paddingEnd="16dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="13dp" />
+            android:textSize="16dp" />
 
         <FrameLayout
             android:layout_width="match_parent"

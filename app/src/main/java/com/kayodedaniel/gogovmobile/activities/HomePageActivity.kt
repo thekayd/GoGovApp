@@ -4,13 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.gogovmobile.R
-import com.kayodedaniel.gogovmobile.activities.ViewAppointmentActivity
 import com.kayodedaniel.gogovmobile.chatbotactivity.ChatBotActivity
 
 class HomePageActivity : AppCompatActivity() {
@@ -47,6 +43,12 @@ class HomePageActivity : AppCompatActivity() {
                 R.id.nav_chat_bot -> {
                     // Navigate to ViewAppointmentActivity
                     startActivity(Intent(this, ChatBotActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.settings -> {
+                    // Navigate to ViewAppointmentActivity
+                    startActivity(Intent(this, SettingsActivity::class.java))
                     overridePendingTransition(0, 0)
                     true
                 }

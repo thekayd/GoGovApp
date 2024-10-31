@@ -7,41 +7,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".activities.TestDateSelectionActivity">
+    tools:context=".activities.TestDateSelectionActivity"
+    android:background="@drawable/sa">
 
-    <!-- Date picker button -->
-    <Button
-        android:id="@+id/btnPickTestDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pick Test Date" />
-
-    <!-- Display selected date -->
-    <TextView
-        android:id="@+id/tvSelectedDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selected Date: None"
-        android:paddingTop="8dp"
-        android:paddingBottom="16dp"/>
-
-    <!-- List of available time slots -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Available Time Slots:" />
-
-    <RadioGroup
-        android:id="@+id/rgTimeSlots"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:layout_height="139dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:elevation="4dp"
+        android:padding="12dp"
+        app:cardCornerRadius="@dimen/_12ssp">
+        <!-- Date picker button -->
+
+        <!-- Display selected date -->
+        <Button
+            android:id="@+id/btnPickTestDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/darker_blue"
+            android:text="Pick Test Date"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+        <!-- List of available time slots -->
+
+        <TextView
+            android:id="@+id/tvSelectedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="50dp"
+            android:paddingLeft="6dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="Selected Date: None" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Available Time Slots:"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="6dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"/>
+
+        <RadioGroup
+            android:id="@+id/rgTimeSlots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </androidx.cardview.widget.CardView>
 
     <!-- Next step button -->
     <Button
         android:id="@+id/btnNextStep"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Next Step"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/darker_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"/>
 </LinearLayout>

@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingDefaultResource"
-    tools:context=".DriversLicenseActivity">
+    tools:context=".DriversLicenseActivity"
+    android:background="@drawable/forms_background">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,164 +14,346 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Driver's License"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColor="@color/black"/>
+
         <!-- Name -->
-        <EditText
-            android:id="@+id/etName"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
-            android:inputType="textPersonName" />
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp"
+            app:boxStrokeColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Surname -->
-        <EditText
-            android:id="@+id/etSurname"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Surname"
-            android:inputType="textPersonName" />
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp"
+            app:boxStrokeColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSurname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- ID Number -->
-        <EditText
-            android:id="@+id/etIdNumber"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID Number"
-            android:inputType="number" />
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp"
+            app:boxStrokeColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etIdNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Gender Dropdown -->
         <Spinner
             android:id="@+id/spGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/gender_options" />
+            android:entries="@array/gender_options"
+            android:layout_marginBottom="8dp" />
 
         <!-- Province Dropdown -->
         <Spinner
             android:id="@+id/spProvince"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/province_options" />
+            android:entries="@array/province_options"
+            android:layout_marginBottom="8dp" />
 
         <!-- Address -->
-        <EditText
-            android:id="@+id/etAddress"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Address"
-            android:inputType="textPostalAddress" />
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="8dp"
+            app:boxStrokeColor="@color/black">
 
-        <!-- City -->
-        <EditText
-            android:id="@+id/etCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="City" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Postcode -->
-        <EditText
-            android:id="@+id/etPostcode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Postcode"
-            android:inputType="number" />
 
-        <!-- Email -->
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
-
-        <!-- Phone Number -->
-        <EditText
-            android:id="@+id/etPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:inputType="phone" />
-
-        <!-- Category of License Dropdown -->
+        <!-- License Category and Test Center Dropdowns -->
         <Spinner
             android:id="@+id/spLicenseCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/license_category_options" />
+            android:entries="@array/license_category_options"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Test Center Dropdown -->
         <Spinner
             android:id="@+id/spTestCenter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/test_center_options" />
+            android:entries="@array/test_center_options"
+            android:layout_marginBottom="8dp" />
 
         <!-- Date of Birth -->
         <TextView
             android:id="@+id/tvDobLabel"
-            android:layout_width="match_parent"
+            android:layout_width="261dp"
             android:layout_height="wrap_content"
-            android:text="Date of Birth" />
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/labels"
+            android:text="  Date of Birth" />
+
         <Button
             android:id="@+id/btnPickDob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pick Date of Birth" />
+            android:text="Pick Date of Birth"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:layout_marginBottom="8dp" />
 
+        <!-- Document Upload Buttons -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  Upload Documents: "
+            android:background="@drawable/labels"/>
+
+        <!-- Upload ID Document -->
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="106dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="91dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:padding="12dp"
+                app:cardCornerRadius="@dimen/_12ssp">
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Upload your Identity Document" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="66dp"
+                    android:layout_gravity="left|center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/id" />
+
+                <Button
+                    android:id="@+id/btnUploadIdDocument"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/green"
+                    android:text="Upload"
+                    android:textColor="@color/black" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+
+        <!-- Upload Passport Photo -->
+    <LinearLayout
+        android:layout_width="371dp"
+        android:layout_height="106dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="368dp"
+            android:layout_height="91dp"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            android:padding="12dp"
+            app:cardCornerRadius="@dimen/_12ssp">
+
+            <ImageView
+                android:layout_width="84dp"
+                android:layout_height="66dp"
+                android:layout_gravity="left|center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/passport" />
+
+            <LinearLayout
+                android:layout_width="182dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Upload your
+                    Passport Photo" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnUploadPassportPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload"
+                android:layout_gravity="right|center"
+                android:backgroundTint="@color/green"
+                android:textColor="@color/black"/>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+        <!-- Upload Proof of Address -->
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="106dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="91dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:padding="12dp"
+                app:cardCornerRadius="@dimen/_12ssp">
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="66dp"
+                    android:layout_gravity="left|center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/address" />
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Upload your Proof of Address" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnUploadProofOfAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/green"
+                    android:textColor="@color/black"/>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- Upload Eye Test Certificate -->
+        <LinearLayout
+            android:layout_width="371dp"
+            android:layout_height="106dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="91dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                android:padding="12dp"
+                app:cardCornerRadius="@dimen/_12ssp">
+
+                <ImageView
+                    android:layout_width="84dp"
+                    android:layout_height="66dp"
+                    android:layout_gravity="left|center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/certificate" />
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Upload your Eye Test Certificate" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnUploadEyeTestCertificate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload"
+                    android:layout_gravity="right|center"
+                    android:backgroundTint="@color/green"
+                    android:textColor="@color/black"/>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- NDA CheckBox -->
         <CheckBox
             android:id="@+id/checkboxNda1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I want to protect my data by signing an NDA" />
-
-        <!-- Document Uploads -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Documents:" />
-
-        <!-- Upload ID Document -->
-        <Button
-            android:id="@+id/btnUploadIdDocument"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload ID Document" />
-
-        <!-- Upload Passport Photo -->
-        <Button
-            android:id="@+id/btnUploadPassportPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Passport Photo" />
-
-        <!-- Upload Proof of Address -->
-        <Button
-            android:id="@+id/btnUploadProofOfAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Proof of Address" />
-
-        <!-- Upload Eye Test Certificate -->
-        <Button
-            android:id="@+id/btnUploadEyeTestCertificate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Eye Test Certificate" />
-
-        <!-- NDA CheckBox -->
-        <CheckBox
-            android:id="@+id/cbNDA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I want to protect my data by signing an NDA" />
+            android:text="I want to protect my data by signing an NDA"
+            android:layout_marginBottom="8dp" />
 
         <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit" />
+            android:text="Submit"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Footer Links -->
+        <!-- Footer Links
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -196,6 +380,6 @@
                 android:textColor="?android:attr/colorAccent"
                 android:paddingEnd="16dp" />
         </LinearLayout>
-
+-->
     </LinearLayout>
 </ScrollView>

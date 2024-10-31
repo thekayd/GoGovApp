@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     tools:ignore="MissingDefaultResource"
-    tools:context=".activities.EducationFormsActivity">
+    tools:context=".activities.EducationFormsActivity"
+    android:background="@drawable/clouds">
 
     <!-- Title -->
     <TextView
@@ -16,25 +18,135 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="16dp" />
+        android:paddingBottom="8dp"
+        android:textColor="@color/white"/>
 
-    <!-- Bursary Application Button -->
-    <Button
-        android:id="@+id/btn_bursary_application"
+    <!-- Description and Image -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bursary Application"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="8dp" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
-    <!-- School Enrollment Button -->
-    <Button
-        android:id="@+id/btn_school_enrollment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="School Enrollment"
-        android:backgroundTint="@color/black"
-        android:textColor="@android:color/white" />
+        <!-- Description Text -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="The Education Department provides services such as bursary applications and school enrollment assistance. Register to apply for educational opportunities and access resources."
+            android:textSize="14sp"
+            android:paddingEnd="8dp" />
+
+        <!-- Department Image -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/coatofarms"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <!-- Bursary Application Section -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="170dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:elevation="4dp"
+        android:padding="12dp"
+        app:cardCornerRadius="@dimen/_12ssp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="Bursary Application"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="Apply for a bursary to support your education. Bursaries are available to assist students with tuition fees, textbooks, and other educational expenses."
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <!-- Button -->
+            <Button
+                android:id="@+id/btn_bursary_application"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/darker_blue"
+                android:text="Bursary Application"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- School Enrollment Section -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="178dp"
+        android:backgroundTint="@color/white"
+        android:elevation="4dp"
+        android:padding="12dp"
+        app:cardCornerRadius="@dimen/_12ssp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="School Enrollment"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="Register for school enrollment assistance to help secure a place at the school of your choice. We guide you through the process and ensure all requirements are met."
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <!-- Button -->
+            <Button
+                android:id="@+id/btn_school_enrollment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/darker_blue"
+                android:text="School Enrollment"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

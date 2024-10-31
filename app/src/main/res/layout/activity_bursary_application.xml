@@ -2,7 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:background="@drawable/forms_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,139 +17,347 @@
             android:text="Bursary Application"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"/>
 
-        <EditText
-            android:id="@+id/etName"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"/>
+            android:text="Personal Information"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:textColorHint="@color/black"
+            />
 
-        <EditText
-            android:id="@+id/etSurname"
+        <!-- Name -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Surname"/>
+            android:hint="Name"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etIdNumber"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Surname -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ID Number"/>
+            android:hint="Surname"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSurname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ID Number -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID Number"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etIdNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Gender Spinner -->
         <Spinner
             android:id="@+id/spGender"
+            android:textColorHint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/gender_options"/>
+            android:entries="@array/gender_options"
+            android:layout_marginBottom="12dp"
+            android:outlineAmbientShadowColor="@color/darker_blue"/>
 
+        <!-- Date of Birth Button -->
         <Button
             android:id="@+id/btnPickDob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pick Date of Birth"/>
+            android:text="Pick Date of Birth"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            android:layout_marginBottom="12dp" />
 
-        <EditText
-            android:id="@+id/etEmail"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact Information"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@color/black"
+            android:layout_marginBottom="12dp">
 
-        <EditText
-            android:id="@+id/etPhoneNumber"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Phone Number -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
-            android:inputType="phone"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etAddress"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Address -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address"/>
+            android:hint="Address"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etCity"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- City -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="City"/>
+            android:hint="City"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Province Spinner -->
         <Spinner
             android:id="@+id/spProvince"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/province_options"/>
+            android:entries="@array/province_options"
+            android:textColorHint="@color/black"
+            android:layout_marginBottom="12dp"
+            android:outlineAmbientShadowColor="@color/darker_blue"/>
 
-        <EditText
-            android:id="@+id/etPostcode"
+        <!-- Postcode -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Postcode"
-            android:inputType="number"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etInstitutionName"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPostcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Institution Name"/>
+            android:text="Schooling Information"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
 
-        <EditText
-            android:id="@+id/etCourseOfStudy"
+        <!-- Institution Name -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Course of Study"/>
+            android:hint="Institution Name"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etStudyYear"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etInstitutionName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Course of Study -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course of Study"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCourseOfStudy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Study Year -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Study Year"
-            android:inputType="number"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etTotalCourseDuration"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etStudyYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Total Course Duration -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Total Course Duration (years)"
-            android:inputType="number"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etAnnualTuitionFee"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTotalCourseDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Annual Tuition Fee -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Annual Tuition Fee"
-            android:inputType="numberDecimal"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etOtherFundingSources"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAnnualTuitionFee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Other Funding Sources"/>
+            android:hint="Other Funding Sources"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etAcademicAchievements"
+            <EditText
+                android:id="@+id/etOtherFundingSources"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Other Funding Sources"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Academic Achievements"
-            android:inputType="textMultiLine"
-            android:lines="3"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
-        <EditText
-            android:id="@+id/etFinancialNeedStatement"
+            <EditText
+                android:id="@+id/etAcademicAchievements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Academic Achievements"
+                android:inputType="textMultiLine"
+                android:lines="3"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Financial Need Statement"
-            android:inputType="textMultiLine"
-            android:lines="5"/>
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginBottom="12dp"
+            app:boxStrokeColor="@color/black">
 
+            <EditText
+                android:id="@+id/etFinancialNeedStatement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Financial Need Statement"
+                android:inputType="textMultiLine"
+                android:lines="5"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Submit Button -->
         <Button
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Application"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/darker_blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"/>
 
     </LinearLayout>
 </ScrollView>

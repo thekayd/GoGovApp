@@ -38,7 +38,8 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
-        compose = true // Added from the second file
+        compose = true
+        viewBinding = true// Added from the second file
     }
 
     composeOptions {
@@ -92,6 +93,8 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.5.0")
     implementation("androidx.compose.material3:material3:1.2.0-alpha02") // Material3 theme
     implementation ("androidx.compose.ui:ui-tooling-preview:1.5.0")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.0")
 
 

@@ -5,6 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".chatbotactivity.ChatBotActivity">
+    tools:context=".chatbotactivity.ChatBotActivity"
+    android:background="@color/white">
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
