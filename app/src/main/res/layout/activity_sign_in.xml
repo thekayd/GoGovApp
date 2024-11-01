@@ -117,6 +117,22 @@
             android:textSize="13dp"
             android:textStyle="bold" />
 
+        <!-- Add this TextView at the bottom of the LinearLayout in activity_sign_in.xml -->
+        <TextView
+            android:id="@+id/textAdminLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:text="Admin"
+            android:textColor="@color/darker_blue"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+
     </LinearLayout>
 
 </ScrollView>

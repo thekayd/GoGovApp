@@ -67,15 +67,15 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        etName = findViewById(R.id.etName)
-        etSurname = findViewById(R.id.etSurname)
-        etIdNumber = findViewById(R.id.etIdNumber)
+        etName = findViewById(R.id.etNameInput)
+        etSurname = findViewById(R.id.etSurnameInput)
+        etIdNumber = findViewById(R.id.etIdNumberInput)
         spGender = findViewById(R.id.spGender)
-        etAddress = findViewById(R.id.etAddress)
-        etCity = findViewById(R.id.etCity)
-        etPostcode = findViewById(R.id.etPostcode)
-        etEmail = findViewById(R.id.etEmail)
-        etPhoneNumber = findViewById(R.id.etPhoneNumber)
+        etAddress = findViewById(R.id.etAddressInput)
+        etCity = findViewById(R.id.etCityInput)
+        etPostcode = findViewById(R.id.etPostcodeInput)
+        etEmail = findViewById(R.id.etEmailInput)
+        etPhoneNumber = findViewById(R.id.etPhoneNumberInput)
         spVaccineType = findViewById(R.id.spVaccineType)
         spVaccinationCenter = findViewById(R.id.spVaccinationCenter)
         btnPickDob = findViewById(R.id.btnPickDob)

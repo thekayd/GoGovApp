@@ -78,14 +78,17 @@ class DriversLicenseActivity : AppCompatActivity() {
         spGender = findViewById(R.id.spGender)
         spProvince = findViewById(R.id.spProvince)
         etAddress = findViewById(R.id.etAddress)
+
+        // Add these TextInputLayout fields to your XML
         etCity = findViewById(R.id.etCity)
         etPostcode = findViewById(R.id.etPostcode)
         etEmail = findViewById(R.id.etEmail)
         etPhoneNumber = findViewById(R.id.etPhoneNumber)
+
         spLicenseCategory = findViewById(R.id.spLicenseCategory)
         spTestCenter = findViewById(R.id.spTestCenter)
         btnPickDob = findViewById(R.id.btnPickDob)
-        cbNDA = findViewById(R.id.cbNDA)
+        cbNDA = findViewById(R.id.checkboxNda1) // Updated to match XML ID
         btnSubmit = findViewById(R.id.btnSubmit)
     }
 
