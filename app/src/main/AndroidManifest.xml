@@ -16,6 +16,9 @@
         android:theme="@style/Theme.GoGovMobile"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ScheduleAdminActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.CategoryApplicationsActivity"
             android:exported="false" />
         <activity

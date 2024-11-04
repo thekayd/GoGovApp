@@ -99,6 +99,7 @@ dependencies {
     implementation ("androidx.compose.ui:ui-tooling-preview:1.5.0")
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.recyclerview)
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.0")
 
     implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
