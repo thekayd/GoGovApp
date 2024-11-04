@@ -1,12 +1,18 @@
 package com.kayodedaniel.gogovmobile.activities
 
+import android.app.AlertDialog
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.gogovmobile.R
+import com.kayodedaniel.gogovmobile.utils.ApplicationStatusManager
+// import com.kayodedaniel.gogovmobile.utils.NotificationHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,9 +24,10 @@ import org.json.JSONObject
 
 class CategoryApplicationsActivity : AppCompatActivity() {
 
+    private val statusManager by lazy { ApplicationStatusManager(this) }
+    // private val notificationHelper by lazy { NotificationHelper(this) }
     private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co"
     private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +37,39 @@ class CategoryApplicationsActivity : AppCompatActivity() {
         fetchApplications(category)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showStatusDialog(
+        category: String,
+        applicationId: String,
+        userEmail: String,
+        newStatus: String
+    ) {
+        AlertDialog.Builder(this)
+            .setTitle("Confirm Status Change")
+            .setMessage("Are you sure you want to change the status to $newStatus?")
+            .setPositiveButton("Yes") { _, _ ->
+                statusManager.updateApplicationStatus(
+                    category = category,
+                    applicationId = applicationId,
+                    newStatus = newStatus,
+                    userEmail = userEmail,
+                    onSuccess = {
+                        /* notificationHelper.showNotification(
+                            "Application Status Updated",
+                            "Your $category application status has been changed to $newStatus"
+                        ) */
+                        // Refresh the applications list
+                        fetchApplications(category)
+                    }
+                ) { error ->
+                    Toast.makeText(this, "Error: $error", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun fetchApplications(category: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -62,8 +102,11 @@ class CategoryApplicationsActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun displayApplications(applications: JSONArray, category: String) {
         val container = findViewById<LinearLayout>(R.id.applicationsContainer)
+        container.removeAllViews()
+
         for (i in 0 until applications.length()) {
             val application = applications.getJSONObject(i)
             val view = LayoutInflater.from(this).inflate(R.layout.application_card, container, false)
@@ -74,6 +117,49 @@ class CategoryApplicationsActivity : AppCompatActivity() {
             val detailsText = formatApplicationDetails(application, category)
             view.findViewById<TextView>(R.id.textApplicationDetails).text = detailsText
 
+            val buttonsContainer = view.findViewById<LinearLayout>(R.id.statusButtonsContainer)
+            buttonsContainer.removeAllViews()
+
+            val applicationId = application.optString("id")
+
+            val approveButton = Button(this).apply {
+                text = "Approve"
+                setOnClickListener {
+                    showStatusDialog(
+                        category,
+                        applicationId,
+                        application.optString("email"),
+                        "Approved"
+                    )
+                }
+            }
+            buttonsContainer.addView(approveButton)
+
+            val rejectButton = Button(this).apply {
+                text = "Reject"
+                setOnClickListener {
+                    showStatusDialog(
+                        category,
+                        applicationId,
+                        application.optString("email"),
+                        "Rejected"
+                    )
+                }
+            }
+            buttonsContainer.addView(rejectButton)
+
+            val inProgressButton = Button(this).apply {
+                text = "In Progress"
+                setOnClickListener {
+                    showStatusDialog(
+                        category,
+                        applicationId,
+                        application.optString("email"),
+                        "In Progress"
+                    )
+                }
+            }
+            buttonsContainer.addView(inProgressButton)
             container.addView(view)
         }
     }

@@ -17,6 +17,10 @@ android {
         versionName = "1.0"
         multiDexEnabled = true
 
+        packagingOptions{
+            exclude("META-INF/DEPENDENCIES")
+        }
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -97,7 +101,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     debugImplementation("androidx.compose.ui:ui-tooling:1.5.0")
 
-
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+    implementation("com.google.android.gms:play-services-gcm:17.0.0") // Use the latest version
 
     // Firebase dependencies
     implementation(platform(libs.firebase.bom))
