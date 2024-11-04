@@ -110,6 +110,7 @@ dependencies {
     implementation(libs.makeramen.roundedimageview)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.auth)
+    implementation("androidx.biometric:biometric:1.2.0-alpha04")
 
     // Testing
     testImplementation(libs.junit)

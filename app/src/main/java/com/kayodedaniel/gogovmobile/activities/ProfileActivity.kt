@@ -96,56 +96,118 @@ class ProfileActivity : AppCompatActivity() {
         return true
     }
 
+    private fun getUserAccessToken(): String {
+        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val token = sharedPref.getString("ACCESS_TOKEN", "") ?: ""
+
+        // If token is empty, redirect to login
+        if (token.isEmpty()) {
+            runOnUiThread {
+                Toast.makeText(this, "Session expired. Please login again", Toast.LENGTH_LONG).show()
+                redirectToLogin()
+            }
+        }
+        return token
+    }
+
+    private fun redirectToLogin() {
+        val intent = Intent(this, SignInActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
     private fun updateUserProfile() {
         showLoading(true)
 
+        // Get token before making request
+        val accessToken = getUserAccessToken()
+        if (accessToken.isEmpty()) {
+            return // The getUserAccessToken function will handle the redirect
+        }
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // First update the user data in Supabase
-                val json = JSONObject().apply {
-                    put("email", emailInput.text.toString().trim())
-                    if (passwordInput.text.toString().isNotEmpty()) {
+                // Only proceed with password update if a new password is provided
+                if (passwordInput.text.toString().isNotEmpty()) {
+                    // First update the password
+                    val passwordJson = JSONObject().apply {
                         put("password", passwordInput.text.toString())
                     }
-                }
 
-                val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
+                    val passwordBody = passwordJson.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
-                val request = Request.Builder()
-                    .url("https://bgckkkxjfnkwgjzlancs.supabase.co/auth/v1/user")
-                    .put(body)
-                    .addHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo")
-                    .addHeader("Content-Type", "application/json")
-                    // You'll need to add the user's access token here
-                    .addHeader("Authorization", "Bearer ${getUserAccessToken()}")
-                    .build()
+                    val passwordRequest = Request.Builder()
+                        .url("https://bgckkkxjfnkwgjzlancs.supabase.co/auth/v1/user")
+                        .put(passwordBody)
+                        .addHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo")
+                        .addHeader("Content-Type", "application/json")
+                        .addHeader("Authorization", "Bearer $accessToken")
+                        .build()
 
-                client.newCall(request).execute().use { response ->
-                    val responseBody = response.body?.string() ?: "Unknown error"
+                    client.newCall(passwordRequest).execute().use { response ->
+                        val responseBody = response.body?.string() ?: "Unknown error"
 
+                        if (!response.isSuccessful) {
+                            when (response.code) {
+                                401 -> {
+                                    // Unauthorized - token expired or invalid
+                                    withContext(Dispatchers.Main) {
+                                        showLoading(false)
+                                        Toast.makeText(
+                                            this@ProfileActivity,
+                                            "Session expired. Please login again",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        redirectToLogin()
+                                    }
+                                    return@launch
+                                }
+                                else -> {
+                                    withContext(Dispatchers.Main) {
+                                        showLoading(false)
+                                        Toast.makeText(
+                                            this@ProfileActivity,
+                                            "Failed to update password: ${parseErrorMessage(responseBody)}",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                    return@launch
+                                }
+                            }
+                        }
+                    }
+
+                    // If password update was successful, show success message
                     withContext(Dispatchers.Main) {
                         showLoading(false)
+                        Toast.makeText(
+                            this@ProfileActivity,
+                            "Password updated successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                        if (response.isSuccessful) {
-                            // Update SharedPreferences with new email
-                            saveEmailToPreferences(emailInput.text.toString().trim())
-                            Toast.makeText(this@ProfileActivity, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-                            finish()
-                        } else {
-                            val errorMessage = parseErrorMessage(responseBody)
-                            Toast.makeText(this@ProfileActivity, errorMessage, Toast.LENGTH_LONG).show()
-                        }
+                        // Clear password fields
+                        passwordInput.setText("")
+                        confirmPasswordInput.setText("")
+
+                        finish()
                     }
                 }
 
             } catch (e: IOException) {
                 withContext(Dispatchers.Main) {
                     showLoading(false)
-                    Toast.makeText(this@ProfileActivity, "Update failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@ProfileActivity,
+                        "Update failed: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
     }
+
 
     private fun showLoading(show: Boolean) {
         progressBar.visibility = if (show) View.VISIBLE else View.GONE
@@ -169,10 +231,4 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserAccessToken(): String {
-        // Implement this method to retrieve the user's access token from your storage
-        // This could be SharedPreferences or another secure storage solution
-        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        return sharedPref.getString("ACCESS_TOKEN", "") ?: ""
-    }
 }
