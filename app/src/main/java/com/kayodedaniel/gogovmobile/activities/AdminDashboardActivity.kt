@@ -20,6 +20,10 @@ class AdminDashboardActivity : AppCompatActivity() {
             startActivity(Intent(this, ScheduleAdminActivity::class.java))
         }
 
+        findViewById<CardView>(R.id.carduserfeedback).setOnClickListener {
+            startActivity(Intent(this, AdminUserFeedbackActivity::class.java))
+        }
+
         findViewById<CardView>(R.id.cardLogout).setOnClickListener {
             finish() // Logs out the admin by closing the activity
         }
