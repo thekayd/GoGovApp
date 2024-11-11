@@ -24,6 +24,17 @@
             android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal"/>
 
+        <!-- Supporting subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Please fill the information below "
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/labels"
+            android:layout_gravity="center_horizontal"/>
+
         <!-- ID Number -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
