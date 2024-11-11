@@ -18,7 +18,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/amiko_bold"
+            android:layout_gravity="left"
             android:layout_marginBottom="16dp"/>
 
         <TextView

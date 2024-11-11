@@ -8,7 +8,30 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     tools:context=".activities.TestDateSelectionActivity"
-    android:background="@drawable/sa">
+    android:background="@drawable/forms_background">
+
+    <!-- Main Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Date Selection"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/amiko_bold"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="center"/>
+
+    <!-- Supporting subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Please follow the steps below "
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:background="@drawable/labels"
+        android:layout_gravity="center_horizontal"/>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
