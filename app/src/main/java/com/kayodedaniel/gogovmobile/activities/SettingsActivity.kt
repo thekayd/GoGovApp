@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.gogovmobile.R
@@ -79,17 +80,29 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun logoutUser() {
-        // Clear user session data
-        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            clear() // Clears all stored data, including tokens and user details
-            apply()
+        // Create a confirmation dialog
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Logout Confirmation")
+        builder.setMessage("Logging out will clear all your session data. You will need to log in with your email and password next time. Do you want to continue?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            // Clear user session data
+            val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+            with(sharedPref.edit()) {
+                clear() // Clears all stored data, including tokens and user details
+                apply()
+            }
+
+            // Redirect to SignInActivity
+            val intent = Intent(this, SignInActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish() // Close the current activity
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
         }
 
-        // Redirect to SignInActivity
-        val intent = Intent(this, SignInActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish() // Close the current activity
+        // Show the confirmation dialog
+        builder.show()
     }
 }

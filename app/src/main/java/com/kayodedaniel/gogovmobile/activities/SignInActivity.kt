@@ -84,7 +84,7 @@ class SignInActivity : AppCompatActivity() {
                     if (!accessToken.isNullOrEmpty()) {
                         navigateToHome()
                     } else {
-                        Toast.makeText(this@SignInActivity, "Error with stored token", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SignInActivity, "(User Token expired) Please Login with Email and password", Toast.LENGTH_SHORT).show()
                     }
                 }
 
