@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
 import com.kayodedaniel.gogovmobile.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,13 +59,13 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createUser(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // 1. First sign up the user
                 val signUpJson = JSONObject()
                 signUpJson.put("email", email)
                 signUpJson.put("password", password)
@@ -83,25 +82,20 @@ class SignUpActivity : AppCompatActivity() {
                 client.newCall(signUpRequest).execute().use { response ->
                     val responseBody = response.body?.string() ?: "Unknown error"
                     if (response.isSuccessful) {
-                        // Parse the response to get the user ID and access token
                         val jsonResponse = JSONObject(responseBody)
                         val userId = jsonResponse.getJSONObject("user").getString("id")
                         val accessToken = jsonResponse.getString("access_token")
 
-                        // 2. Create the profile entry
                         createProfile(userId, accessToken)
-
                         withContext(Dispatchers.Main) {
-                            // Save email and access token to SharedPreferences
                             saveUserDataToPreferences(email, accessToken, userId)
-
                             Toast.makeText(this@SignUpActivity, "Sign-up successful! Please check your email to confirm your account.", Toast.LENGTH_LONG).show()
                             navigateToSignIn()
                         }
                     } else {
                         Log.e("SignUpActivity", "Error response: $responseBody")
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(this@SignUpActivity,"Sign-Up failed",Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@SignUpActivity, "Sign-Up failed", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -112,21 +106,23 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun navigateToSignIn() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
         finish()
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun createProfile(userId: String, accessToken: String) {
-        val profileJson = JSONObject()
-        profileJson.put("id", userId)
-        profileJson.put("name", "") // Empty name initially
-        profileJson.put("profile_image_url", "") // Empty image URL initially
-        profileJson.put("updated_at", getCurrentTimestamp())
+        val profileJson = JSONObject().apply {
+            put("id", userId)
+            put("name", "")
+            put("profile_image_url", "")
+            put("updated_at", java.time.OffsetDateTime.now().toString())
+        }
 
         val profileBody = profileJson.toString().toRequestBody("application/json".toMediaTypeOrNull())
-
         val createProfileRequest = Request.Builder()
             .url("https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/profiles")
             .post(profileBody)
@@ -143,11 +139,6 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getCurrentTimestamp(): String {
-        return java.time.OffsetDateTime.now().toString()
-    }
-
     private fun saveUserDataToPreferences(email: String, accessToken: String, userId: String) {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
@@ -156,5 +147,10 @@ class SignUpActivity : AppCompatActivity() {
             putString("USER_ID", userId)
             apply()
         }
+    }
+
+    private fun getUserAccessToken(): String {
+        val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        return sharedPref.getString("ACCESS_TOKEN", "") ?: ""
     }
 }

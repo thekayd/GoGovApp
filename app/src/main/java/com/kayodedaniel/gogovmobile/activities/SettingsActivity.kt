@@ -29,6 +29,14 @@ class SettingsActivity : AppCompatActivity() {
             val intent = Intent(this, UserFeedbackActivity::class.java)
             startActivity(intent)
         }
+        binding.textTermsAndConditions.setOnClickListener {
+            val intent = Intent(this, TermsAndConditions::class.java)
+            startActivity(intent)
+        }
+        binding.textView2.setOnClickListener {
+            val intent = Intent(this, FAQActivity::class.java)
+            startActivity(intent)
+        }
         val logoutTextView = findViewById<TextView>(R.id.textViewLogout)
         logoutTextView.setOnClickListener {
             logoutUser()
