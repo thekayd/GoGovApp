@@ -54,7 +54,7 @@
         android:paddingLeft="18dp"
         android:text="User Feedback"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
