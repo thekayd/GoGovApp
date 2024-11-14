@@ -1,12 +1,22 @@
 package com.kayodedaniel.gogovmobile.activities
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.chatbotactivity.ChatBotActivity
@@ -46,9 +56,16 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_appointment)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+            }
+        }
+
         initializeViews()
         setupListeners()
         loadUserEmail()
+        createNotificationChannel()
         setupBottomNavigation()
         setupTimeSpinner() // Setup time dropdown menu
     }
@@ -74,7 +91,143 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         val userEmail = sharedPref.getString("USER_EMAIL", null)
         emailEditText.setText(userEmail)
     }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                Log.i("NotificationPermission", "Notification permission granted.")
+            } else {
+                Log.e("NotificationPermission", "Notification permission denied.")
+            }
+        }
+    }
+    private fun showAppointmentNotification(name: String, date: String, time: String) {
+        val notificationId = 1
+        val appointmentDetails = "Appointment for $name on $date at $time"
 
+        try {
+            // First check if notifications are enabled for the app
+            val notificationManager = NotificationManagerCompat.from(this)
+            if (!notificationManager.areNotificationsEnabled()) {
+                Log.e("Notification", "Notifications are disabled for the app")
+                Toast.makeText(
+                    this,
+                    "Please enable notifications in system settings to receive appointment reminders",
+                    Toast.LENGTH_LONG
+                ).show()
+                // Optionally open notification settings
+                val intent = Intent().apply {
+                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+                    putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                }
+                startActivity(intent)
+                return
+            }
+
+            // Check for POST_NOTIFICATIONS permission
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.POST_NOTIFICATIONS
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    Log.e("Notification", "POST_NOTIFICATIONS permission not granted")
+                    // Request the permission
+                    requestPermissions(
+                        arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                        1
+                    )
+                    return
+                }
+            }
+
+            // Create the notification
+            val builder = NotificationCompat.Builder(this, "appointment_channel")
+                .setSmallIcon(R.drawable.ic_notification) // Make sure this exists
+                .setContentTitle("Appointment Scheduled")
+                .setContentText(appointmentDetails)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+
+            // Create a PendingIntent for when the notification is tapped
+            val intent = Intent(this, ViewAppointmentActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+            builder.setContentIntent(pendingIntent)
+
+            // Show the notification
+            notificationManager.notify(notificationId, builder.build())
+            Log.d("Notification", "Notification sent successfully")
+
+        } catch (e: Exception) {
+            Log.e("Notification", "Error showing notification: ${e.message}", e)
+            Toast.makeText(
+                this,
+                "Failed to show notification: ${e.message}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+    // Update createNotificationChannel to include logging
+    private fun createNotificationChannel() {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(
+                    "appointment_channel",
+                    "Appointment Notifications",
+                    NotificationManager.IMPORTANCE_HIGH
+                ).apply {
+                    description = "Channel for appointment notifications"
+                    enableLights(true)
+                    enableVibration(true)
+                }
+
+                val notificationManager: NotificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.createNotificationChannel(channel)
+                Log.d("Notification", "Notification channel created successfully")
+            }
+        } catch (e: Exception) {
+            Log.e("Notification", "Error creating notification channel: ${e.message}", e)
+        }
+    }
+    private fun scheduleReminder(name: String, surname: String, date: String, time: String) {
+        // For Android 12+ check for SCHEDULE_EXACT_ALARM permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (!getSystemService(AlarmManager::class.java).canScheduleExactAlarms()) {
+                // Request permission from the user
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                startActivity(intent)
+                return
+            }
+        }
+
+        // Alarm scheduling code remains the same
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val appointmentDateTime = dateFormat.parse("$date $time")?.time ?: return
+        val reminderTime = appointmentDateTime - 24 * 60 * 60 * 1000  // 24 hours before
+
+        val intent = Intent(this, AlarmReceiver::class.java).apply {
+            putExtra("name", name)
+            putExtra("surname", surname)
+            putExtra("appointment_time", time)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent)
+    }
     private fun setupBottomNavigation() {
         bottomNavigationView.selectedItemId = R.id.nav_schedule
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
@@ -197,6 +350,8 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                                 "Appointment scheduled successfully!",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            scheduleReminder(name, surname, date, time)
+                            showAppointmentNotification(name, date, time)
                             finish()
                         } else {
                             val errorBody = response.body?.string() ?: "No error body"
