@@ -1,0 +1,29 @@
+Frequently Asked Questions (FAQs)
+
+Last updated: 2024/10/06
+
+** 1. How do I create an account? **
+To create an account, go to the "Sign Up" page, enter a valid email address, and set a secure password. You will receive a verification email to confirm your account.
+
+** 2. What if I forget my password? **
+On the login page, tap "Forgot Password?" and follow the instructions to reset your password via email.
+
+** 3. How do I update my profile information? **
+To update your profile information, go to the "Settings" page and select "Edit Profile." Make any necessary changes and save them to update your account.
+
+** 4. How do I delete my account? **
+If you wish to delete your account, please contact support at Nerfdesigns@gmail.com. Note that account deletion is permanent.
+
+** 5. Is my data secure? **
+Yes, we use advanced encryption and security protocols to keep your data safe. For more information, see our Privacy Policy.
+
+** 6. Can I use fingerprint authentication? **
+Yes, fingerprint authentication is available on supported devices. Enable it in the "Settings" under "Security."
+
+** 7. What should I do if the app is not working correctly? **
+Try restarting the app or your device. If issues persist, check your internet connection or contact support at Nerfdesigns@gmail.com.
+
+** 8. How can I contact support? **
+For any inquiries, feedback, or support requests, please email us at Nerfdesigns@gmail.com.
+
+Thank you for choosing GoGov. We are here to assist you with any questions or issues you may encounter.

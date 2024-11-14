@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/lighter_blue"
     tools:context=".activities.AdminDashboardActivity">
 
     <LinearLayout
@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
+            app:cardElevation="4dp"
+            android:backgroundTint="@color/lighter_blue">
 
             <LinearLayout
                 android:layout_width="match_parent"

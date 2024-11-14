@@ -24,11 +24,12 @@
             android:paddingBottom="8dp"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Personal Information"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            android:background="@drawable/labels"
+            android:paddingBottom="8dp"
+            android:text="  Personal Information  "
+            android:textStyle="bold" />
 
         <!-- Name -->
         <com.google.android.material.textfield.TextInputLayout
@@ -92,11 +93,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Residential Information"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:background="@drawable/labels"
+            android:text="  Residential Information  "
+            android:textStyle="bold" />
 
         <!-- Address -->
         <com.google.android.material.textfield.TextInputLayout
@@ -136,11 +138,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact Information"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:background="@drawable/labels"
+            android:text="  Contact Information  "
+            android:textStyle="bold" />
 
         <!-- Email -->
         <com.google.android.material.textfield.TextInputLayout

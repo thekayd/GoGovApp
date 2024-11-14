@@ -20,8 +20,19 @@
             android:text="ID Renewal"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:fontFamily="@font/amiko_bold"
             android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- Supporting subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Please fill the information below "
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/labels"
             android:layout_gravity="center_horizontal"/>
 
         <!-- ID Number -->
@@ -116,5 +127,10 @@
             android:backgroundTint="@color/darker_blue"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp"/>
+
+        <ImageView
+            android:layout_width="103dp"
+            android:layout_height="101dp"
+            android:src="@drawable/mascot_v2" />
     </LinearLayout>
 </ScrollView>

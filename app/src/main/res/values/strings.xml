@@ -225,5 +225,9 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="accept_and_continue">Accept and Continue</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="continue_faq">Continue</string>
 
 </resources>

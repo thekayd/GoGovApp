@@ -18,10 +18,15 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="165dp"
+            android:layout_height="127dp"
+            android:src="@drawable/mascot" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_64ssp"
+            android:layout_marginTop="@dimen/_30ssp"
             android:text="@string/welcome_back"
             android:textColor="@color/black"
             android:textSize="24dp"

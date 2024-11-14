@@ -20,6 +20,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="darker_blue">#1C2B78</color>
+    <color name="lighter_blue">#AABDDF</color>
     <color name="transparent">#80ECECEC</color>
     <color name="green">#bce3a5</color>
 </resources>

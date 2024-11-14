@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.gogovmobile.R
+import com.kayodedaniel.gogovmobile.chatbotactivity.ChatBotActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -83,13 +84,22 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     true
                 }
+                R.id.nav_schedule -> true
 
                 R.id.nav_view_appointment -> {
                     startActivity(Intent(this, ViewAppointmentActivity::class.java))
                     overridePendingTransition(0, 0)
                     true
                 }
-
+                R.id.nav_chat_bot -> {
+                    startActivity(Intent(this, ChatBotActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true}
                 else -> false
             }
         }

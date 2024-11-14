@@ -17,12 +17,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Driver's License"
             android:layout_gravity="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:fontFamily="@font/amiko_bold"
             android:paddingBottom="8dp"
-            android:textColor="@color/black"/>
+            android:text="Driver's License"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <!-- Name -->
         <com.google.android.material.textfield.TextInputLayout
@@ -227,7 +227,8 @@
                 android:backgroundTint="@color/white"
                 android:elevation="4dp"
                 android:padding="12dp"
-                app:cardCornerRadius="@dimen/_12ssp">
+                app:cardCornerRadius="@dimen/_12ssp"
+                android:layout_gravity="center">
 
                 <LinearLayout
                     android:layout_width="182dp"
@@ -253,9 +254,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center"
-                    android:backgroundTint="@color/green"
+                    android:backgroundTint="@color/lighter_blue"
                     android:text="Upload"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
 
             </androidx.cardview.widget.CardView>
         </LinearLayout>
@@ -273,7 +274,8 @@
             android:backgroundTint="@color/white"
             android:elevation="4dp"
             android:padding="12dp"
-            app:cardCornerRadius="@dimen/_12ssp">
+            app:cardCornerRadius="@dimen/_12ssp"
+            android:layout_gravity="center">
 
             <ImageView
                 android:layout_width="84dp"
@@ -302,8 +304,8 @@
                 android:layout_height="wrap_content"
                 android:text="Upload"
                 android:layout_gravity="right|center"
-                android:backgroundTint="@color/green"
-                android:textColor="@color/black"/>
+                android:backgroundTint="@color/lighter_blue"
+                android:textColor="@color/white"/>
 
         </androidx.cardview.widget.CardView>
     </LinearLayout>
@@ -321,7 +323,8 @@
                 android:backgroundTint="@color/white"
                 android:elevation="4dp"
                 android:padding="12dp"
-                app:cardCornerRadius="@dimen/_12ssp">
+                app:cardCornerRadius="@dimen/_12ssp"
+                android:layout_gravity="center">
 
                 <ImageView
                     android:layout_width="84dp"
@@ -349,8 +352,8 @@
                     android:layout_height="wrap_content"
                     android:text="Upload"
                     android:layout_gravity="right|center"
-                    android:backgroundTint="@color/green"
-                    android:textColor="@color/black"/>
+                    android:backgroundTint="@color/lighter_blue"
+                    android:textColor="@color/white"/>
 
             </androidx.cardview.widget.CardView>
         </LinearLayout>
@@ -367,7 +370,8 @@
                 android:backgroundTint="@color/white"
                 android:elevation="4dp"
                 android:padding="12dp"
-                app:cardCornerRadius="@dimen/_12ssp">
+                app:cardCornerRadius="@dimen/_12ssp"
+                android:layout_gravity="center">
 
                 <ImageView
                     android:layout_width="84dp"
@@ -395,8 +399,8 @@
                     android:layout_height="wrap_content"
                     android:text="Upload"
                     android:layout_gravity="right|center"
-                    android:backgroundTint="@color/green"
-                    android:textColor="@color/black"/>
+                    android:backgroundTint="@color/lighter_blue"
+                    android:textColor="@color/white"/>
 
             </androidx.cardview.widget.CardView>
         </LinearLayout>
