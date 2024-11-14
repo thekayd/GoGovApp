@@ -104,6 +104,10 @@ dependencies {
 
     implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0") // Use the latest version
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
+
 
     // Firebase dependencies
     implementation(platform(libs.firebase.bom))
