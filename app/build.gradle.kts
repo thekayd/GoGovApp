@@ -105,6 +105,7 @@ dependencies {
     implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0") // Use the latest version
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.itextpdf:itext7-core:7.1.15")
 
 
 

@@ -230,4 +230,10 @@
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="continue_faq">Continue</string>
 
+    <string-array name="report_types">
+        <item>Monthly Report</item>
+        <item>Quarterly Report</item>
+        <item>Yearly Report</item>
+    </string-array>
+
 </resources>

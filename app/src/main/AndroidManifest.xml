@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+
 
 
     <application
@@ -18,16 +22,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GoGovMobile"
         tools:targetApi="31">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <activity
+            android:name=".activities.AdminAnalyticsActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.AdminReportActivity"
             android:exported="false" />
         <activity
-
             android:name=".activities.TermsAndConditions"
             android:exported="false" />
         <activity
             android:name=".activities.FAQActivity"
-
             android:exported="false" />
         <activity
             android:name=".activities.AdminUserFeedbackActivity"
@@ -132,7 +146,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".activities.AlarmReceiver" android:exported="false" />
+
+        <receiver
+            android:name=".activities.AlarmReceiver"
+            android:exported="false" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
