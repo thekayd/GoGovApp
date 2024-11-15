@@ -12,7 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.kayodedaniel.gogovmobile.PaymentActivity
+import com.kayodedaniel.gogovmobile.activities.PaymentActivity
 import com.kayodedaniel.gogovmobile.R
 import java.util.Calendar
 

@@ -168,7 +168,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@BursaryApplicationActivity, "Bursary application submitted successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@BursaryApplicationActivity, ApplicationProgressActivity::class.java)
+                        val intent = Intent(this@BursaryApplicationActivity, PaymentActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {

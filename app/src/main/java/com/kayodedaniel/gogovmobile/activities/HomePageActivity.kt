@@ -8,11 +8,22 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.chatbotactivity.ChatBotActivity
+import com.kayodedaniel.gogovmobile.utils.NotificationHelper
 
 class HomePageActivity : AppCompatActivity() {
+    private lateinit var notificationHelper: NotificationHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
+
+        // Initialize NotificationHelper
+        notificationHelper = NotificationHelper(this)
+
+        // Check notification permission when the app opens
+        if (!notificationHelper.hasNotificationPermission()) {
+            notificationHelper.requestNotificationPermission()
+        }
 
         val transportationButton: Button = findViewById(R.id.btn_transportation)
         val healthButton: Button = findViewById(R.id.btn_health)
@@ -27,27 +38,23 @@ class HomePageActivity : AppCompatActivity() {
         // Handle navigation item clicks
         bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
-                R.id.nav_home -> true // Stay on this activity
+                R.id.nav_home -> true
                 R.id.nav_schedule -> {
-                    // Navigate to ScheduleAppointmentActivity
                     startActivity(Intent(this, ScheduleAppointmentActivity::class.java))
                     overridePendingTransition(0, 0)
                     true
                 }
                 R.id.nav_view_appointment -> {
-                    // Navigate to ViewAppointmentActivity
                     startActivity(Intent(this, ViewAppointmentActivity::class.java))
                     overridePendingTransition(0, 0)
                     true
                 }
                 R.id.nav_chat_bot -> {
-                    // Navigate to ViewAppointmentActivity
                     startActivity(Intent(this, ChatBotActivity::class.java))
                     overridePendingTransition(0, 0)
                     true
                 }
                 R.id.settings -> {
-                    // Navigate to ViewAppointmentActivity
                     startActivity(Intent(this, SettingsActivity::class.java))
                     overridePendingTransition(0, 0)
                     true
@@ -56,28 +63,21 @@ class HomePageActivity : AppCompatActivity() {
             }
         }
 
-        // Transportation Button Click
+        // Button click listeners
         transportationButton.setOnClickListener {
-            val intent = Intent(this, TransportationFormsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, TransportationFormsActivity::class.java))
         }
 
-        // Health Button Click
         healthButton.setOnClickListener {
-            val intent = Intent(this, HealthFormsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, HealthFormsActivity::class.java))
         }
 
-        // Education Button Click
         educationButton.setOnClickListener {
-            val intent = Intent(this, EducationFormsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, EducationFormsActivity::class.java))
         }
 
-        // Home Affairs Button Click
         homeAffairsButton.setOnClickListener {
-            val intent = Intent(this, HomeAffairsFormsActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, HomeAffairsFormsActivity::class.java))
         }
     }
 }

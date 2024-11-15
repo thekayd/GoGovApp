@@ -199,7 +199,7 @@ class PassportApplicationActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@PassportApplicationActivity, "Passport application submitted successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@PassportApplicationActivity, ApplicationProgressActivity::class.java)
+                        val intent = Intent(this@PassportApplicationActivity, PaymentActivity::class.java)
                         startActivity(intent)
                     } else {
                         val errorBody = response.body?.string() ?: "Unknown error"

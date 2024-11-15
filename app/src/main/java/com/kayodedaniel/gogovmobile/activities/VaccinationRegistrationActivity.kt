@@ -91,12 +91,14 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            selectedDob = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-            btnPickDob.text = selectedDob
+            // Convert to ISO 8601 format
+            selectedDob = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+            btnPickDob.text = selectedDob // Display in button
         }, year, month, day)
         datePickerDialog.show()
         Log.d(TAG, "pickDateOfBirth: Date picker dialog shown")
     }
+
 
     private fun submitForm() {
         Log.d(TAG, "submitForm: Attempting to submit form")
@@ -158,7 +160,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         Log.d(TAG, "submitForm: Registration successful")
                         Toast.makeText(this@VaccinationRegistrationActivity, "Vaccination registration submitted successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@VaccinationRegistrationActivity, ApplicationProgressActivity::class.java)
+                        val intent = Intent(this@VaccinationRegistrationActivity, PaymentActivity::class.java)
                         startActivity(intent)
                     } else {
                         val errorBody = response.body?.string() ?: "Unknown error"

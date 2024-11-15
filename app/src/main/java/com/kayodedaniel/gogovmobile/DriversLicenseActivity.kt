@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.gogovmobile.activities.ApplicationProgressActivity
+import com.kayodedaniel.gogovmobile.activities.PaymentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -190,7 +191,7 @@ class DriversLicenseActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@DriversLicenseActivity, "Form submitted successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@DriversLicenseActivity, ApplicationProgressActivity::class.java)
+                        val intent = Intent(this@DriversLicenseActivity, PaymentActivity::class.java)
                         startActivity(intent)
                     } else {
                         val errorBody = response.body?.string() ?: "Unknown error"
