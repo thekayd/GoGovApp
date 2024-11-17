@@ -236,4 +236,19 @@
         <item>Yearly Report</item>
     </string-array>
 
+    <string-array name="passport_types">
+        <item>Tourist Passport</item>
+        <item>Business Passport</item>
+        <item>Diplomatic Passport</item>
+        <item>Emergency Passport</item>
+    </string-array>
+
+    <string-array name="processing_centers">
+        <item>Pretoria</item>
+        <item>Cape Town</item>
+        <item>Durban</item>
+        <item>Port Elizabeth</item>
+        <item>Johannesburg</item>
+    </string-array>
+
 </resources>
