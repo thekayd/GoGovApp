@@ -16,7 +16,7 @@ class EducationFormsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_education_forms)
 
         val btnBursaryApplication: Button = findViewById(R.id.btn_bursary_application)
-        val btnSchoolEnrollment: Button = findViewById(R.id.btn_school_enrollment)
+
 
         // Bursary Application Button Click
         btnBursaryApplication.setOnClickListener {
@@ -24,10 +24,6 @@ class EducationFormsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // School Enrollment Button Click
-        btnSchoolEnrollment.setOnClickListener {
-            val intent = Intent(this, SchoolEnrollmentActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 }

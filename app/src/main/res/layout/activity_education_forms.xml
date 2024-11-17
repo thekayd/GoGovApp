@@ -98,54 +98,85 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- School Enrollment Section -->
+    <!-- Additional Information Card -->
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="178dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
         android:elevation="4dp"
-        android:padding="12dp"
         app:cardCornerRadius="@dimen/_12ssp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <!-- Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:text="School Enrollment"
+                android:text="Important Information"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:paddingBottom="12dp"/>
 
-            <!-- Description -->
+            <!-- Eligibility Criteria -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:text="Register for school enrollment assistance to help secure a place at the school of your choice. We guide you through the process and ensure all requirements are met."
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <!-- Button -->
-            <Button
-                android:id="@+id/btn_school_enrollment"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="@color/darker_blue"
-                android:text="School Enrollment"
-                android:textColor="@android:color/white" />
+                android:text="Eligibility Criteria:"
+                android:textColor="@color/darker_blue"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:paddingBottom="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• South African citizen\n• Good academic performance (60% average)\n• Demonstrated financial need\n• Accepted at a recognized institution"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:paddingBottom="12dp"/>
+
+            <!-- Required Documents -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Required Documents:"
+                android:textColor="@color/darker_blue"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:paddingBottom="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Valid South African ID\n• Latest academic results\n• Proof of household income\n• Acceptance letter from institution\n• Certified copies of parent/guardian IDs"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:paddingBottom="12dp"/>
+
+            <!-- Processing Times -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Processing Times:"
+                android:textColor="@color/darker_blue"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:paddingBottom="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Application review: 4-6 weeks\n• Final decision: 2-3 weeks after review\n• Disbursement: Within 3 weeks of approval"
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
