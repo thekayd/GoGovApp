@@ -22,7 +22,7 @@ class VerifiedPaymentActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var checkmark: ImageView
     private lateinit var statusText: TextView
-    private lateinit var btnViewApplications: Button
+    private lateinit var btnBackToHome: Button
     private lateinit var btnDownloadReceipt: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class VerifiedPaymentActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         checkmark = findViewById(R.id.checkmark)
         statusText = findViewById(R.id.statusText)
-        btnViewApplications = findViewById(R.id.btnViewApplications)
+        btnBackToHome = findViewById(R.id.btnBackToHome)
         btnDownloadReceipt = findViewById(R.id.btnDownloadReceipt)
     }
 
@@ -48,14 +48,14 @@ class VerifiedPaymentActivity : AppCompatActivity() {
             progressBar.visibility = View.GONE
             checkmark.visibility = View.VISIBLE
             statusText.text = "Thank you for your payment, your payment will be verified soon."
-            btnViewApplications.visibility = View.VISIBLE
+            btnBackToHome.visibility = View.VISIBLE
             btnDownloadReceipt.visibility = View.VISIBLE
         }
     }
 
     private fun setupButtons() {
-        btnViewApplications.setOnClickListener {
-            startActivity(Intent(this, ApplicationProgressActivity::class.java))
+        btnBackToHome.setOnClickListener {
+            startActivity(Intent(this, HomePageActivity::class.java))
             finish()
         }
 

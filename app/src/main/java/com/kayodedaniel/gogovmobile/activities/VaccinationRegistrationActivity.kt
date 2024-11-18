@@ -3,6 +3,7 @@ package com.kayodedaniel.gogovmobile.activities
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -18,6 +19,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.*
+import android.util.Base64
 
 class VaccinationRegistrationActivity : AppCompatActivity() {
 
@@ -40,8 +42,14 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
     private lateinit var btnPickDob: Button
     private lateinit var cbConsent: CheckBox
     private lateinit var btnSubmit: Button
+    private lateinit var btnUploadID: Button
+    private lateinit var btnUploadProofOfResidence: Button
+    private lateinit var btnUploadMedicalRecords: Button
 
     private var selectedDob: String? = null
+    private var idDocumentUri: Uri? = null
+    private var proofOfResidenceUri: Uri? = null
+    private var medicalRecordsStatementUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +61,18 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
 
         btnPickDob.setOnClickListener {
             pickDateOfBirth()
+        }
+
+        btnUploadID.setOnClickListener {
+            pickFile(1)
+        }
+
+        btnUploadProofOfResidence.setOnClickListener {
+            pickFile(2)
+        }
+
+        btnUploadMedicalRecords.setOnClickListener {
+            pickFile(3)
         }
 
         btnSubmit.setOnClickListener {
@@ -79,11 +99,55 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         spVaccineType = findViewById(R.id.spVaccineType)
         spVaccinationCenter = findViewById(R.id.spVaccinationCenter)
         btnPickDob = findViewById(R.id.btnPickDob)
+        btnUploadID = findViewById(R.id.btnUploadID)
+        btnUploadProofOfResidence = findViewById(R.id.btnUploadProofOfResidence)
+        btnUploadMedicalRecords = findViewById(R.id.btnUploadMedicalRecords)
         cbConsent = findViewById(R.id.cbConsent)
         btnSubmit = findViewById(R.id.btnSubmit)
+
+
         Log.d(TAG, "initializeViews: Views initialized")
     }
 
+    private fun pickFile(requestCode: Int) {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        startActivityForResult(intent, requestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && data != null) {
+            val fileUri = data.data
+            when (requestCode) {
+                1 -> {
+                    idDocumentUri = fileUri
+                    btnUploadID.text = "ID Uploaded"
+                }
+                2 -> {
+                    proofOfResidenceUri = fileUri
+                    btnUploadProofOfResidence.text = "Proof Uploaded"
+                }
+                3 -> {
+                    medicalRecordsStatementUri = fileUri
+                    btnUploadMedicalRecords.text = "Records Uploaded"
+                }
+            }
+        }
+    }
+
+    private fun getBase64FromUri(uri: Uri?): String? {
+        if (uri == null) return null
+
+        return try {
+            val inputStream = contentResolver.openInputStream(uri)
+            val bytes = inputStream?.readBytes()
+            inputStream?.close()
+            Base64.encodeToString(bytes, Base64.NO_WRAP)
+        } catch (e: Exception) {
+            null
+        }
+    }
     private fun pickDateOfBirth() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -115,6 +179,9 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         val vaccineType = spVaccineType.selectedItem.toString()
         val vaccinationCenter = spVaccinationCenter.selectedItem.toString()
         val dob = selectedDob ?: ""
+        val idDocumentBase64 = getBase64FromUri(idDocumentUri)
+        val proofOfResidenceBase64 = getBase64FromUri(proofOfResidenceUri)
+        val medicalRecordsBase64 = getBase64FromUri(medicalRecordsStatementUri)
 
         if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty() || !cbConsent.isChecked) {
             Log.w(TAG, "submitForm: Form validation failed")
@@ -136,6 +203,9 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
             put("vaccination_center", vaccinationCenter)
             put("date_of_birth", dob)
             put("status", "Registered")
+            put("id_document", idDocumentBase64)
+            put("proof_of_residence", proofOfResidenceBase64)
+            put("medical_records", medicalRecordsBase64)
         }
 
         Log.d(TAG, "submitForm: Prepared JSON data: $json")

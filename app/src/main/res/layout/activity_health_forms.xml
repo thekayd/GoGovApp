@@ -50,53 +50,53 @@
         </LinearLayout>
 
         <!-- Medical Aid Application Section -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/white"
-            android:elevation="4dp"
-            app:cardCornerRadius="@dimen/_12ssp">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:elevation="4dp"-->
+<!--            app:cardCornerRadius="@dimen/_12ssp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:orientation="vertical">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="16dp"-->
+<!--                android:orientation="vertical">-->
 
-                <!-- Title -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:paddingBottom="8dp"
-                    android:text="Medical Aid Application"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+<!--                &lt;!&ndash; Title &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:text="Medical Aid Application"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <!-- Description -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingBottom="8dp"
-                    android:text="The Medical Aid Application service is designed to assist citizens in accessing essential health care services through affordable medical coverage. By applying for medical aid, individuals can receive financial support for a wide range of health-related expenses, such as hospital visits, medications, specialist consultations, and emergency care."
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+<!--                &lt;!&ndash; Description &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:text="The Medical Aid Application service is designed to assist citizens in accessing essential health care services through affordable medical coverage. By applying for medical aid, individuals can receive financial support for a wide range of health-related expenses, such as hospital visits, medications, specialist consultations, and emergency care."-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="14sp" />-->
 
-                <!-- Button -->
-                <Button
-                    android:id="@+id/btn_medical_aid_application"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:backgroundTint="@color/darker_blue"
-                    android:text="Medical Aid Application"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+<!--                &lt;!&ndash; Button &ndash;&gt;-->
+<!--                <Button-->
+<!--                    android:id="@+id/btn_medical_aid_application"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:backgroundTint="@color/darker_blue"-->
+<!--                    android:text="Medical Aid Application"-->
+<!--                    android:textColor="@android:color/white" />-->
+<!--            </LinearLayout>-->
+<!--        </androidx.cardview.widget.CardView>-->
 
         <!-- Vaccination Registration Section -->
         <androidx.cardview.widget.CardView

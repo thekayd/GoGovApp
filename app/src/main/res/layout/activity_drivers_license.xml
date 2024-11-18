@@ -286,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center"
-                    android:backgroundTint="@color/lighter_blue"
+                    android:backgroundTint="@color/blueish"
                     android:text="Upload"
                     android:textColor="@color/white" />
 

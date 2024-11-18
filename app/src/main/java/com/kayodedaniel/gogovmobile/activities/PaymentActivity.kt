@@ -70,7 +70,7 @@ class PaymentActivity : AppCompatActivity() {
             callingActivity.contains("PassportApplicationActivity") -> 600.00
             callingActivity.contains("BursaryApplicationActivity") -> 250.00
             callingActivity.contains("DriversLicenseActivity") -> 200.00
-            else -> 100.00
+            else -> 200.00
         }
 
         // Update the TextView

@@ -33,21 +33,21 @@
         android:textColor="@color/black"/>
 
     <Button
-        android:id="@+id/btnViewApplications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Applications"
-        android:layout_marginTop="32dp"
-        android:visibility="gone"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/darker_blue"/>
-
-    <Button
         android:id="@+id/btnDownloadReceipt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Download Receipt"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/darker_blue"/>
+
+    <Button
+        android:id="@+id/btnBackToHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back To Home"
+        android:layout_marginTop="32dp"
         android:visibility="gone"
         android:textColor="@color/white"
         android:backgroundTint="@color/darker_blue"/>
