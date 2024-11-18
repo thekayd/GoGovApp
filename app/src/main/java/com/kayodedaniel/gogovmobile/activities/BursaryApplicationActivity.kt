@@ -3,7 +3,10 @@ package com.kayodedaniel.gogovmobile.activities
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.gogovmobile.R
@@ -17,6 +20,9 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.*
+import android.util.Base64
+import android.util.Patterns
+import java.text.SimpleDateFormat
 
 class BursaryApplicationActivity : AppCompatActivity() {
 
@@ -42,9 +48,17 @@ class BursaryApplicationActivity : AppCompatActivity() {
     private lateinit var etOtherFundingSources: EditText
     private lateinit var etAcademicAchievements: EditText
     private lateinit var etFinancialNeedStatement: EditText
+    private lateinit var btnUploadID: Button
+    private lateinit var btnUploadTranscript: Button
+    private lateinit var btnUploadFinancialStatement: Button
+    private lateinit var btnUploadAcceptanceLetter: Button
     private lateinit var btnSubmit: Button
 
     private var selectedDob: String? = null
+    private var idDocumentUri: Uri? = null
+    private var transcriptUri: Uri? = null
+    private var financialStatementUri: Uri? = null
+    private var acceptanceLetterUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +68,22 @@ class BursaryApplicationActivity : AppCompatActivity() {
 
         btnPickDob.setOnClickListener {
             pickDateOfBirth()
+        }
+
+        btnUploadID.setOnClickListener {
+            pickFile(1)
+        }
+
+        btnUploadTranscript.setOnClickListener {
+            pickFile(2)
+        }
+
+        btnUploadFinancialStatement.setOnClickListener {
+            pickFile(3)
+        }
+
+        btnUploadAcceptanceLetter.setOnClickListener {
+            pickFile(4)
         }
 
         btnSubmit.setOnClickListener {
@@ -86,7 +116,176 @@ class BursaryApplicationActivity : AppCompatActivity() {
         etOtherFundingSources = findViewById(R.id.etOtherFundingSources)
         etAcademicAchievements = findViewById(R.id.etAcademicAchievements)
         etFinancialNeedStatement = findViewById(R.id.etFinancialNeedStatement)
+        btnUploadID = findViewById(R.id.btnUploadID)
+        btnUploadTranscript = findViewById(R.id.btnUploadTranscript)
+        btnUploadFinancialStatement = findViewById(R.id.btnUploadFinancialStatement)
+        btnUploadAcceptanceLetter = findViewById(R.id.btnUploadAcceptanceLetter)
         btnSubmit = findViewById(R.id.btnSubmit)
+    }
+
+    private fun setupValidations() {
+        // Name Validation
+        etName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                validateName()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Surname Validation
+        etSurname.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                validateSurname()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // ID Number Validation
+        etIdNumber.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                validateSouthAfricanIDNumber()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Phone Number Validation
+        etPhoneNumber.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                validateSouthAfricanPhoneNumber()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Email Validation
+        etEmail.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                validateEmail()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // Postcode Validation
+        etPostcode.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                validatePostcode()
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun validateName(): Boolean {
+        val name = etName.text.toString().trim()
+        return if (name.length < 2) {
+            etName.error = "Name must be at least 2 characters long"
+            false
+        } else if (!name.matches(Regex("^[a-zA-Z\\s]*$"))) {
+            etName.error = "Name can only contain letters"
+            false
+        } else {
+            etName.error = null
+            true
+        }
+    }
+
+    private fun validateSurname(): Boolean {
+        val surname = etSurname.text.toString().trim()
+        return if (surname.length < 2) {
+            etSurname.error = "Surname must be at least 2 characters long"
+            false
+        } else if (!surname.matches(Regex("^[a-zA-Z\\s]*$"))) {
+            etSurname.error = "Surname can only contain letters"
+            false
+        } else {
+            etSurname.error = null
+            true
+        }
+    }
+
+    private fun validateSouthAfricanIDNumber(): Boolean {
+        val idNumber = etIdNumber.text.toString().trim()
+        val idRegex = """^\d{13}$""".toRegex()
+
+        return if (!idRegex.matches(idNumber)) {
+            etIdNumber.error = "Invalid South African ID Number"
+            false
+        } else {
+            // Additional validation: Check birth date and checksum
+            try {
+                val year = idNumber.substring(0, 2).toInt()
+                val month = idNumber.substring(2, 4).toInt()
+                val day = idNumber.substring(4, 6).toInt()
+                val currentYear = Calendar.getInstance().get(Calendar.YEAR) % 100
+
+                val fullYear = if (year <= currentYear) 2000 + year else 1900 + year
+
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                dateFormat.isLenient = false
+                dateFormat.parse("$fullYear-$month-$day")
+
+                etIdNumber.error = null
+                true
+            } catch (e: Exception) {
+                etIdNumber.error = "Invalid South African ID Number"
+                false
+            }
+        }
+    }
+
+    private fun validateSouthAfricanPhoneNumber(): Boolean {
+        val phoneNumber = etPhoneNumber.text.toString().trim()
+        val phoneRegex = """^((\+27|0)[1-9][0-9]{8})$""".toRegex()
+
+        return if (!phoneRegex.matches(phoneNumber)) {
+            etPhoneNumber.error = "Invalid South African phone number"
+            false
+        } else {
+            etPhoneNumber.error = null
+            true
+        }
+    }
+
+    private fun validateEmail(): Boolean {
+        val email = etEmail.text.toString().trim()
+        return if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.error = "Invalid email address"
+            false
+        } else {
+            etEmail.error = null
+            true
+        }
+    }
+
+    private fun validatePostcode(): Boolean {
+        val postcode = etPostcode.text.toString().trim()
+        val postcodeRegex = """^\d{4}$""".toRegex()
+
+        return if (!postcodeRegex.matches(postcode)) {
+            etPostcode.error = "Invalid postcode (must be 4 digits)"
+            false
+        } else {
+            etPostcode.error = null
+            true
+        }
+    }
+
+    private fun validateAllFields(): Boolean {
+        return validateName() &&
+                validateSurname() &&
+                validateSouthAfricanIDNumber() &&
+                validateSouthAfricanPhoneNumber() &&
+                validateEmail() &&
+                validatePostcode() &&
+                selectedDob != null &&
+                idDocumentUri != null &&
+                transcriptUri != null &&
+                financialStatementUri != null &&
+                acceptanceLetterUri != null
     }
 
     private fun pickDateOfBirth() {
@@ -101,8 +300,55 @@ class BursaryApplicationActivity : AppCompatActivity() {
         }, year, month, day)
         datePickerDialog.show()
     }
+    private fun pickFile(requestCode: Int) {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        startActivityForResult(intent, requestCode)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && data != null) {
+            val fileUri = data.data
+            when (requestCode) {
+                1 -> {
+                    idDocumentUri = fileUri
+                    btnUploadID.text = "ID Uploaded"
+                }
+                2 -> {
+                    transcriptUri = fileUri
+                    btnUploadTranscript.text = "Transcript Uploaded"
+                }
+                3 -> {
+                    financialStatementUri = fileUri
+                    btnUploadFinancialStatement.text = "Financial Statement Uploaded"
+                }
+                4 -> {
+                    acceptanceLetterUri = fileUri
+                    btnUploadAcceptanceLetter.text = "Acceptance Letter Uploaded"
+                }
+            }
+        }
+    }
+
+    private fun getBase64FromUri(uri: Uri?): String? {
+        if (uri == null) return null
+
+        return try {
+            val inputStream = contentResolver.openInputStream(uri)
+            val bytes = inputStream?.readBytes()
+            inputStream?.close()
+            Base64.encodeToString(bytes, Base64.NO_WRAP)
+        } catch (e: Exception) {
+            null
+        }
+    }
     private fun submitForm() {
+        if (!validateAllFields()) {
+            Toast.makeText(this, "Please correct all errors before submitting", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val name = etName.text.toString()
         val surname = etSurname.text.toString()
         val idNumber = etIdNumber.text.toString()
@@ -122,8 +368,12 @@ class BursaryApplicationActivity : AppCompatActivity() {
         val otherFundingSources = etOtherFundingSources.text.toString()
         val academicAchievements = etAcademicAchievements.text.toString()
         val financialNeedStatement = etFinancialNeedStatement.text.toString()
+        val idDocumentBase64 = getBase64FromUri(idDocumentUri)
+        val transcriptBase64 = getBase64FromUri(transcriptUri)
+        val financialStatementBase64 = getBase64FromUri(financialStatementUri)
+        val acceptanceLetterBase64 = getBase64FromUri(acceptanceLetterUri)
 
-        if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty() || email.isEmpty()) {
+        if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty() || email.isEmpty() || idDocumentBase64 == null || transcriptBase64 == null || financialStatementBase64 == null || acceptanceLetterBase64 == null) {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
             return
         }
@@ -148,6 +398,10 @@ class BursaryApplicationActivity : AppCompatActivity() {
             put("other_funding_sources", otherFundingSources)
             put("academic_achievements", academicAchievements)
             put("financial_need_statement", financialNeedStatement)
+            put("id_document", idDocumentBase64)
+            put("transcript", transcriptBase64)
+            put("financial_statement", financialStatementBase64)
+            put("acceptance_letter", acceptanceLetterBase64)
             put("status", "Submitted")
         }
 
