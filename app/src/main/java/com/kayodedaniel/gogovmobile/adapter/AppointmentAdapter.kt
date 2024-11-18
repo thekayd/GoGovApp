@@ -54,6 +54,12 @@ class AppointmentAdapter(
         holder.cancelButton.isEnabled = !isCanceled
     }
 
+    fun removeAppointment(appointment: Appointment) {
+        val updatedList = appointments.toMutableList()
+        updatedList.remove(appointment)
+        updateAppointments(updatedList)
+    }
+
     override fun getItemCount(): Int = appointments.size
 
     fun updateAppointments(newAppointments: List<Appointment>) {

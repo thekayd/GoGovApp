@@ -152,8 +152,8 @@ class ViewAppointmentActivity : AppCompatActivity(), AppointmentAdapter.OnAppoin
                 client.newCall(request).execute().use { response ->
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
+                            adapter.removeAppointment(appointment)
                             Toast.makeText(this@ViewAppointmentActivity, "Appointment canceled", Toast.LENGTH_SHORT).show()
-                            loadAppointments()
                         } else {
                             Toast.makeText(this@ViewAppointmentActivity, "Failed to cancel appointment", Toast.LENGTH_SHORT).show()
                         }
