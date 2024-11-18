@@ -52,11 +52,12 @@ class AdminUserFeedbackActivity : AppCompatActivity() {
                     val jsonArray = JSONArray(response.body?.string() ?: "")
                     for (i in 0 until jsonArray.length()) {
                         val jsonObject = jsonArray.getJSONObject(i)
+                        val rating = if (jsonObject.isNull("rating")) 0.0 else jsonObject.getDouble("rating")
                         val feedback = UserFeedback(
                             id = jsonObject.getString("id"),
                             email = jsonObject.getString("email"),
                             phone = jsonObject.getString("phone"),
-                            rating = jsonObject.getDouble("rating").toFloat(),
+                            rating = rating.toFloat(),
                             feedbackText = jsonObject.getString("feedback")
                         )
                         feedbackList.add(feedback)
