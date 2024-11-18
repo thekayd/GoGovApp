@@ -16,7 +16,7 @@ class HomeAffairsFormsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home_affairs_forms)
 
         val btnPassportApplication: Button = findViewById(R.id.btn_passport_application)
-        val btnIdRenewal: Button = findViewById(R.id.btn_id_renewal)
+//        val btnIdRenewal: Button = findViewById(R.id.btn_id_renewal)
 
         // Passport Application Button Click
         btnPassportApplication.setOnClickListener {
@@ -24,10 +24,10 @@ class HomeAffairsFormsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // ID Renewal Button Click
-        btnIdRenewal.setOnClickListener {
-            val intent = Intent(this, IdRenewalActivity::class.java)
-            startActivity(intent)
-        }
+//        // ID Renewal Button Click
+//        btnIdRenewal.setOnClickListener {
+//            val intent = Intent(this, IdRenewalActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 }

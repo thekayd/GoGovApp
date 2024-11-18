@@ -91,53 +91,53 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Existing ID Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30ssp"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="#9C9999"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="12dp">
+<!--            &lt;!&ndash; Existing ID Card &ndash;&gt;-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/_30ssp"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                app:cardBackgroundColor="#9C9999"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                app:cardElevation="12dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="16dp">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:text="ID Renewal"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="ID Renewal"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:text="ID renewal is required when a citizen's identification document (ID) has expired, been damaged, or lost. This document is essential for voting, accessing government services, and other identification purposes."
-                        android:textColor="@android:color/black" />
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="ID renewal is required when a citizen's identification document (ID) has expired, been damaged, or lost. This document is essential for voting, accessing government services, and other identification purposes."-->
+<!--                        android:textColor="@android:color/black" />-->
 
-                    <Button
-                        android:id="@+id/btn_id_renewal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginTop="24dp"
-                        android:backgroundTint="@color/darker_blue"
-                        android:text="ID Renewal"
-                        android:textColor="@color/white"
-                        tools:ignore="MissingConstraints" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_id_renewal"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginHorizontal="10dp"-->
+<!--                        android:layout_marginTop="24dp"-->
+<!--                        android:backgroundTint="@color/darker_blue"-->
+<!--                        android:text="ID Renewal"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        tools:ignore="MissingConstraints" />-->
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
 
             <!-- New Information Section -->
             <TextView
@@ -209,7 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="• Birth certificate or existing ID\n• Two recent ID photos\n• Proof of residence\n• Completed application form"
+                        android:text="• Birth certificate or existing ID\n• ID photo\n• Proof of residence\n• Completed application form"
                         android:textColor="@color/black"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

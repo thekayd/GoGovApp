@@ -193,7 +193,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="• ID APPLICATIONS\n• PASSPORTS\n"
+                                android:text="• PASSPORTS\n"
                                 android:textColor="@android:color/darker_gray" />
 
                             <Button
@@ -344,7 +344,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="• Medical Aid Applications\n• Vacation Records\n"
+                            android:text="• Vacation Application\n"
                             android:textColor="@android:color/darker_gray" />
 
                         <Button
