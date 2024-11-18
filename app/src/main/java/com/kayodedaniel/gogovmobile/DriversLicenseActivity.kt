@@ -1,10 +1,12 @@
 package com.kayodedaniel.gogovmobile
 
 import android.app.DatePickerDialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.gogovmobile.activities.ApplicationProgressActivity
@@ -19,6 +21,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.*
+import android.util.Base64
 
 class DriversLicenseActivity : AppCompatActivity() {
 
@@ -46,6 +49,7 @@ class DriversLicenseActivity : AppCompatActivity() {
     private var passportPhotoUri: Uri? = null
     private var proofOfAddressUri: Uri? = null
     private var eyeTestCertificateUri: Uri? = null
+    private var learnersLicenseUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +65,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnUploadPassportPhoto).setOnClickListener { pickFile(2) }
         findViewById<Button>(R.id.btnUploadProofOfAddress).setOnClickListener { pickFile(3) }
         findViewById<Button>(R.id.btnUploadEyeTestCertificate).setOnClickListener { pickFile(4) }
-
+        findViewById<Button>(R.id.btnUploadLearnerLicense).setOnClickListener { pickFile(5) }
         btnSubmit.setOnClickListener {
             submitForm()
         }
@@ -100,12 +104,26 @@ class DriversLicenseActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            selectedDob = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-            btnPickDob.text = selectedDob
+            // Convert to ISO 8601 format
+            selectedDob = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+            btnPickDob.text = selectedDob // Display in button
         }, year, month, day)
         datePickerDialog.show()
+        Log.d(TAG, "pickDateOfBirth: Date picker dialog shown")
     }
+    private fun getBase64FromUri(uri: Uri?): String? {
+        if (uri == null) return null
 
+        try {
+            val inputStream = contentResolver.openInputStream(uri)
+            val bytes = inputStream?.readBytes()
+            inputStream?.close()
+            return if (bytes != null) Base64.encodeToString(bytes, Base64.NO_WRAP) else null
+        } catch (e: Exception) {
+            Log.e(TAG, "Error converting file to Base64", e)
+            return null
+        }
+    }
     private fun pickFile(requestCode: Int) {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
@@ -133,9 +151,16 @@ class DriversLicenseActivity : AppCompatActivity() {
                     eyeTestCertificateUri = fileUri
                     findViewById<Button>(R.id.btnUploadEyeTestCertificate).text = "Eye Test Certificate Uploaded"
                 }
+                5 -> {
+                    learnersLicenseUri = fileUri
+                    findViewById<Button>(R.id.btnUploadLearnerLicense).text = "Learner License Uploaded"
+                }
             }
+        } else {
+            Log.w(TAG, "File selection cancelled or failed")
         }
-    }
+        }
+
 
     private fun submitForm() {
         val name = etName.text.toString()
@@ -151,6 +176,17 @@ class DriversLicenseActivity : AppCompatActivity() {
         val licenseCategory = spLicenseCategory.selectedItem.toString()
         val testCenter = spTestCenter.selectedItem.toString()
         val dob = selectedDob ?: ""
+
+        val passportPhotoBase64 = getBase64FromUri(passportPhotoUri)
+        val proofOfAddressBase64 = getBase64FromUri(proofOfAddressUri)
+        val idDocumentBase64 = getBase64FromUri(idDocumentUri)
+        val eyeTestCertificateBase64 = getBase64FromUri(eyeTestCertificateUri)
+        val learnersLicenseBase64 = getBase64FromUri(learnersLicenseUri)
+
+        if (passportPhotoBase64 == null || proofOfAddressBase64 == null || idDocumentBase64 == null|| eyeTestCertificateBase64 == null|| learnersLicenseBase64 == null) {
+            Toast.makeText(this, "Please upload all required documents", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty()) {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
@@ -172,6 +208,12 @@ class DriversLicenseActivity : AppCompatActivity() {
             put("test_center", testCenter)
             put("date_of_birth", dob)
             put("status", "Sent For Validation")
+            put("passport_photo", passportPhotoBase64)
+            put("proof_of_address", proofOfAddressBase64)
+            put("id_document", idDocumentBase64)
+            put("eye_test_certificate", eyeTestCertificateBase64)
+            put("learners_license", learnersLicenseBase64)
+
         }
 
         val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())

@@ -218,7 +218,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="• ID document/Passport\n• Proof of residence\n• Proof of income/employment\n• Previous medical records\n• Immunization records (for vaccinations)"
+                    android:text="• ID document/Passport\n• Proof of residence\n• Previous medical records\n"
                     android:textColor="@color/black"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
