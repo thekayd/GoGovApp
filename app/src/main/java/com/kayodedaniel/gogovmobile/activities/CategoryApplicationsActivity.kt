@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.utils.ApplicationStatusManager
+import com.kayodedaniel.gogovmobile.utils.SMSNotificationManager
 // import com.kayodedaniel.gogovmobile.utils.NotificationHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +44,8 @@ class CategoryApplicationsActivity : AppCompatActivity() {
         category: String,
         applicationId: String,
         userEmail: String,
-        newStatus: String
+        newStatus: String,
+        phoneNumber: String
     ) {
         AlertDialog.Builder(this)
             .setTitle("Confirm Status Change")
@@ -55,10 +57,8 @@ class CategoryApplicationsActivity : AppCompatActivity() {
                     newStatus = newStatus,
                     userEmail = userEmail,
                     onSuccess = {
-                        /* notificationHelper.showNotification(
-                            "Application Status Updated",
-                            "Your $category application status has been changed to $newStatus"
-                        ) */
+                        val smsManager = SMSNotificationManager(this)
+                        smsManager.sendStatusUpdateSMS(phoneNumber, category, newStatus)
                         // Refresh the applications list
                         fetchApplications(category)
                     }
@@ -68,6 +68,16 @@ class CategoryApplicationsActivity : AppCompatActivity() {
             }
             .setNegativeButton("No", null)
             .show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val smsManager = SMSNotificationManager(this)
+        smsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -130,7 +140,8 @@ class CategoryApplicationsActivity : AppCompatActivity() {
                         category,
                         applicationId,
                         application.optString("email"),
-                        "Approved"
+                        "Approved",
+                        application.optString("phone_number")
                     )
                 }
             }
@@ -143,7 +154,8 @@ class CategoryApplicationsActivity : AppCompatActivity() {
                         category,
                         applicationId,
                         application.optString("email"),
-                        "Rejected"
+                        "Rejected",
+                        application.optString("phone_number")
                     )
                 }
             }
@@ -156,7 +168,8 @@ class CategoryApplicationsActivity : AppCompatActivity() {
                         category,
                         applicationId,
                         application.optString("email"),
-                        "In Progress"
+                        "In Progress",
+                        application.optString("phone_number")
                     )
                 }
             }
