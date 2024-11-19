@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -20,6 +21,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.*
 import android.util.Base64
+import androidx.annotation.RequiresApi
+import com.kayodedaniel.gogovmobile.ValidationHelper
 
 class VaccinationRegistrationActivity : AppCompatActivity() {
 
@@ -51,6 +54,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
     private var proofOfResidenceUri: Uri? = null
     private var medicalRecordsStatementUri: Uri? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vaccination_registration)
@@ -163,9 +167,127 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         Log.d(TAG, "pickDateOfBirth: Date picker dialog shown")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun validateFields(): Boolean {
+        var isValid = true
+        val errorMessages = mutableListOf<String>()
 
+        // Validate name
+        if (!ValidationHelper.isValidName(etName.text.toString())) {
+            isValid = false
+            etName.error = "Please enter a valid name"
+            errorMessages.add("Invalid name format")
+        }
+
+        // Validate surname
+        if (!ValidationHelper.isValidName(etSurname.text.toString())) {
+            isValid = false
+            etSurname.error = "Please enter a valid surname"
+            errorMessages.add("Invalid surname format")
+        }
+
+        // Validate ID number
+        if (!ValidationHelper.isValidSAID(etIdNumber.text.toString())) {
+            isValid = false
+            etIdNumber.error = "Please enter a valid South African ID number"
+            errorMessages.add("Invalid ID number")
+        }
+
+        // Validate phone number
+        if (!ValidationHelper.isValidSAPhoneNumber(etPhoneNumber.text.toString())) {
+            isValid = false
+            etPhoneNumber.error = "Please enter a valid South African phone number"
+            errorMessages.add("Invalid phone number")
+        }
+
+        // Validate email
+        if (!ValidationHelper.isValidEmail(etEmail.text.toString())) {
+            isValid = false
+            etEmail.error = "Please enter a valid email address"
+            errorMessages.add("Invalid email address")
+        }
+
+        // Validate address
+        if (!ValidationHelper.isValidAddress(etAddress.text.toString())) {
+            isValid = false
+            etAddress.error = "Please enter a valid address"
+            errorMessages.add("Invalid address format")
+        }
+
+        // Validate city
+        if (!ValidationHelper.isValidCity(etCity.text.toString())) {
+            isValid = false
+            etCity.error = "Please enter a valid city name"
+            errorMessages.add("Invalid city name")
+        }
+
+        // Validate postal code
+        if (!ValidationHelper.isValidPostalCode(etPostcode.text.toString())) {
+            isValid = false
+            etPostcode.error = "Please enter a valid 4-digit postal code"
+            errorMessages.add("Invalid postal code")
+        }
+
+        // Validate date of birth
+        if (selectedDob == null) {
+            isValid = false
+            btnPickDob.error = "Please select your date of birth"
+            errorMessages.add("Date of birth is required")
+        } else {
+            if (!ValidationHelper.isValidAgeForVaccination(selectedDob!!)) {
+                isValid = false
+                errorMessages.add("You must be at least 12 years old to register for vaccination")
+            }
+        }
+
+        // Validate vaccine type selection
+        if (spVaccineType.selectedItemPosition == 0) {
+            isValid = false
+            errorMessages.add("Please select a vaccine type")
+        }
+
+        // Validate vaccination center selection
+        if (spVaccinationCenter.selectedItemPosition == 0) {
+            isValid = false
+            errorMessages.add("Please select a vaccination center")
+        }
+
+        // Validate document uploads
+        if (idDocumentUri == null) {
+            isValid = false
+            errorMessages.add("Please upload your ID document")
+        }
+        if (proofOfResidenceUri == null) {
+            isValid = false
+            errorMessages.add("Please upload proof of residence")
+        }
+        if (medicalRecordsStatementUri == null) {
+            isValid = false
+            errorMessages.add("Please upload medical records")
+        }
+
+        // Validate consent
+        if (!cbConsent.isChecked) {
+            isValid = false
+            errorMessages.add("Please provide consent to continue")
+        }
+
+        // Display all validation errors if any
+        if (!isValid) {
+            val errorMessage = errorMessages.joinToString("\n")
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            Log.w(TAG, "Form validation failed: $errorMessage")
+        }
+
+        return isValid
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun submitForm() {
         Log.d(TAG, "submitForm: Attempting to submit form")
+
+        if (!validateFields()) {
+            return
+        }
 
         val name = etName.text.toString()
         val surname = etSurname.text.toString()
@@ -186,6 +308,10 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty() || !cbConsent.isChecked) {
             Log.w(TAG, "submitForm: Form validation failed")
             Toast.makeText(this, "Please fill in all required fields and give consent", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (idDocumentBase64 == null || proofOfResidenceBase64 == null || medicalRecordsBase64 == null) {
+            Toast.makeText(this, "Error processing documents. Please try uploading them again.", Toast.LENGTH_SHORT).show()
             return
         }
 

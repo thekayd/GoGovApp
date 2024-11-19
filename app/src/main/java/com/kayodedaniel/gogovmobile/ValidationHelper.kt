@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -22,7 +23,9 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.*
 import android.util.Base64
+import androidx.annotation.RequiresApi
 import java.time.LocalDate
+import java.time.Period
 import java.time.format.DateTimeFormatter
 
 class ValidationHelper {
@@ -105,6 +108,18 @@ class ValidationHelper {
         // Validates city name
         fun isValidCity(city: String): Boolean {
             return city.matches("^[A-Za-z\\s-]{2,50}$".toRegex())
+        }
+
+        // Validates age for vaccination (must be at least 12 years old)
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun isValidAgeForVaccination(dateOfBirth: String): Boolean {
+            try {
+                val dob = LocalDate.parse(dateOfBirth, DateTimeFormatter.ISO_DATE)
+                val age = Period.between(dob, LocalDate.now()).years
+                return age >= 12
+            } catch (e: Exception) {
+                return false
+            }
         }
     }
 }
