@@ -21,7 +21,8 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UpdateScheduleFragment(private val schedule: Schedule) : BottomSheetDialogFragment() {
+class UpdateScheduleFragment(private val schedule: Schedule,
+                             private val onScheduleUpdated: (updatedSchedule: Schedule) -> Unit) : BottomSheetDialogFragment() {
 
     private lateinit var dateTextView: TextView
     private lateinit var timeSpinner: Spinner
@@ -79,6 +80,12 @@ class UpdateScheduleFragment(private val schedule: Schedule) : BottomSheetDialog
             client.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {
                     withContext(Dispatchers.Main) {
+                        // Update the schedule object
+                        schedule.appointmentDate = date
+                        schedule.appointmentTime = time
+
+                        // Pass updated schedule back to activity
+                        onScheduleUpdated(schedule)
                         Toast.makeText(requireContext(), "Schedule updated successfully", Toast.LENGTH_SHORT).show()
                         (activity as? ScheduleAdminActivity)?.loadSchedules() // Refresh schedules in activity
                         dismiss()

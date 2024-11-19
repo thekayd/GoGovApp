@@ -1,9 +1,11 @@
 package com.kayodedaniel.gogovmobile.activities
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.adapter.ScheduleAdapter
 import com.kayodedaniel.gogovmobile.model.Schedule
+import com.kayodedaniel.gogovmobile.utils.SMSNotificationManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +33,7 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
     private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/scheduled_appointments?select=*"
     private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
+    private val smsManager by lazy { SMSNotificationManager(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +47,20 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
 
         loadSchedules()
     }
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showStatusDialog(
+        schedule: Schedule,
+        newStatus: String
+    ) {
+        AlertDialog.Builder(this)
+            .setTitle("Confirm Status Change")
+            .setMessage("Are you sure you want to change the status to $newStatus?")
+            .setPositiveButton("Yes") { _, _ ->
+                updateScheduleStatus(schedule, newStatus)
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
     fun loadSchedules() {
         CoroutineScope(Dispatchers.IO).launch {
             val request = Request.Builder()
@@ -65,7 +82,8 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
                             scheduleJson.getString("surname"),
                             scheduleJson.getString("appointment_date"),
                             scheduleJson.getString("appointment_time"),
-                            scheduleJson.getString("status")
+                            scheduleJson.getString("status"),
+                            scheduleJson.optString("phone")
                         )
                         schedules.add(schedule)
                     }
@@ -77,23 +95,34 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onApproveClick(schedule: Schedule) {
         updateScheduleStatus(schedule, "Approved")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onDeclineClick(schedule: Schedule) {
         updateScheduleStatus(schedule, "Declined")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onRescheduleClick(schedule: Schedule) {
-        val fragment = UpdateScheduleFragment(schedule)
+        val fragment = UpdateScheduleFragment(schedule) { updatedSchedule ->
+            updateScheduleStatus(updatedSchedule, "Rescheduled")
+        }
         fragment.show(supportFragmentManager, "UpdateScheduleFragment")
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateScheduleStatus(schedule: Schedule, newStatus: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val json = JSONObject().apply {
                 put("status", newStatus)
+                if (newStatus == "Rescheduled") {
+                    put("appointment_date", schedule.appointmentDate)
+                    put("appointment_time", schedule.appointmentTime)
+                }
             }
 
             val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
@@ -105,9 +134,45 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
 
             client.newCall(request).execute().use {
                 if (it.isSuccessful) {
-                    loadSchedules()
+                    withContext(Dispatchers.Main) {
+                        if (newStatus == "Rescheduled") {
+                            sendRescheduleSMS(
+                                schedule.phone,
+                                schedule.appointmentDate,
+                                schedule.appointmentTime
+                            )
+                        } else {
+                            sendStatusUpdateSMS(schedule.phone, newStatus)
+                        }
+                        loadSchedules()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@ScheduleAdminActivity,
+                            "Failed to update status",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun sendRescheduleSMS(phoneNumber: String, date: String, time: String) {
+        val formattedPhone = smsManager.formatPhoneNumber(phoneNumber)
+        val message = "Your appointment has been rescheduled to $date at $time. Thank you for using GoGov."
+        smsManager.sendStatusUpdateSMS(formattedPhone, "Appointment Reschedule", message)
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun sendStatusUpdateSMS(phoneNumber: String, newStatus: String) {
+        val formattedPhone = smsManager.formatPhoneNumber(phoneNumber)
+        val message = when (newStatus) {
+            "Approved" -> "Your appointment has been approved. Thank you for using GoGov."
+            "Declined" -> "Unfortunately, your appointment has been declined. Please contact support."
+            else -> "Your appointment status has been updated."
+        }
+        smsManager.sendStatusUpdateSMS(formattedPhone, "Appointment", message)
+    }
+
 }
