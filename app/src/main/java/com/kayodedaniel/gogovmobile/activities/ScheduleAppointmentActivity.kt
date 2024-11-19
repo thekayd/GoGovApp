@@ -301,8 +301,47 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         val selectedDate = dateTextView.text.toString()
         val selectedTime = timeSpinner.selectedItem?.toString() ?: ""
 
-        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || phone.isEmpty() || selectedDate == "Select Date" || selectedTime.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+        val validationErrors = mutableListOf<String>()
+
+        // Name validation
+        if (name.length < 2) validationErrors.add("Name must be at least 2 characters")
+
+        // Surname validation
+        if (surname.length < 2) validationErrors.add("Surname must be at least 2 characters")
+
+        // Email validation
+        val emailPattern = Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
+        if (!emailPattern.matches(email)) validationErrors.add("Invalid email address")
+
+        // Phone validation
+        val phonePattern = Regex("^[0-9]{10}$")
+        if (!phonePattern.matches(phone)) validationErrors.add("Phone number must be 10 digits")
+
+        // Date validation
+        if (selectedDate == "Select Date") validationErrors.add("Please select a date")
+
+        // Prevent past date scheduling
+        val selectedDateCalendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        try {
+            val appointmentDate = dateFormat.parse(selectedDate)
+            selectedDateCalendar.time = appointmentDate
+            val today = Calendar.getInstance()
+
+            if (selectedDateCalendar.before(today)) {
+                validationErrors.add("Cannot schedule appointment in the past")
+            }
+        } catch (e: Exception) {
+            validationErrors.add("Invalid date format")
+        }
+
+        // Time slot validation
+        if (selectedTime.isEmpty()) validationErrors.add("Please select a time slot")
+
+        // Display or proceed
+        if (validationErrors.isNotEmpty()) {
+            val errorMessage = validationErrors.joinToString("\n")
+            Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
         } else {
             saveAppointment(name, surname, email, phone, selectedDate, selectedTime)
         }
