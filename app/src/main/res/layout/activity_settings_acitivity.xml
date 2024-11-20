@@ -62,23 +62,21 @@
         app:layout_constraintTop_toBottomOf="@id/textViewEditProfile" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewUserReport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:drawableStart="@drawable/ic_questions"
-        android:drawablePadding="8dp"
         android:clickable="true"
+        android:drawableStart="@drawable/ic_problem"
+        android:drawablePadding="8dp"
         android:focusable="true"
         android:paddingLeft="@dimen/_18ssp"
-        android:text="FAQs"
-        android:textStyle="bold"
+        android:text="Report Issue"
         android:textColor="@color/black"
         android:textSize="@dimen/_16ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUserFeedback" />
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUserFeedback"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/textTermsAndConditions"
@@ -91,13 +89,32 @@
         android:focusable="true"
         android:paddingLeft="@dimen/_18ssp"
         android:text="Terms and Conditions"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_questions"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:paddingLeft="@dimen/_18ssp"
+        android:text="FAQs"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUserReport" />
 
     <TextView
         android:id="@+id/textViewLogout"
@@ -110,9 +127,9 @@
         android:focusable="true"
         android:paddingLeft="@dimen/_18ssp"
         android:text="Log out"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

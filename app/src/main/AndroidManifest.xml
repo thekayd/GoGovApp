@@ -28,6 +28,9 @@
         android:theme="@style/Theme.GoGovMobile"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ReportActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.VerifyEmailActivity"
             android:exported="false" />
         <activity
