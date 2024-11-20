@@ -20,8 +20,9 @@ class ChatViewModel : ViewModel() {
             is ChatUIEvent.sendPrompt -> {
                 if (event.prompt.isNotEmpty()) {
                     addPrompt(event.prompt, event.bitmap)
+                    _chatState.update { it.copy(isTyping = true) }
                     if (event.bitmap != null) {
-                        getResponseWithImage(event.prompt, event.bitmap)
+                    //    getResponseWithImage(event.prompt, event.bitmap)
                     } else {
                         getResponse(event.prompt)
                     }
@@ -55,30 +56,17 @@ class ChatViewModel : ViewModel() {
                     it.copy(
                         chatList = it.chatList.toMutableList().apply {
                             add(0, chat)
-                        }
+                        },
+                        isTyping = false
                     )
                 }
             } catch (e: Exception) {
                 Log.e("ChatViewModel", "Error fetching response: ${e.message}")
+                _chatState.update { it.copy(isTyping = false) }
             }
         }
     }
 
-    private fun getResponseWithImage(prompt: String, bitmap: Bitmap) {
-        viewModelScope.launch {
-            try {
-                val chat = ChatData.getResponseWithImage(prompt, bitmap)
-                _chatState.update {
-                    it.copy(
-                        chatList = it.chatList.toMutableList().apply {
-                            add(0, chat)
-                        }
-                    )
-                }
-            } catch (e: Exception) {
-                Log.e("ChatViewModel", "Error fetching response with image: ${e.message}")
-            }
-        }
-    }
+
 
 }
