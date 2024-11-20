@@ -17,7 +17,8 @@ class ReportActivity : AppCompatActivity() {
 
     private val client = OkHttpClient()
     private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/user_reports"
-    private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
+    private val supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,8 @@ class ReportActivity : AppCompatActivity() {
         val submitButton = findViewById<Button>(R.id.btnSubmitReport)
 
         // Populate spinner with report categories
-        val categories = arrayOf("Form Submission Issue", "Status Tracking Issue", "Technical Problem", "Other")
+        val categories =
+            arrayOf("Form Submission Issue", "Status Tracking Issue", "Technical Problem", "Other")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner.adapter = adapter
@@ -49,10 +51,16 @@ class ReportActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveReportToSupabase(email: String, phone: String, category: String, specificProblem: String) {
+    private fun saveReportToSupabase(
+        email: String,
+        phone: String,
+        category: String,
+        specificProblem: String
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
             val json = JSONObject().apply {
                 put("email", email)
+                // Keep the original phone number exactly as entered
                 put("phone", phone)
                 put("category", category)
                 put("specific_problem", specificProblem)
@@ -69,12 +77,20 @@ class ReportActivity : AppCompatActivity() {
             client.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {
                     runOnUiThread {
-                        Toast.makeText(this@ReportActivity, "Report submitted successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@ReportActivity,
+                            "Report submitted successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         finish()
                     }
                 } else {
                     runOnUiThread {
-                        Toast.makeText(this@ReportActivity, "Failed to submit report", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@ReportActivity,
+                            "Failed to submit report",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
