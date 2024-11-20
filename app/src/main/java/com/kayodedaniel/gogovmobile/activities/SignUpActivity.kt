@@ -87,10 +87,18 @@ class SignUpActivity : AppCompatActivity() {
                         val accessToken = jsonResponse.getString("access_token")
 
                         createProfile(userId, accessToken)
+
+                        // Generate verification code
+                        val verificationCode = (100000..999999).random().toString()
+
+                        // Send verification email
+                        EmailSender.sendVerificationEmail(email, verificationCode)
+
                         withContext(Dispatchers.Main) {
                             saveUserDataToPreferences(email, accessToken, userId)
                             Toast.makeText(this@SignUpActivity, "Sign-up successful! Please check your email to confirm your account.", Toast.LENGTH_LONG).show()
-                            navigateToSignIn()
+                            navigateToVerification(verificationCode, email)
+
                         }
                     } else {
                         Log.e("SignUpActivity", "Error response: $responseBody")
@@ -107,11 +115,15 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToSignIn() {
-        val intent = Intent(this, SignInActivity::class.java)
+    private fun navigateToVerification(verificationCode: String, email: String) {
+        val intent = Intent(this, VerifyEmailActivity::class.java)
+        intent.putExtra("VERIFICATION_CODE", verificationCode)
+        intent.putExtra("EMAIL", email) // Pass the email as well
         startActivity(intent)
         finish()
     }
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun createProfile(userId: String, accessToken: String) {

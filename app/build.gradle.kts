@@ -53,6 +53,10 @@ android {
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}" // Added from the second file
+            excludes += "META-INF/LICENSE.md" // Exclude the conflicting LICENSE.md file
+            excludes += "META-INF/LICENSE"    // Exclude if there's another conflicting license file
+            excludes += "META-INF/NOTICE.md"  // Exclude similar conflicts if they arise
+            excludes += "META-INF/NOTICE"
         }
     }
 }
@@ -122,6 +126,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.auth)
     implementation("androidx.biometric:biometric:1.2.0-alpha04")
+    implementation("com.sendgrid:sendgrid-java:4.9.3")
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
 
     // Testing
     testImplementation(libs.junit)
