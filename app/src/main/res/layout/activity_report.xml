@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white"
+    tools:context=".activities.ReportActivity">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Report an Issue"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_20ssp"
+            android:paddingBottom="8dp" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress" />
+
+        <!-- Phone Number -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your phone number"
+            android:inputType="phone" />
+
+        <!-- Report Category -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Report Category:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="@dimen/_20ssp" />
+
+        <Spinner
+            android:id="@+id/spinnerReportCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Specific Problem -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Specific Problem:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/editTextSpecificProblem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Describe your issue"
+            android:inputType="textMultiLine"
+            android:minLines="4" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btnSubmitReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Report"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/blue" />
+
+        <!-- Mascot Image -->
+        <ImageView
+            android:layout_width="122dp"
+            android:layout_height="106dp"
+            android:src="@drawable/mascot_v2"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+

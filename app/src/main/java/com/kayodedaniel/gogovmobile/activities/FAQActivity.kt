@@ -45,7 +45,6 @@ class FAQActivity : AppCompatActivity() {
         // Continue Button
         val acceptButton = findViewById<Button>(R.id.button_continue)
         acceptButton.setOnClickListener {
-            showToast("Terms Accepted")
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
