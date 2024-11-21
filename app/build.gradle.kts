@@ -1,4 +1,5 @@
 plugins {
+    id("org.sonarqube") version "4.0.0.2929"
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("plugin.serialization") version "1.9.0"
@@ -23,6 +24,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+    }
+
+    sonarqube {
+        properties {
+            property("sonar.projectKey", "thekayd_GoGovApp")
+            property("sonar.organization", "thekayd")
+            property("sonar.host.url", "https://sonarcloud.io")
+            property("sonar.login", "56d6045da70bfbf2654934b76c5ed16a9aacb3b1")
+        }
     }
 
     buildTypes {
@@ -111,7 +121,9 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.itextpdf:itext7-core:7.1.15")
 
-
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
+    // Ensure okhttp3 library is already included, if not:
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
 
     // Firebase dependencies
