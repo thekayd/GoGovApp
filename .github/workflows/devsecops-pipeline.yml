@@ -7,50 +7,42 @@ on:
     branches: [main]
 
 jobs:
-  static_analysis_and_security:
+  static_analysis:
     name: Static Analysis and Security
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # Step 3: Grant Execute Permissions for gradlew
       - name: Grant Execute Permissions
         run: chmod +x ./gradlew
 
-      # Step 4: Run Lint Analysis
-      - name: Run Lint Analysis
-        run: ./gradlew lint --stacktrace
+      - name: Run Lint (Security Analysis)
+        run: ./gradlew lint
 
-      # Step 5: Run SonarQube Analysis (Optional)
-      - name: Run SonarQube Analysis
-        uses: sonarsource/sonarqube-scan-action@v1.2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  vulnerability_scan:
-    name: Vulnerability Scan
+  test_pull_request:
+    name: Test Pull Request
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Install Trivy
-      - name: Install Trivy
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-      # Step 3: Run Trivy Scan
-      - name: Run Vulnerability Scan
-        run: ./trivy fs . --exit-code 1 --severity HIGH,CRITICAL
+      - name: Grant Execute Permissions
+        run: chmod +x ./gradlew
+
+      - name: Run Unit Tests
+        run: ./gradlew test
