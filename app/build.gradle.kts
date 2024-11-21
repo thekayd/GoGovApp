@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("plugin.serialization") version "1.9.0"
     id("kotlin-kapt")
+    id("jacoco")
 }
 
 android {
@@ -33,6 +34,14 @@ android {
             property("sonar.organization", "thekayd")
             property("sonar.host.url", "https://sonarcloud.io")
             property("sonar.login", "56d6045da70bfbf2654934b76c5ed16a9aacb3b1")
+
+            // Exclude directory from coverage and analysis
+            property("sonar.coverage.exclusions", "**/com/kayodedaniel/gogovmobile/**/*")
+            property("sonar.exclusions", "**/com/kayodedaniel/gogovmobile/**/*")
+
+            // Configure coverage report paths
+            property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
+
         }
     }
 
@@ -44,7 +53,12 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            enableUnitTestCoverage = true
+            enableAndroidTestCoverage = true
+        }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -52,6 +66,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
     buildFeatures {
         compose = true
         viewBinding = true// Added from the second file
@@ -69,6 +84,39 @@ android {
             excludes += "META-INF/NOTICE.md"  // Exclude similar conflicts if they arise
             excludes += "META-INF/NOTICE"
         }
+    }
+    tasks.register("jacocoTestReport", JacocoReport::class) {
+        dependsOn("testDebugUnitTest")
+
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+
+        executionData.setFrom(fileTree(project.buildDir) {
+            include("jacoco/testDebugUnitTest.exec")
+            include("outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec")
+        })
+
+        classDirectories.setFrom(
+            fileTree("${project.buildDir}/intermediates/classes/debug") {
+                exclude("**/com/kayodedaniel/gogovmobile/**/*")
+            },
+            fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+                exclude("**/com/kayodedaniel/gogovmobile/**/*")
+            }
+        )
+
+        sourceDirectories.setFrom(
+            "${project.projectDir}/src/main/java",
+            "${project.projectDir}/src/main/kotlin"
+        )
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+        ignoreFailures = true
+        finalizedBy("jacocoTestReport")
     }
 }
 

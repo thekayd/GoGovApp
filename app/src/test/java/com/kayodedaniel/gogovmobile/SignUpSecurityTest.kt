@@ -19,7 +19,7 @@ class SignUpSecurityTest {
 
     @Test
     fun testPasswordStrength() {
-        val testPassword = "StrongPass@1"
+        val testPassword = System.getenv("TEST_SECURE_PASSWORD")
         assertTrue("Password does not meet security requirements", passwordPattern.matcher(testPassword).matches())
     }
 }
