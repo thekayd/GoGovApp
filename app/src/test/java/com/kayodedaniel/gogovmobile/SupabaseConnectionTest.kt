@@ -14,7 +14,7 @@ class SupabaseConnectionTest {
     @Test
     fun testSupabaseConnection() = runBlocking {
         val request = Request.Builder()
-            .url("https://bgckkkxjfnkwgjzlancs.supabase.co")
+            .url("https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1")
             .build()
 
         client.newCall(request).execute().use { response ->
