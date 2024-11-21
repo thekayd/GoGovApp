@@ -16,20 +16,24 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up JDK
+      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # Step 3: Run Static Code Analysis (SonarCloud)
+      # Step 3: Grant Execute Permissions for gradlew
+      - name: Grant Execute Permissions
+        run: chmod +x ./gradlew
+
+      # Step 4: Run Static Code Analysis (SonarCloud)
       - name: Static Code Analysis (SonarCloud)
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew sonarqube -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
 
-      # Step 4: Run Security Analysis
+      # Step 5: Run Security Analysis
       - name: Run Security Analysis
         run: ./gradlew lint
 
@@ -42,17 +46,21 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up JDK
+      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # Step 3: Install Dependencies
+      # Step 3: Grant Execute Permissions for gradlew
+      - name: Grant Execute Permissions
+        run: chmod +x ./gradlew
+
+      # Step 4: Install Dependencies
       - name: Install Dependencies
         run: ./gradlew dependencies
 
-      # Step 4: Run Unit Tests
+      # Step 5: Run Unit Tests
       - name: Run Unit Tests
         run: ./gradlew test
