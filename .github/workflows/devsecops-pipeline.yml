@@ -1,0 +1,46 @@
+name: DevSecOps Security Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  static_analysis:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Static Code Analysis (SonarCloud)
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonarqube -Dsonar.projectKey=YourSonarProjectKey
+
+      - name: Security Analysis
+        uses: OWASP/dependency-check-action@v3
+        with:
+          format: 'ALL'
+          output-directory: 'owasp-reports'
+
+  test_pull_request:
+    name: Test Pull Request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+
+      - name: Install Dependencies
+        run: ./gradlew dependencies
+
+      - name: Run Unit Tests
+        run: ./gradlew test
