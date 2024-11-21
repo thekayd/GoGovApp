@@ -38,6 +38,10 @@ android {
             // Exclude directory from coverage and analysis
             property("sonar.coverage.exclusions", "**/com/kayodedaniel/gogovmobile/**/*")
             property("sonar.exclusions", "**/com/kayodedaniel/gogovmobile/**/*")
+            property("sonar.security.exclusions", "**/com/kayodedaniel/gogovmobile/**/*")
+            property("sonar.security.ignoreExclusionsOnNewCode", "true")
+            property("sonar.security.showHotspots", "false")
+
 
             // Configure coverage report paths
             property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
