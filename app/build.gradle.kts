@@ -1,5 +1,6 @@
 plugins {
     id("org.sonarqube") version "4.0.0.2929"
+    id("org.owasp.dependencycheck") version "8.4.0"
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("plugin.serialization") version "1.9.0"
