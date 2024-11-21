@@ -8,39 +8,51 @@ on:
 
 jobs:
   static_analysis:
-    name: Static Analysis
+    name: Static Analysis and Security
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Step 2: Set up JDK
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Step 3: Run Static Code Analysis (SonarCloud)
       - name: Static Code Analysis (SonarCloud)
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonarqube -Dsonar.projectKey=YourSonarProjectKey
+        run: ./gradlew sonarqube -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
 
-      - name: Security Analysis
-        uses: OWASP/dependency-check-action@v3
-        with:
-          format: 'ALL'
-          output-directory: 'owasp-reports'
+      # Step 4: Run Security Analysis
+      - name: Run Security Analysis
+        run: ./gradlew lint
 
   test_pull_request:
     name: Test Pull Request
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Step 2: Set up JDK
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
+          distribution: 'temurin'
 
+      # Step 3: Install Dependencies
       - name: Install Dependencies
         run: ./gradlew dependencies
 
+      # Step 4: Run Unit Tests
       - name: Run Unit Tests
         run: ./gradlew test

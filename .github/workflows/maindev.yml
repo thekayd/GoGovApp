@@ -19,9 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v2
+          distribution: 'temurin'
 
       - name: Build Application
         run: ./gradlew assembleDebug
