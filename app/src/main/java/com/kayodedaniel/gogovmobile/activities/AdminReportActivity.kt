@@ -29,6 +29,33 @@ class AdminReportActivity : AppCompatActivity() {
     private lateinit var reportContentLayout: LinearLayout
     private lateinit var progressBar: ProgressBar
 
+    // New data structures for enhanced functionality
+    private val applicationCache = HashMap<String, Queue<ApplicationData>>() // Caches for recent queries
+    private val uniqueUserIds = HashSet<String>() // Tracks unique users
+    private val statusHistory = Stack<String>() // Tracks status changes
+    private val serviceGraph = ServiceGraph() // Graph for service relationships
+
+    // Tree structure for organizing reports hierarchically
+    private class ReportNode(
+        val name: String,
+        val data: ApplicationData? = null,
+        val children: MutableList<ReportNode> = mutableListOf()
+    )
+
+    // Graph structure for analyzing service relationships
+    private class ServiceGraph {
+        private val adjacencyList = HashMap<String, MutableSet<String>>()
+
+        fun addEdge(service1: String, service2: String) {
+            adjacencyList.getOrPut(service1) { mutableSetOf() }.add(service2)
+            adjacencyList.getOrPut(service2) { mutableSetOf() }.add(service1)
+        }
+
+        fun getRelatedServices(service: String): Set<String> {
+            return adjacencyList[service] ?: emptySet()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_report)
@@ -36,6 +63,7 @@ class AdminReportActivity : AppCompatActivity() {
         initializeViews()
         setupSpinners()
         setupGenerateButton()
+        initializeServiceGraph()
     }
 
     private fun initializeViews() {
@@ -44,6 +72,15 @@ class AdminReportActivity : AppCompatActivity() {
         generateReportButton = findViewById(R.id.generateReportButton)
         reportContentLayout = findViewById(R.id.reportContentLayout)
         progressBar = findViewById(R.id.progressBar)
+    }
+
+
+    // New methods for enhanced functionality
+    private fun initializeServiceGraph() {
+        // relationships between services that are commonly used together
+        serviceGraph.addEdge("drivers_license_applications", "scheduled_appointments")
+        serviceGraph.addEdge("passport_applications", "scheduled_appointments")
+        serviceGraph.addEdge("vaccination_applications", "scheduled_appointments")
     }
 
     private fun setupSpinners() {
@@ -134,6 +171,22 @@ class AdminReportActivity : AppCompatActivity() {
     private suspend fun displayServiceReport(endpoint: String, dateRange: Long) {
         val data = getApplicationData(endpoint, dateRange)
 
+        // Caches the results using Queue (FIFO)
+        val dataQueue: Queue<ApplicationData> = LinkedList()
+        dataQueue.offer(data)
+        if (dataQueue.size > 10) dataQueue.poll() // Keeps only last 10 queries
+        applicationCache[endpoint] = dataQueue
+
+        // Builds report tree
+        val reportTree = buildReportTree(endpoint, data)
+
+        // Gets related services using graph
+        val relatedServices = serviceGraph.getRelatedServices(endpoint)
+        // Calculates status trends from stack
+        val recentStatuses = statusHistory.take(10) // Gets last 10 status changes
+        val statusTrend = recentStatuses.groupingBy { it }.eachCount()
+
+
         withContext(Dispatchers.Main) {
             val serviceName = when(endpoint) {
                 "bursary_applications" -> "Bursary Applications"
@@ -163,6 +216,14 @@ class AdminReportActivity : AppCompatActivity() {
         }
     }
 
+    private fun buildReportTree(endpoint: String, data: ApplicationData): ReportNode {
+        return ReportNode(endpoint, data).apply {
+            children.add(ReportNode("Pending", ApplicationData(data.pending, data.pending, 0, 0)))
+            children.add(ReportNode("Approved", ApplicationData(data.approved, 0, data.approved, 0)))
+            children.add(ReportNode("Rejected", ApplicationData(data.rejected, 0, 0, data.rejected)))
+        }
+    }
+
     private fun addReportSection(title: String, content: String) {
         val sectionView = layoutInflater.inflate(R.layout.report_section, reportContentLayout, false)
         sectionView.findViewById<TextView>(R.id.sectionTitle).text = title
@@ -188,6 +249,10 @@ class AdminReportActivity : AppCompatActivity() {
 
                 for (i in 0 until jsonArray.length()) {
                     val item = jsonArray.getJSONObject(i)
+                    val userId = item.optString("user_id", "")
+                    if (userId.isNotEmpty()) {
+                        uniqueUserIds.add(userId) // Track unique users
+                    }
                     when (item.optString("status", "pending").toLowerCase()) {
                         "pending" -> pending++
                         "approved" -> approved++
