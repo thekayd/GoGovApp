@@ -90,7 +90,7 @@ android {
         }
     }
     tasks.register("jacocoTestReport", JacocoReport::class) {
-        dependsOn("testDebugUnitTest")
+        dependsOn("testDebugUnitTest", "jacocoDebug")
 
         reports {
             xml.required.set(true)
