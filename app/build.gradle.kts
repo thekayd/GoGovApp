@@ -194,6 +194,8 @@ dependencies {
     implementation("com.sendgrid:sendgrid-java:4.9.3")
     implementation("com.sun.mail:android-mail:1.6.7")
     implementation("com.sun.mail:android-activation:1.6.7")
+    implementation("at.favre.lib:bcrypt:0.9.0")
+    implementation("org.mindrot:jbcrypt:0.4")
 
     // Testing
     testImplementation(libs.junit)

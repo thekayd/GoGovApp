@@ -13,7 +13,7 @@
             android:id="@+id/reportTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Admin Analytics"
+            android:text="@string/admin_analytics"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bursary Applications"
+            android:text="@string/bursary_applications"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Driver's License Applications"
+            android:text="@string/driver_s_license_applications"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>
@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Passport Applications"
+            android:text="@string/passport_applications"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>
@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vaccination Appointments"
+            android:text="@string/vaccination_appointments"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>
@@ -86,7 +86,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scheduled Appointments"
+            android:text="@string/scheduled_appointments"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>
@@ -102,7 +102,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Feedback Over Time"
+            android:text="@string/user_feedback_over_time"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>

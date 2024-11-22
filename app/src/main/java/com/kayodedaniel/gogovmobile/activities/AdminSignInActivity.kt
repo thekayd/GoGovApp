@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.kayodedaniel.gogovmobile.R
+import com.kayodedaniel.gogovmobile.utils.PasswordUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -95,8 +96,9 @@ class AdminSignInActivity : AppCompatActivity() {
     private fun checkAdminCredentials(jsonArray: org.json.JSONArray, email: String, password: String): Boolean {
         for (i in 0 until jsonArray.length()) {
             val adminObject = jsonArray.getJSONObject(i)
-            // Basic check for matching email and password
-            if (adminObject.getString("email") == email && adminObject.getString("password") == password) {
+            // Use BCrypt to verify password
+            if (adminObject.getString("email") == email &&
+                PasswordUtils.checkPassword(password, adminObject.getString("password"))) {
                 return true
             }
         }

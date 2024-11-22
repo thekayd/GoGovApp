@@ -229,6 +229,17 @@
     <string name="accept_and_continue">Accept and Continue</string>
     <string name="frequently_asked_questions">Frequently Asked Questions</string>
     <string name="continue_faq">Continue</string>
+    <string name="admin_analytics">Admin Analytics</string>
+    <string name="bursary_applications">Bursary Applications</string>
+    <string name="driver_s_license_applications">Driver\'s License Applications</string>
+    <string name="passport_applications">Passport Applications</string>
+    <string name="vaccination_appointments">Vaccination Appointments</string>
+    <string name="scheduled_appointments">Scheduled Appointments</string>
+    <string name="user_feedback_over_time">User Feedback Over Time</string>
+    <string name="admin_dashboard">Admin Dashboard</string>
+    <string name="welcome_admin">Welcome, Admin</string>
+    <string name="applications">Applications</string>
+    <string name="reports">Reports</string>
 
     <string-array name="report_types">
         <item>Monthly Report</item>
