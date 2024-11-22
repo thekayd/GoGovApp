@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("org.sonarqube") version "4.0.0.2929"
     id("org.owasp.dependencycheck") version "11.1.0"
@@ -8,6 +10,12 @@ plugins {
     id("jacoco")
 }
 
+val localProperties = Properties()
+val localPropertiesFile = file("local.properties")
+
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
 android {
     namespace = "com.kayodedaniel.gogovmobile"
     compileSdk = 34
@@ -33,7 +41,7 @@ android {
             property("sonar.projectKey", "thekayd_GoGovApp")
             property("sonar.organization", "thekayd")
             property("sonar.host.url", "https://sonarcloud.io")
-            property("sonar.login", "56d6045da70bfbf2654934b76c5ed16a9aacb3b1")
+            property("sonar.login", localProperties.getProperty("sonar.login"))
 
             // Exclude directory from coverage and analysis
             property("sonar.coverage.exclusions", "**/com/kayodedaniel/gogovmobile/**/*")
@@ -43,8 +51,8 @@ android {
             property("sonar.security.showHotspots", "false")
 
 
-            // Configure coverage report paths
-            property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
+//            // Configure coverage report paths
+//            property("sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
 
         }
     }
@@ -89,39 +97,39 @@ android {
             excludes += "META-INF/NOTICE"
         }
     }
-    tasks.register("jacocoTestReport", JacocoReport::class) {
-        dependsOn("testDebugUnitTest", "jacocoDebug")
-
-        reports {
-            xml.required.set(true)
-            html.required.set(true)
-        }
-
-        executionData.setFrom(fileTree(project.buildDir) {
-            include("jacoco/testDebugUnitTest.exec")
-            include("outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec")
-        })
-
-        classDirectories.setFrom(
-            fileTree("${project.buildDir}/intermediates/classes/debug") {
-                exclude("**/com/kayodedaniel/gogovmobile/**/*")
-            },
-            fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
-                exclude("**/com/kayodedaniel/gogovmobile/**/*")
-            }
-        )
-
-        sourceDirectories.setFrom(
-            "${project.projectDir}/src/main/java",
-            "${project.projectDir}/src/main/kotlin"
-        )
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
-        ignoreFailures = true
-        finalizedBy("jacocoTestReport")
-    }
+//    tasks.register("jacocoTestReport", JacocoReport::class) {
+//        dependsOn("testDebugUnitTest", "jacocoDebug")
+//
+//        reports {
+//            xml.required.set(true)
+//            html.required.set(true)
+//        }
+//
+//        executionData.setFrom(fileTree(project.buildDir) {
+//            include("jacoco/testDebugUnitTest.exec")
+//            include("outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec")
+//        })
+//
+//        classDirectories.setFrom(
+//            fileTree("${project.buildDir}/intermediates/classes/debug") {
+//                exclude("**/com/kayodedaniel/gogovmobile/**/*")
+//            },
+//            fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+//                exclude("**/com/kayodedaniel/gogovmobile/**/*")
+//            }
+//        )
+//
+//        sourceDirectories.setFrom(
+//            "${project.projectDir}/src/main/java",
+//            "${project.projectDir}/src/main/kotlin"
+//        )
+//    }
+//
+//    tasks.withType<Test> {
+//        useJUnitPlatform()
+//        ignoreFailures = true
+//        finalizedBy("jacocoTestReport")
+//    }
 }
 
 dependencies {
