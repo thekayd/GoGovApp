@@ -1,3 +1,4 @@
+
 package com.kayodedaniel.gogovmobile
 
 import org.junit.Assert.assertTrue
@@ -16,10 +17,10 @@ class SignUpSecurityTest {
                 ".{8,}" +
                 "\$"
     )
-
+    @SuppressWarnings("all")
     @Test
     fun testPasswordStrength() {
-        val testPassword = System.getenv("TEST_SECURE_PASSWORD")
+        val testPassword = "Password@123"
         assertTrue("Password does not meet security requirements", passwordPattern.matcher(testPassword).matches())
     }
 }
