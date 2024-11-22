@@ -36,12 +36,34 @@ class AdminSignInActivity : AppCompatActivity() {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                authenticateAdmin(email, password)
-            } else {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
+            } else if (!isValidEmail(email)) {
+                Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show()
+            } else if (!isValidPassword(password)) {
+                Toast.makeText(
+                    this,
+                    "Password must be at least 8 characters, include a number and an uppercase letter",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                authenticateAdmin(email, password)
             }
         }
+    }
+
+    private fun sanitizeInput(input: String): String {
+        return input.replace(Regex("[^A-Za-z0-9@._-]"), "") // Allow only safe characters
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun isValidPassword(password: String): Boolean {
+        return password.length >= 8 &&
+                Regex(".*[A-Z].*").containsMatchIn(password) &&
+                Regex(".*[0-9].*").containsMatchIn(password)
     }
 
     private fun authenticateAdmin(email: String, password: String) {
