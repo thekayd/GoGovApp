@@ -281,6 +281,13 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
 
         return isValid
     }
+
+    private fun generateApplicationId(): String {
+        val timestamp = System.currentTimeMillis()
+        val random = Random().nextInt(1000)
+        return "VAC$timestamp$random"
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun submitForm() {
         Log.d(TAG, "submitForm: Attempting to submit form")
@@ -289,6 +296,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
             return
         }
 
+        val applicationId = generateApplicationId()
         val name = etName.text.toString()
         val surname = etSurname.text.toString()
         val idNumber = etIdNumber.text.toString()
@@ -316,6 +324,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         }
 
         val json = JSONObject().apply {
+           // put("application_id", applicationId)
             put("name", name)
             put("surname", surname)
             put("id_number", idNumber)
@@ -356,8 +365,15 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         Log.d(TAG, "submitForm: Registration successful")
                         Toast.makeText(this@VaccinationRegistrationActivity, "Vaccination registration submitted successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@VaccinationRegistrationActivity, PaymentActivity::class.java)
+                        val intent = Intent(this@VaccinationRegistrationActivity, PaymentActivity::class.java).apply {
+                            putExtra("application_id", applicationId)
+                            putExtra("name", name)
+                            putExtra("surname", surname)
+                            putExtra("email", email)
+                            putExtra("application_type", "vaccination_applications")
+                        }
                         startActivity(intent)
+                        finish()
                     } else {
                         val errorBody = response.body?.string() ?: "Unknown error"
                         Log.e(TAG, "submitForm: Registration failed. Error: $errorBody")

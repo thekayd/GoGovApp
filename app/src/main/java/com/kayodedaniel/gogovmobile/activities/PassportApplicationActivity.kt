@@ -355,6 +355,14 @@ class PassportApplicationActivity : AppCompatActivity() {
         startActivityForResult(intent, requestCode)
     }
 
+    // Function to generate application ID
+    private fun generateApplicationId(): String {
+        val timestamp = System.currentTimeMillis()
+        val random = Random().nextInt(1000)
+        return "VAC$timestamp$random"
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, "onActivityResult - requestCode: $requestCode, resultCode: $resultCode")
@@ -390,6 +398,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         Log.d(TAG, "Starting form submission")
 
         // Get all form values
+        val applicationId = generateApplicationId()
         val name = tilName.editText?.text.toString()
         val surname = tilSurname.editText?.text.toString()
         val idNumber = tilIdNumber.editText?.text.toString()
@@ -501,8 +510,15 @@ class PassportApplicationActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         Log.d(TAG, "Network request successful: ${response.code}")
                         Toast.makeText(this@PassportApplicationActivity, "Passport application submitted successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@PassportApplicationActivity, PaymentActivity::class.java)
+                        val intent = Intent(this@PassportApplicationActivity, PaymentActivity::class.java).apply {
+                            putExtra("application_id", applicationId)
+                            putExtra("name", name)
+                            putExtra("surname", surname)
+                            putExtra("email", email)
+                            putExtra("application_type", "passport_applications")
+                        }
                         startActivity(intent)
+                        finish()
                     } else {
                         val errorBody = response.body?.string() ?: "Unknown error"
                         Log.e(TAG, "Network request failed: ${response.code}, Error: $errorBody")

@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:padding="16dp"
-android:background="@drawable/forms_background">
-
-<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@drawable/forms_background"
+    android:padding="16dp">
 
-    <!-- Main Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment Details"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/amiko_bold"
-        android:layout_marginBottom="8dp"
-        android:layout_gravity="center_horizontal"/>
-
-    <!-- Amount Display -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        android:backgroundTint="@color/darker_blue">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,209 +19,170 @@ android:background="@drawable/forms_background">
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Amount to Pay"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
+            <!-- Success Icon and Title -->
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_checkmark"
+                android:layout_marginBottom="16dp"/>
 
             <TextView
-                android:id="@+id/tvAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="R 600.00"
-                android:textColor="@color/white"
-                android:textSize="24sp"
+                android:layout_gravity="center"
+                android:text="Application Submitted Successfully"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:textColor="@color/darker_blue"
+                android:layout_marginBottom="8dp"/>
 
-    <!-- Payment Methods -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Select Payment Method "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:background="@drawable/labels"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- Credit/Debit Card Option -->
-    <RadioGroup
-        android:id="@+id/rgPaymentMethods"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
-
-        <RadioButton
-            android:id="@+id/rbCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Credit/Debit Card"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:padding="8dp"/>
-
-
-    </RadioGroup>
-
-    <!-- Card Details Section -->
-    <LinearLayout
-        android:id="@+id/layoutCardDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Card Number -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCardNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Card Number"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Please complete your payment to finalize your application"
+                android:textSize="14sp"
                 android:textColor="@color/black"
-                android:inputType="number"
-                android:maxLength="16"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="24dp"/>
 
-        <!-- Card Holder Name -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCardHolder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Card Holder Name"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <!-- Application ID Section -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Application ID"
+                android:textSize="14sp"
                 android:textColor="@color/black"
-                android:inputType="textPersonName"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Expiry Date and CVV -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilExpiry"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="MM/YY"
-                android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/black"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_marginEnd="8dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:inputType="date"
-                    android:maxLength="5"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilCvv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="CVV"
-                android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/black"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:inputType="numberPassword"
-                    android:maxLength="3"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Bank Transfer Details (Initially Invisible) -->
-    <LinearLayout
-        android:id="@+id/layoutBankDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+                android:layout_marginBottom="4dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvApplicationId"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Bank Details"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+
+                <ImageButton
+                    android:id="@+id/btnCopyId"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_edit"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Copy application ID"/>
+            </LinearLayout>
+
+            <!-- Application Summary -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Application Summary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Name -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name:"
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Bank: FNB\nAccount Name: Department of Home Affairs\nAccount Number: 12345678910\nBranch Code: 250655\nReference: APP_[Your ID Number]"
+                    android:layout_marginStart="8dp"
                     android:textColor="@color/black"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
 
-    <!-- Security Notice -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="🔒 Your payment information is secured with bank-level encryption"
-        android:textSize="12sp"
-        android:textColor="@color/darker_blue"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"/>
+            <!-- Email -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
 
-    <!-- Pay Button -->
-    <Button
-        android:id="@+id/btnPay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pay Now"
-        android:backgroundTint="@color/darker_blue"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_13ssp"
-        android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email:"
+                    android:textColor="@color/black"/>
 
-    <ImageView
-        android:layout_width="119dp"
-        android:layout_height="110dp"
-        android:src="@drawable/mascot_v2" />
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <!-- Application Type -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Application Type:"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tvApplicationType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <!-- Amount -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount:"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/darker_blue"/>
+            </LinearLayout>
+
+            <!-- Pay Button -->
+            <Button
+                android:id="@+id/btnPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pay"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/darker_blue"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </ScrollView>

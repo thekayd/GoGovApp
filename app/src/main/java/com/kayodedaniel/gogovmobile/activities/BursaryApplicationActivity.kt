@@ -331,6 +331,14 @@ class BursaryApplicationActivity : AppCompatActivity() {
         }
     }
 
+    // Function to generate application ID
+    private fun generateApplicationId(): String {
+        val timestamp = System.currentTimeMillis()
+        val random = Random().nextInt(1000)
+        return "VAC$timestamp$random"
+    }
+
+
     private fun getBase64FromUri(uri: Uri?): String? {
         if (uri == null) return null
 
@@ -349,6 +357,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
             return
         }
 
+        val applicationId = generateApplicationId()
         val name = etName.text.toString()
         val surname = etSurname.text.toString()
         val idNumber = etIdNumber.text.toString()
@@ -422,7 +431,13 @@ class BursaryApplicationActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@BursaryApplicationActivity, "Bursary application submitted successfully!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@BursaryApplicationActivity, PaymentActivity::class.java)
+                        val intent = Intent(this@BursaryApplicationActivity, PaymentActivity::class.java).apply {
+                            putExtra("application_id", applicationId)
+                            putExtra("name", name)
+                            putExtra("surname", surname)
+                            putExtra("email", email)
+                            putExtra("application_type", "bursary_applications")
+                        }
                         startActivity(intent)
                         finish()
                     } else {
