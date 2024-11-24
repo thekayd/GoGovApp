@@ -2,6 +2,7 @@ package com.kayodedaniel.gogovmobile.network
 
 import okhttp3.Request
 
+// supabas api handler for application and string keys for api
 class SupabaseApiHandler : BaseApiHandler() {
     override fun createRequest(data: String, url: String, apiKey: String): Request {
         return Request.Builder()

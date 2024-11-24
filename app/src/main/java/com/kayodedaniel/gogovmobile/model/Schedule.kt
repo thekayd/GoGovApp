@@ -1,5 +1,6 @@
 package com.kayodedaniel.gogovmobile.model
 
+// data class for schedule
 data class Schedule(
     val id: String,
     val name: String,

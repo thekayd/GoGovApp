@@ -18,6 +18,7 @@ class AppointmentAdapter(
         fun onCancelClick(appointment: Appointment)
     }
 
+    // view holder for viewing each item
     inner class AppointmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.tvAppointmentName)
         val dateTextView: TextView = itemView.findViewById(R.id.tvAppointmentDate)
@@ -41,6 +42,7 @@ class AppointmentAdapter(
         return AppointmentViewHolder(view)
     }
 
+    // binds data to holder
     override fun onBindViewHolder(holder: AppointmentViewHolder, position: Int) {
         val appointment = appointments[position]
         holder.nameTextView.text = "${appointment.name} ${appointment.surname}"
@@ -48,12 +50,13 @@ class AppointmentAdapter(
         holder.timeTextView.text = "Time: ${appointment.appointment_time}"
         holder.statusTextView.text = "Status: ${appointment.status}"
 
-        // Disable update and cancel buttons if the appointment is already canceled
+        // Disables update and cancel buttons if the appointment is already canceled
         val isCanceled = appointment.status.equals("Canceled", ignoreCase = true)
         holder.updateButton.isEnabled = !isCanceled
         holder.cancelButton.isEnabled = !isCanceled
     }
 
+    // removes update from list
     fun removeAppointment(appointment: Appointment) {
         val updatedList = appointments.toMutableList()
         updatedList.remove(appointment)
@@ -62,6 +65,7 @@ class AppointmentAdapter(
 
     override fun getItemCount(): Int = appointments.size
 
+    // updates list for appointments
     fun updateAppointments(newAppointments: List<Appointment>) {
         appointments = newAppointments
         notifyDataSetChanged()

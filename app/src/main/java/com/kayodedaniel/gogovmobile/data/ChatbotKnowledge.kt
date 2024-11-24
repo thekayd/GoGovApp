@@ -1,5 +1,6 @@
 package com.kayodedaniel.gogovmobile.data
 
+// object class for training chatbot
 object ChatbotKnowledge {
     val APP_OVERVIEW = """
     GoGov Mobile App Overview:

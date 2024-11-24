@@ -37,17 +37,17 @@ class ValidationHelper {
             }
 
             try {
-                // Extract date components
+                // Extracts date components
                 val year = idNumber.substring(0, 2).toInt()
                 val month = idNumber.substring(2, 4).toInt()
                 val day = idNumber.substring(4, 6).toInt()
 
-                // Validate date
+                // Validates date
                 if (month < 1 || month > 12 || day < 1 || day > 31) {
                     return false
                 }
 
-                // Validate citizenship digit (positions 10)
+                // Validates citizenship digit (positions 10)
                 val citizenship = idNumber[10].toString().toInt()
                 if (citizenship != 0 && citizenship != 1) {
                     return false

@@ -14,6 +14,7 @@ class ReportRepository(private val apiHandler: BaseApiHandler) : ReportOperation
     private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/user_reports"
     private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
+    // submits reports using repository
     override suspend fun submitReport(reportData: ReportData) {
         val json = JSONObject().apply {
             put("email", reportData.email)
@@ -33,6 +34,7 @@ class ReportRepository(private val apiHandler: BaseApiHandler) : ReportOperation
         }
     }
 
+    // validates reports and handles it by requesting supabase to submit
     override fun validateReport(reportData: ReportData): Boolean {
         return reportData.email.isNotEmpty() &&
                 reportData.phone.isNotEmpty() &&

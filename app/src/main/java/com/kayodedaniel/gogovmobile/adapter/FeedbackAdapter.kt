@@ -11,6 +11,7 @@ import com.kayodedaniel.gogovmobile.model.UserFeedback
 
 class FeedbackAdapter(private var feedbackList: List<UserFeedback>) : RecyclerView.Adapter<FeedbackAdapter.FeedbackViewHolder>() {
 
+    // view holder holding each item
     inner class FeedbackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val emailTextView: TextView = itemView.findViewById(R.id.textViewEmail)
         val phoneTextView: TextView = itemView.findViewById(R.id.textViewPhone)
@@ -23,6 +24,7 @@ class FeedbackAdapter(private var feedbackList: List<UserFeedback>) : RecyclerVi
         return FeedbackViewHolder(view)
     }
 
+    // binds each item
     override fun onBindViewHolder(holder: FeedbackViewHolder, position: Int) {
         val feedback = feedbackList[position]
         holder.emailTextView.text = feedback.email
@@ -33,6 +35,7 @@ class FeedbackAdapter(private var feedbackList: List<UserFeedback>) : RecyclerVi
 
     override fun getItemCount(): Int = feedbackList.size
 
+    // updates feedback list
     fun updateFeedbackList(newFeedbackList: List<UserFeedback>) {
         feedbackList = newFeedbackList
         notifyDataSetChanged()

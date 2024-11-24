@@ -24,6 +24,7 @@ import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.ui.theme.GeminiChatBotTheme
 
 class ChatBotActivity : ComponentActivity() {
+    // gemini chat bot interface, including, designing, width, shape, colors, fills, colors, padding, modifiers and values
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

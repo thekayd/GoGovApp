@@ -15,6 +15,7 @@ class ChatViewModel : ViewModel() {
     private val _chatState = MutableStateFlow(ChatState())
     val chatState = _chatState.asStateFlow()
 
+    // send prompt method to system chat
     fun onEvent(event: ChatUIEvent) {
         when (event) {
             is ChatUIEvent.sendPrompt -> {
@@ -36,6 +37,7 @@ class ChatViewModel : ViewModel() {
         }
     }
 
+    // adds prompt to system chat
     private fun addPrompt(prompt: String, bitmap: Bitmap?) {
         _chatState.update {
             it.copy(
@@ -48,6 +50,7 @@ class ChatViewModel : ViewModel() {
         }
     }
 
+    // gets response for data chat
     private fun getResponse(prompt: String) {
         viewModelScope.launch {
             try {

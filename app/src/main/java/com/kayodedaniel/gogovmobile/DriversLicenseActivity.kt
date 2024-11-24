@@ -70,7 +70,7 @@ class DriversLicenseActivity : AppCompatActivity() {
             submitForm()
         }
 
-        // Load the user's email from SharedPreferences
+        // Loads the user's email from SharedPreferences
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
         etEmail.setText(userEmail)
@@ -84,7 +84,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         spProvince = findViewById(R.id.spProvince)
         etAddress = findViewById(R.id.etAddress)
 
-        // Add these TextInputLayout fields to your XML
+        // Adds these TextInputLayout fields to your XML
         etCity = findViewById(R.id.etCity)
         etPostcode = findViewById(R.id.etPostcode)
         etEmail = findViewById(R.id.etEmail)
@@ -93,7 +93,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         spLicenseCategory = findViewById(R.id.spLicenseCategory)
         spTestCenter = findViewById(R.id.spTestCenter)
         btnPickDob = findViewById(R.id.btnPickDob)
-        cbNDA = findViewById(R.id.checkboxNda1) // Updated to match XML ID
+        cbNDA = findViewById(R.id.checkboxNda1)
         btnSubmit = findViewById(R.id.btnSubmit)
     }
 
@@ -104,7 +104,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            // Convert to ISO 8601 format
+            // Converts to ISO 8601 format
             selectedDob = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
             btnPickDob.text = selectedDob // Display in button
         }, year, month, day)
@@ -119,6 +119,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         return "VAC$timestamp$random"
     }
 
+    // retrieves base uri for image
     private fun getBase64FromUri(uri: Uri?): String? {
         if (uri == null) return null
 
@@ -132,12 +133,15 @@ class DriversLicenseActivity : AppCompatActivity() {
             return null
         }
     }
+
+    // allows for picking of files
     private fun pickFile(requestCode: Int) {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
         startActivityForResult(intent, requestCode)
     }
 
+    // activity result intent for each document
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && data != null) {
@@ -168,6 +172,8 @@ class DriversLicenseActivity : AppCompatActivity() {
             Log.w(TAG, "File selection cancelled or failed")
         }
         }
+
+    // validation of fields
     private fun validateFields(): Boolean {
         var isValid = true
         val errorMessages = mutableListOf<String>()
@@ -248,7 +254,7 @@ class DriversLicenseActivity : AppCompatActivity() {
             errorMessages.add("Please accept the terms and conditions")
         }
 
-        // Display all validation errors if any
+        // Displays all validation errors if any
         if (!isValid) {
             val errorMessage = errorMessages.joinToString("\n")
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
@@ -257,6 +263,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         return isValid
     }
 
+    // submits forms to database
     private fun submitForm() {
 
         if (!validateFields()) {
@@ -284,6 +291,7 @@ class DriversLicenseActivity : AppCompatActivity() {
         val eyeTestCertificateBase64 = getBase64FromUri(eyeTestCertificateUri)
         val learnersLicenseBase64 = getBase64FromUri(learnersLicenseUri)
 
+        // validations
         if (passportPhotoBase64 == null || proofOfAddressBase64 == null || idDocumentBase64 == null|| eyeTestCertificateBase64 == null|| learnersLicenseBase64 == null) {
             Toast.makeText(this, "Please upload all required documents", Toast.LENGTH_SHORT).show()
             return
@@ -294,6 +302,7 @@ class DriversLicenseActivity : AppCompatActivity() {
             return
         }
 
+        // uses json object and inputs fields in to database fields
         val json = JSONObject().apply {
             put("name", name)
             put("surname", surname)
@@ -319,6 +328,7 @@ class DriversLicenseActivity : AppCompatActivity() {
 
         val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
+        // requests into supabase
         val request = Request.Builder()
             .url(supabaseUrl)
             .post(requestBody)
@@ -331,6 +341,7 @@ class DriversLicenseActivity : AppCompatActivity() {
                 val client = OkHttpClient()
                 val response = client.newCall(request).execute()
 
+                // using data for payment
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@DriversLicenseActivity, "Form submitted successfully!", Toast.LENGTH_SHORT).show()

@@ -14,6 +14,7 @@ class ScheduleAdapter(
     private val listener: OnScheduleClickListener
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
+    // approves, updates and reschedule interfaces
     interface OnScheduleClickListener {
         fun onApproveClick(schedule: Schedule)
         fun onDeclineClick(schedule: Schedule)
@@ -47,6 +48,7 @@ class ScheduleAdapter(
         return ScheduleViewHolder(view)
     }
 
+    // binding view holder to existing items to recycler view
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val schedule = schedules[position]
         holder.nameTextView.text = "${schedule.name}"

@@ -1,5 +1,6 @@
 package com.kayodedaniel.gogovmobile.models
 
+// data class for payments
 data class Payment(
     val id: String,
     val userId: String,

@@ -10,7 +10,7 @@ import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
 @SuppressWarnings("all")
 object EmailSender {
-
+    @SuppressWarnings("all")
     // email detail for stmp
     private const val SMTP_HOST = "smtp.gmail.com"
     private const val SMTP_PORT = "587"
@@ -18,6 +18,7 @@ object EmailSender {
     private const val PASSWORD = "cntqypdiusmbomao"
 
     //send verfication emails through this method
+
     fun sendVerificationEmail(toEmail: String, verificationCode: String) {
         try {
             val props = Properties().apply {

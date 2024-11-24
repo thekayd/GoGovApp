@@ -11,6 +11,7 @@ import com.kayodedaniel.gogovmobile.R
 class FAQAdapter(private val faqList: List<FAQItem>) :
     RecyclerView.Adapter<FAQAdapter.FAQViewHolder>() {
 
+        // faq view holder for items
     class FAQViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val questionTextView: TextView = itemView.findViewById(R.id.text_faq_question)
         val answerTextView: TextView = itemView.findViewById(R.id.text_faq_answer)
@@ -22,6 +23,7 @@ class FAQAdapter(private val faqList: List<FAQItem>) :
         return FAQViewHolder(view)
     }
 
+    // binds item to recycler view
     override fun onBindViewHolder(holder: FAQViewHolder, position: Int) {
         val faqItem = faqList[position]
         holder.questionTextView.text = faqItem.question

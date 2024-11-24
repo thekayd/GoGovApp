@@ -1,5 +1,6 @@
 package com.kayodedaniel.gogovmobile.network
 
+// data clasess for each gemini request and data
 data class GeminiRequest(
     val contents: List<Content>
 )

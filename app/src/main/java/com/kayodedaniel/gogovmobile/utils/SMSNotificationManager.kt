@@ -21,7 +21,7 @@ class SMSNotificationManager(private val context: Context) {
 
     fun formatPhoneNumber(phoneNumber: String): String {
         try {
-            // Remove any spaces, hyphens, or other characters
+            // Removes any spaces, hyphens, or other characters
             val cleaned = phoneNumber.replace(Regex("[^0-9]"), "")
 
             Log.d(TAG, "Original phone number: $phoneNumber")
@@ -50,7 +50,7 @@ class SMSNotificationManager(private val context: Context) {
                 Manifest.permission.SEND_SMS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // Request permission
+            // Requests permission
             ActivityCompat.requestPermissions(
                 context as Activity,
                 arrayOf(Manifest.permission.SEND_SMS),
@@ -71,7 +71,7 @@ class SMSNotificationManager(private val context: Context) {
 
             val smsManager = SmsManager.getDefault()
 
-            // If message is long, split it
+            // If message is long, this splits the message
             val messageParts = smsManager.divideMessage(message)
 
             smsManager.sendMultipartTextMessage(
@@ -84,7 +84,7 @@ class SMSNotificationManager(private val context: Context) {
 
             Log.d(TAG, "SMS sent successfully")
 
-            // Log success
+            // Logs success
             Toast.makeText(
                 context,
                 "SMS notification sent successfully",
@@ -100,6 +100,7 @@ class SMSNotificationManager(private val context: Context) {
         }
     }
 
+    // creates the status method for the satatus sms
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createStatusMessage(category: String, newStatus: String): String {
         val formattedCategory = category.replace("_", " ").capitalize()
@@ -133,6 +134,7 @@ class SMSNotificationManager(private val context: Context) {
         }
     }
 
+    // uses package manager and permissions for sending of message
     fun sendInProgressReminder(phoneNumber: String, category: String, daysSinceInProgress: Int) {
         if (ContextCompat.checkSelfPermission(
                 context,
@@ -148,6 +150,7 @@ class SMSNotificationManager(private val context: Context) {
             return
         }
 
+        // formats message for in progress reminders
         try {
             val formattedNumber = formatPhoneNumber(phoneNumber)
             val formattedCategory = category.replace("_", " ").capitalize()
@@ -190,7 +193,7 @@ class SMSNotificationManager(private val context: Context) {
         }
     }
 
-    // Handle permission request result in your Activity
+    // Handles permission request result in your Activity
     fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -201,7 +204,7 @@ class SMSNotificationManager(private val context: Context) {
                 if ((grantResults.isNotEmpty() &&
                             grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 ) {
-                    // Permission was granted, you can send SMS now
+                    // Permission was granted, and sms can be sent
                     Toast.makeText(
                         context,
                         "SMS permission granted",

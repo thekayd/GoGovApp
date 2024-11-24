@@ -7,8 +7,10 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// object class for the chat data and system prompts as well as response access
 object ChatData {
-    private const val API_KEY = "" // Replace with your actual API key
+    @SuppressWarnings("all")
+    private const val API_KEY = ""
     private const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
 
     private val retrofit = Retrofit.Builder()
@@ -52,6 +54,7 @@ object ChatData {
     - Provide clear, step-by-step instructions
     """
 
+    // method for getting system prompt
     suspend fun getResponse(prompt: String): Chat {
         return try {
             val request = GeminiRequest(
@@ -63,13 +66,13 @@ object ChatData {
                 )
             )
             val response = withContext(Dispatchers.IO) {
-                geminiApiService.generateContent(API_KEY, request)
+                geminiApiService.generateContent(API_KEY, request) // using api key for response
             }
 
             val responseText = response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text
                 ?: "I apologize, but I couldn't generate a response."
 
-            // Add email support fallback for unresolvable queries
+            // Adds email support fallback for unresolvable queries
             val finalResponse = if (responseText.contains("I apologize") || responseText.length < 10) {
                 "I'm unable to fully resolve your query. Please:\n" +
                         "1. Visit 'Feedback' in app Settings\n" +

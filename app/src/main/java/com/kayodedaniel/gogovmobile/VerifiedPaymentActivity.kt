@@ -42,6 +42,7 @@ class VerifiedPaymentActivity : AppCompatActivity() {
         btnDownloadReceipt = findViewById(R.id.btnDownloadReceipt)
     }
 
+    // animates user verification success
     private fun animateVerification() {
         CoroutineScope(Dispatchers.Main).launch {
             delay(2000) // Simulate processing
@@ -53,6 +54,7 @@ class VerifiedPaymentActivity : AppCompatActivity() {
         }
     }
 
+    // sets buttons for download and getting to home page
     private fun setupButtons() {
         btnBackToHome.setOnClickListener {
             startActivity(Intent(this, HomePageActivity::class.java))
@@ -64,6 +66,7 @@ class VerifiedPaymentActivity : AppCompatActivity() {
         }
     }
 
+    // generates receipts report for users
     private fun generateAndShareReceipt() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -93,12 +96,13 @@ class VerifiedPaymentActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    // Handle error
+
                 }
             }
         }
     }
 
+    // using permission for users to share receipt on device
     private fun shareReceipt(uri: Uri) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"

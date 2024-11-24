@@ -6,6 +6,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 
+// base api handler for request bodies for supabase
 abstract class BaseApiHandler {
     protected val client = OkHttpClient()
 

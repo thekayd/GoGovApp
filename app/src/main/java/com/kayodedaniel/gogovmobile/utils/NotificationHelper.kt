@@ -22,10 +22,12 @@ class NotificationHelper(private val context: Context) {
         private const val NOTIFICATION_ID = 1
     }
 
+    // notification channel class
     init {
         createNotificationChannel()
     }
 
+    // creates a notification class channel
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Payment Notifications"
@@ -39,6 +41,7 @@ class NotificationHelper(private val context: Context) {
         }
     }
 
+    // shows the processing notification for payement
     fun showPaymentProcessingNotification() {
         if (!hasNotificationPermission()) {
             requestNotificationPermission()
@@ -49,6 +52,7 @@ class NotificationHelper(private val context: Context) {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
+        // paending intent on payment processing
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,
@@ -73,6 +77,7 @@ class NotificationHelper(private val context: Context) {
         }
     }
 
+    // checks permission for notification on device
     fun hasNotificationPermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ContextCompat.checkSelfPermission(
@@ -84,12 +89,14 @@ class NotificationHelper(private val context: Context) {
         }
     }
 
+    // requests notification permission
     fun requestNotificationPermission() {
         if (!hasNotificationPermission()) {
             showEnableNotificationDialog()
         }
     }
 
+    // enables notification dialog
     private fun showEnableNotificationDialog() {
         AlertDialog.Builder(context)
             .setTitle("Enable Notifications")
@@ -105,6 +112,7 @@ class NotificationHelper(private val context: Context) {
             .show()
     }
 
+    // opens notification settings
     private fun openNotificationSettings() {
         val intent = Intent().apply {
             when {

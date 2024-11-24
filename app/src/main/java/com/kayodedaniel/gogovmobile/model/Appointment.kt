@@ -1,5 +1,6 @@
 package com.kayodedaniel.gogovmobile.model
 
+// data class for appointment
 data class Appointment(
     val id: String,
     val name: String,
