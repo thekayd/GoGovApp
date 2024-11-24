@@ -85,7 +85,7 @@ class PassportApplicationActivity : AppCompatActivity() {
             submitForm()
         }
 
-        // Load the user's email from SharedPreferences
+        // Loads the user's email from SharedPreferences
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
         Log.d(TAG, "Loaded user email from SharedPreferences: $userEmail")
@@ -110,7 +110,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         spPassportType = findViewById(R.id.spPassportType)
         spProcessingCenter = findViewById(R.id.spProcessingCenter)
 
-        // Set up spinners
+        // Sets up spinners
         Log.d(TAG, "Setting up spinners")
         ArrayAdapter.createFromResource(
             this,
@@ -156,7 +156,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         }
 
         try {
-            // Extract date of birth from ID number (YYMMDD)
+            // Extracts date of birth from ID number (YYMMDD)
             val year = idNumber.substring(0, 2).toInt()
             val month = idNumber.substring(2, 4).toInt()
             val day = idNumber.substring(4, 6).toInt()
@@ -167,7 +167,7 @@ class PassportApplicationActivity : AppCompatActivity() {
                 return false
             }
 
-            // Validate day
+            // Validates day
             if (day < 1 || day > 31) {
                 tilIdNumber.error = "Invalid day in ID number"
                 return false
@@ -301,13 +301,13 @@ class PassportApplicationActivity : AppCompatActivity() {
             val birthDate = LocalDate.parse(dob, formatter)
             val now = LocalDate.now()
 
-            // Check if person is at least 16 years old
+            // Checks if person is at least 16 years old
             if (birthDate.plusYears(16).isAfter(now)) {
                 Toast.makeText(this, "Applicant must be at least 16 years old", Toast.LENGTH_SHORT).show()
                 return false
             }
 
-            // Check if person is not more than 100 years old
+            // Checks if person is not more than 100 years old
             if (birthDate.plusYears(100).isBefore(now)) {
                 Toast.makeText(this, "Invalid date of birth", Toast.LENGTH_SHORT).show()
                 return false
@@ -319,6 +319,8 @@ class PassportApplicationActivity : AppCompatActivity() {
             return false
         }
     }
+
+    // hanges the image to a base URI and converts
     private fun getBase64FromUri(uri: Uri?): String? {
         if (uri == null) return null
 
@@ -333,6 +335,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         }
     }
 
+    // allows for the dialog of a calander
     private fun pickDateOfBirth() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -340,7 +343,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            // Convert to ISO 8601 format
+            // Converts to ISO 8601 format
             selectedDob = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
             btnPickDob.text = selectedDob // Display in button
         }, year, month, day)
@@ -348,6 +351,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         Log.d(TAG, "pickDateOfBirth: Date picker dialog shown")
     }
 
+    // method for picking file of device, using intents
     private fun pickFile(requestCode: Int) {
         Log.d(TAG, "Initiating file picker with request code: $requestCode")
         val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -367,6 +371,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d(TAG, "onActivityResult - requestCode: $requestCode, resultCode: $resultCode")
 
+        // gets result code for file uri
         if (resultCode == RESULT_OK && data != null) {
             val fileUri = data.data
             Log.d(TAG, "File selected: $fileUri")
@@ -393,6 +398,7 @@ class PassportApplicationActivity : AppCompatActivity() {
         }
     }
 
+    // submits application
     @RequiresApi(Build.VERSION_CODES.O)
     private fun submitForm() {
         Log.d(TAG, "Starting form submission")
@@ -419,7 +425,7 @@ class PassportApplicationActivity : AppCompatActivity() {
             return
         }
 
-        // Validate all fields
+        // Validates all fields
         if (!validateName(name) ||
             !validateSurname(surname) ||
             !validateSouthAfricanID(idNumber) ||
@@ -434,7 +440,7 @@ class PassportApplicationActivity : AppCompatActivity() {
             return
         }
 
-        // Log all form values
+        // Logs all form values
         Log.d(TAG, """
             Form Values:
             Name: $name
@@ -451,7 +457,7 @@ class PassportApplicationActivity : AppCompatActivity() {
             NDA Checked: ${cbNDA.isChecked}
         """.trimIndent())
 
-        // Validate form
+        // Validates form
         if (name.isEmpty() || surname.isEmpty() || idNumber.isEmpty() || dob.isEmpty() ||
             address.isEmpty() || city.isEmpty() || postcode.isEmpty() || email.isEmpty() || phoneNumber.isEmpty()) {
             Log.w(TAG, "Form validation failed - empty fields detected")
@@ -491,6 +497,7 @@ class PassportApplicationActivity : AppCompatActivity() {
 
         val requestBody = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
+        // uses request body and send the application to the database
         val request = Request.Builder()
             .url(supabaseUrl)
             .post(requestBody)

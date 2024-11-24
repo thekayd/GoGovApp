@@ -16,13 +16,13 @@ import kotlinx.coroutines.withContext
 class VerifyEmailActivity : AppCompatActivity() {
 
     private lateinit var verificationCode: String
-    private lateinit var email: String // Pass this from SignUpActivity
+    private lateinit var email: String // Passes this from SignUpActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_email)
 
-        // Retrieve the verification code and email from SignUpActivity
+        // Retrieves the verification code and email from SignUpActivity
         verificationCode = intent.getStringExtra("VERIFICATION_CODE") ?: ""
         email = intent.getStringExtra("EMAIL") ?: ""
 
@@ -45,6 +45,7 @@ class VerifyEmailActivity : AppCompatActivity() {
         }
     }
 
+    // navigates to sign up
     private fun navigateToSignIn() {
         val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
@@ -52,7 +53,7 @@ class VerifyEmailActivity : AppCompatActivity() {
     }
 
     private fun resendVerificationCode() {
-        // Generate a new verification code
+        // Generates a new verification code
         verificationCode = (100000..999999).random().toString()
 
         CoroutineScope(Dispatchers.IO).launch {

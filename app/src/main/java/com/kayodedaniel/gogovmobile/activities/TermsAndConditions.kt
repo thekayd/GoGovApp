@@ -13,19 +13,19 @@ import java.io.InputStreamReader
 class TermsAndConditions : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_terms_and_conditions) // Set the content view for the activity
+        setContentView(R.layout.activity_terms_and_conditions) // Sets the content view for the activity
 
-        val termsTextView = findViewById<TextView>(R.id.text_terms_conditions) // Find the TextView for displaying terms
+        val termsTextView = findViewById<TextView>(R.id.text_terms_conditions) // Finds the TextView for displaying terms
 
-        // Read the file from res/raw
-        val termsText: String = readTextFileFromRawResource(R.raw.terms_conditions) // Get terms text from raw resource
-        termsTextView.text = termsText // Set the text of the TextView to the terms text
+        // Reads the file from res/raw
+        val termsText: String = readTextFileFromRawResource(R.raw.terms_conditions) // Gets terms text from raw resource
+        termsTextView.text = termsText // Sets the text of the TextView to the terms text
 
-        val acceptButton = findViewById<Button>(R.id.button_accept_terms) // Find the accept button
+        val acceptButton = findViewById<Button>(R.id.button_accept_terms) // Finds the accept button
         acceptButton.setOnClickListener {
-            showToast("T&C's Accepted") // Show a toast message indicating acceptance of terms
-            val intent = Intent(this, SettingsActivity::class.java) // Create intent to navigate to SettingsActivity
-            startActivity(intent) // Start the SettingsActivity
+            showToast("T&C's Accepted") // Shows a toast message indicating acceptance of terms
+            val intent = Intent(this, SettingsActivity::class.java) // Creates intent to navigate to SettingsActivity
+            startActivity(intent) // Starts the SettingsActivity
         }
     }
 

@@ -26,7 +26,7 @@ class SchoolEnrollmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_school_enrollment)
 
-        // Initialize views
+        // Initializes views
         etStudentName = findViewById(R.id.et_student_name)
         etStudentSurname = findViewById(R.id.et_student_surname)
         etStudentIdNumber = findViewById(R.id.et_student_id_number)
@@ -36,13 +36,13 @@ class SchoolEnrollmentActivity : AppCompatActivity() {
         btnUploadDocuments = findViewById(R.id.btn_upload_documents)
         btnSubmit = findViewById(R.id.btn_submit)
 
-        // Handle document upload
+        // Handles document upload
         btnUploadDocuments.setOnClickListener {
             // Simulate document upload logic
             Toast.makeText(this, "Upload your school enrollment documents.", Toast.LENGTH_LONG).show()
         }
 
-        // Submit the form
+        // Submits the form
         btnSubmit.setOnClickListener {
             submitForm()
         }

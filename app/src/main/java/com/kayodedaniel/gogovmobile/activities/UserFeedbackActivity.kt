@@ -32,6 +32,7 @@ class UserFeedbackActivity : AppCompatActivity() {
         val feedbackEditText = findViewById<EditText>(R.id.editTextFeedback)
         val submitButton = findViewById<Button>(R.id.btnSubmitFeedback)
 
+        // gets and submits the user data
         submitButton.setOnClickListener {
             val rating = ratingBar.rating
             val email = emailEditText.text.toString().trim()
@@ -46,6 +47,7 @@ class UserFeedbackActivity : AppCompatActivity() {
         }
     }
 
+    // sends the feedback to supabase to be saved
     private fun sendFeedbackToSupabase(rating: Float, email: String, phone: String, feedback: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val json = JSONObject().apply {

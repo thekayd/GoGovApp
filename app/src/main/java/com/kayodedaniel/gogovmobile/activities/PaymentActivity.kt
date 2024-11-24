@@ -40,17 +40,17 @@ class PaymentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        // Initialize views
+        // Initializes views
         initializeViews()
 
-        // Get application details from intent
+        // Gets application details from intent
         val applicationId = intent.getStringExtra("application_id") ?: "Unknown"
         val name = intent.getStringExtra("name") ?: "Unknown"
         val surname = intent.getStringExtra("surname") ?: ""
         val email = intent.getStringExtra("email") ?: "Unknown"
         val applicationType = intent.getStringExtra("application_type") ?: "Unknown"
 
-        // Calculate amount based on application type
+        // Calculates amount based on application type
         val amount = when (applicationType) {
             "passport_applications" -> 600
             "drivers_license_applications" -> 250
@@ -59,14 +59,14 @@ class PaymentActivity : AppCompatActivity() {
             else -> 200
         }
 
-        // Set values to views
+        // Sets values to views
         tvApplicationId.text = "APP-$applicationId"
         tvName.text = "$name $surname"
         tvEmail.text = email
         tvApplicationType.text = applicationType.replace("_", " ").capitalize()
         tvAmount.text = "R$amount"
 
-        // Setup copy button
+        // Setups copy button
         btnCopyId.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Application ID", "APP-$applicationId")
@@ -79,7 +79,7 @@ class PaymentActivity : AppCompatActivity() {
             // Create the payment URL based on application type
             val paymentUrl = "https://paystack.com/pay/${applicationType.toLowerCase()}"
 
-            // Open URL in browser
+            // Opens URL in browser
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(paymentUrl))
             startActivity(intent)
             finish()

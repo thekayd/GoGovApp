@@ -29,7 +29,7 @@ class PDFViewerActivity : AppCompatActivity() {
         linearLayout = findViewById(R.id.linearLayout)
         progressBar = findViewById(R.id.progressBar)
 
-        // Get screen width
+        // Gets screen width
         screenWidth = resources.displayMetrics.widthPixels
 
         val pdfFile = File(intent.getStringExtra("PDF_PATH") ?: return)
@@ -40,12 +40,13 @@ class PDFViewerActivity : AppCompatActivity() {
         try {
             val parcelFileDescriptor = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY)
             pdfRenderer = PdfRenderer(parcelFileDescriptor)
-            renderAllPages() // Render all pages
+            renderAllPages() // Renders all pages in the pdf for displaying
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
+    // method for rendering all the pages, using page count for the document
     private fun renderAllPages() {
         progressBar.visibility = View.VISIBLE
         pdfRenderer?.let { renderer ->
@@ -60,17 +61,17 @@ class PDFViewerActivity : AppCompatActivity() {
         pdfRenderer?.let { renderer ->
             if (pageIndex < 0 || pageIndex >= renderer.pageCount) return
 
-            currentPage?.close() // Close the previous page if it exists
+            currentPage?.close() // Closes the previous page if it exists
             currentPage = renderer.openPage(pageIndex)
 
-            // Get the bitmap for the current page
+            // Gets the bitmap for the current page
             val originalBitmap = Bitmap.createBitmap(currentPage!!.width, currentPage!!.height, Bitmap.Config.ARGB_8888)
             currentPage?.render(originalBitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
 
-            // Calculate the scaling factor to fit the width of the screen
+            // Calculates the scaling factor to fit the width of the screen
             val scaleFactor = screenWidth.toFloat() / originalBitmap.width
 
-            // Scale the bitmap
+            // Scales the bitmap
             val scaledBitmap = Bitmap.createScaledBitmap(
                 originalBitmap,
                 screenWidth,
@@ -85,9 +86,9 @@ class PDFViewerActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
 
-            linearLayout.addView(imageView) // Add the image view to the layout
+            linearLayout.addView(imageView) // Adds the image view to the layout
 
-            // Hide progress bar after rendering
+            // Hides progress bar after rendering
             progressBar.visibility = View.GONE
         }
     }

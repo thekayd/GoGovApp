@@ -24,14 +24,14 @@ class ApplicationActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnSubmitApplication).setOnClickListener {
-            // Submit application logic here
+
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == PICK_PDF_CODE && resultCode == RESULT_OK && data != null) {
             val uri = data.data
-            // Upload file logic
+
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

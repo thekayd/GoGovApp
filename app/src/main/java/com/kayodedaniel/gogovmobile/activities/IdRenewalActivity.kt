@@ -10,6 +10,7 @@ import com.kayodedaniel.gogovmobile.R
 
 class IdRenewalActivity : AppCompatActivity() {
 
+    // same with here, could have a ID renewal section, intent for button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_id_renewal)
@@ -17,7 +18,7 @@ class IdRenewalActivity : AppCompatActivity() {
         val btnSubmitRenewal: Button = findViewById(R.id.btn_submit_renewal)
 
         btnSubmitRenewal.setOnClickListener {
-            // Code to handle form submission
+
         }
     }
 }

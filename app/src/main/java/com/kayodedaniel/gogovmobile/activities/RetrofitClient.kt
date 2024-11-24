@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
+    // uses base url for logging to htttp and connecting to database using retrofit client
     private const val BASE_URL = "https://bgckkkxjfnkwgjzlancs.supabase.co"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {

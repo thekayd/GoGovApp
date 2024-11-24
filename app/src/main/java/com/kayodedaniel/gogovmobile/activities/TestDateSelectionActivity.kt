@@ -39,7 +39,7 @@ class TestDateSelectionActivity : AppCompatActivity() {
             pickTestDate()
         }
 
-        // Populate available time slots
+        // Populates available time slots
         addAvailableTimeSlots()
 
         // Handle Next Step button click

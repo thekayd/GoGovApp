@@ -7,6 +7,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
+// using supabase servoces
 interface SupabaseService {
     @Headers("Content-Type: application/json")
     @POST("rest/v1/drivers_license_applications")

@@ -25,10 +25,10 @@ class SettingsActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Set Home as selected
+        // Sets Home as selected
         bottomNavigationView.selectedItemId = R.id.settings
 
-        // Set up click listener for the Edit Profile text
+        // Sets up click listener for the Edit Profile text
         binding.textViewEditProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
@@ -54,7 +54,7 @@ class SettingsActivity : AppCompatActivity() {
             logoutUser()
         }
 
-        // Handle navigation item clicks
+        // Handles navigation item clicks
         bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.nav_home -> {
@@ -77,36 +77,36 @@ class SettingsActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     true
                 }
-                R.id.settings -> true // Stay on SettingsActivity
+                R.id.settings -> true // Stays on SettingsActivity
                 else -> false
             }
         }
     }
 
     private fun logoutUser() {
-        // Create a confirmation dialog
+        // Creates a confirmation dialog
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Logout Confirmation")
         builder.setMessage("Logging out will clear all your session data. You will need to log in with your email and password next time. Do you want to continue?")
         builder.setPositiveButton("Yes") { _, _ ->
-            // Clear user session data
+            // Clears user session data
             val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
             with(sharedPref.edit()) {
                 clear() // Clears all stored data, including tokens and user details
                 apply()
             }
 
-            // Redirect to SignInActivity
+            // Redirects to SignInActivity
             val intent = Intent(this, SignInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            finish() // Close the current activity
+            finish() // Closes the current activity
         }
         builder.setNegativeButton("No") { dialog, _ ->
             dialog.dismiss()
         }
 
-        // Show the confirmation dialog
+        // Shows the confirmation dialog
         builder.show()
     }
 }

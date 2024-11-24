@@ -39,12 +39,14 @@ class ApplicationProgressActivity : AppCompatActivity() {
         fetchApplicationDetails()
     }
 
+    // Fetches application details for the logged-in user from Supabase.
     private fun fetchApplicationDetails() {
         progressBar.visibility = View.VISIBLE
 
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
 
+        // // Retrieve the logged-in user's email from SharedPreferences
         if (userEmail.isEmpty()) {
             Toast.makeText(this, "User email not found", Toast.LENGTH_SHORT).show()
             progressBar.visibility = View.GONE
@@ -55,7 +57,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
             try {
                 val client = OkHttpClient()
 
-                // Fetch driver's license application
+                // Fetches driver's license application
                 val driverLicenseRequest = Request.Builder()
                     .url("$supabaseUrl/rest/v1/drivers_license_applications?email=eq.$userEmail")
                     .get()
@@ -65,7 +67,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                 val driverLicenseResponse = client.newCall(driverLicenseRequest).execute()
                 val driverLicenseResponseBody = driverLicenseResponse.body?.string()
 
-                // Fetch vaccination application
+                // Fetches vaccination application
                 val vaccinationRequest = Request.Builder()
                     .url("$supabaseUrl/rest/v1/vaccination_applications?email=eq.$userEmail")
                     .get()
@@ -75,7 +77,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                 val vaccinationResponse = client.newCall(vaccinationRequest).execute()
                 val vaccinationResponseBody = vaccinationResponse.body?.string()
 
-                // Fetch passport application
+                // Fetches passport application
                 val passportRequest = Request.Builder()
                     .url("$supabaseUrl/rest/v1/passport_applications?email=eq.$userEmail")
                     .get()
@@ -85,7 +87,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                 val passportResponse = client.newCall(passportRequest).execute()
                 val passportResponseBody = passportResponse.body?.string()
 
-                // Fetch bursary application
+                // Fetches bursary application
                 val bursaryRequest = Request.Builder()
                     .url("$supabaseUrl/rest/v1/bursary_applications?email=eq.$userEmail")
                     .get()
@@ -98,6 +100,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     val applicationDetails = StringBuilder()
 
+                    // Processes driver's license response
                     if (!driverLicenseResponseBody.isNullOrEmpty()) {
                         val driverLicenseJson = JSONArray(driverLicenseResponseBody)
                         if (driverLicenseJson.length() > 0) {
@@ -107,6 +110,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                         }
                     }
 
+                    // Processes vaccination response
                     if (!vaccinationResponseBody.isNullOrEmpty()) {
                         val vaccinationJson = JSONArray(vaccinationResponseBody)
                         if (vaccinationJson.length() > 0) {
@@ -116,6 +120,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                         }
                     }
 
+                    // Processes passport response
                     if (!passportResponseBody.isNullOrEmpty()) {
                         val passportJson = JSONArray(passportResponseBody)
                         if (passportJson.length() > 0) {
@@ -125,6 +130,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                         }
                     }
 
+                    // Processes bursary response
                     if (!bursaryResponseBody.isNullOrEmpty()) {
                         val bursaryJson = JSONArray(bursaryResponseBody)
                         if (bursaryJson.length() > 0) {
@@ -138,6 +144,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
                         applicationDetails.append("No applications found for this email.")
                     }
 
+                    // Updates UI with the fetched details
                     tvApplicationDetails.text = applicationDetails.toString()
                     progressBar.visibility = View.GONE
                 }
@@ -150,6 +157,7 @@ class ApplicationProgressActivity : AppCompatActivity() {
         }
     }
 
+    // Formats application details into a readable string
     private fun formatApplicationDetails(details: JSONObject, applicationType: String): String {
         val formattedDetails = StringBuilder()
         formattedDetails.append("Application Status: ${details.optString("status", "N/A")}\n\n")

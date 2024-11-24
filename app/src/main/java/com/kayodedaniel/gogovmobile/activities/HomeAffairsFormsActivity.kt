@@ -11,6 +11,7 @@ import com.kayodedaniel.gogovmobile.R
 
 class HomeAffairsFormsActivity : AppCompatActivity() {
 
+    // home affairs form home page intents
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_affairs_forms)

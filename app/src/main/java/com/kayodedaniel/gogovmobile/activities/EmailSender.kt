@@ -11,11 +11,13 @@ import javax.mail.internet.MimeMessage
 @SuppressWarnings("all")
 object EmailSender {
 
+    // email detail for stmp
     private const val SMTP_HOST = "smtp.gmail.com"
     private const val SMTP_PORT = "587"
-    private const val EMAIL = "mini7rush@gmail.com" // Replace with your email
-    private const val PASSWORD = "cntqypdiusmbomao" // Replace with your email password
+    private const val EMAIL = "mini7rush@gmail.com"
+    private const val PASSWORD = "cntqypdiusmbomao"
 
+    //send verfication emails through this method
     fun sendVerificationEmail(toEmail: String, verificationCode: String) {
         try {
             val props = Properties().apply {
@@ -25,12 +27,14 @@ object EmailSender {
                 put("mail.smtp.port", SMTP_PORT)
             }
 
+            // allows for session authentication
             val session = Session.getInstance(props, object : Authenticator() {
                 override fun getPasswordAuthentication(): PasswordAuthentication {
                     return PasswordAuthentication(EMAIL, PASSWORD)
                 }
             })
 
+            // verify email message
             val message = MimeMessage(session).apply {
                 setFrom(InternetAddress(EMAIL, "GoGov Mobile"))
                 setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail))

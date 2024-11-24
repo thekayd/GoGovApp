@@ -27,6 +27,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private val client = OkHttpClient()
 
+    // uses okhttp client to get from the user and connects from supabase
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class SignUpActivity : AppCompatActivity() {
             finish()
         }
 
+        // validates if passwords match
         signUpButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
@@ -62,6 +64,7 @@ class SignUpActivity : AppCompatActivity() {
 
     }
 
+    // gets requests and connect to supabase auth for authentication via email and password
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createUser(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -88,10 +91,10 @@ class SignUpActivity : AppCompatActivity() {
 
                         createProfile(userId, accessToken)
 
-                        // Generate verification code
+                        // Generates verification code
                         val verificationCode = (100000..999999).random().toString()
 
-                        // Send verification email
+                        // Sends verification email
                         EmailSender.sendVerificationEmail(email, verificationCode)
 
                         withContext(Dispatchers.Main) {
@@ -115,16 +118,17 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    // this navigates to the verification page
     private fun navigateToVerification(verificationCode: String, email: String) {
         val intent = Intent(this, VerifyEmailActivity::class.java)
         intent.putExtra("VERIFICATION_CODE", verificationCode)
-        intent.putExtra("EMAIL", email) // Pass the email as well
+        intent.putExtra("EMAIL", email) // Passes the email as well
         startActivity(intent)
         finish()
     }
 
 
-
+// Users create profile using this nethod, it is then saved into the database
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun createProfile(userId: String, accessToken: String) {
         val profileJson = JSONObject().apply {
@@ -151,6 +155,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    // shared preference is also saved as email and acces tokens are used
     private fun saveUserDataToPreferences(email: String, accessToken: String, userId: String) {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {

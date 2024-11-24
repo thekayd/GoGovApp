@@ -32,40 +32,49 @@ class AdminSignInActivity : AppCompatActivity() {
         val passwordInput = findViewById<EditText>(R.id.inputAdminPassword)
         val signInButton = findViewById<MaterialButton>(R.id.buttonAdminSignIn)
 
+        // Set an onClickListener for the sign-in button and triming the strings as well
         signInButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
+            // Validating user inputs
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show()
             } else if (!isValidEmail(email)) {
+                // Checks if email format is valid
                 Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show()
             } else if (!isValidPassword(password)) {
+                // Enforces strong password requirements
                 Toast.makeText(
                     this,
                     "Password must be at least 8 characters, include a number and an uppercase letter",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
+                // Attempts to authenticate admin
                 authenticateAdmin(email, password)
             }
         }
     }
 
+    // Sanitizes input to prevent malicious content
     private fun sanitizeInput(input: String): String {
         return input.replace(Regex("[^A-Za-z0-9@._-]"), "") // Allow only safe characters
     }
 
+    // Validates email using Android's built-in email pattern matcher
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
+    // Validates password with custom rules
     private fun isValidPassword(password: String): Boolean {
         return password.length >= 8 &&
                 Regex(".*[A-Z].*").containsMatchIn(password) &&
                 Regex(".*[0-9].*").containsMatchIn(password)
     }
 
+    // Authenticates admin credentials by making a network request
     private fun authenticateAdmin(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -75,6 +84,7 @@ class AdminSignInActivity : AppCompatActivity() {
 
                 val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
 
+                // Builds the network request
                 val request = Request.Builder()
                     .url("https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1/admin_profile")
                     .get()
@@ -84,11 +94,13 @@ class AdminSignInActivity : AppCompatActivity() {
                     .addHeader("Content-Type", "application/json")
                     .build()
 
+                // Executes the network request
                 client.newCall(request).execute().use { response ->
                     if (response.isSuccessful) {
                         val responseBody = response.body?.string()
                         val jsonArray = org.json.JSONArray(responseBody)
 
+                        // Checks credentials against retrieved admin profiles
                         val adminExists = checkAdminCredentials(jsonArray, email, password)
 
                         withContext(Dispatchers.Main) {
@@ -115,6 +127,7 @@ class AdminSignInActivity : AppCompatActivity() {
         }
     }
 
+    // Checks if the provided email and password match an admin in the retrieved list
     private fun checkAdminCredentials(jsonArray: org.json.JSONArray, email: String, password: String): Boolean {
         for (i in 0 until jsonArray.length()) {
             val adminObject = jsonArray.getJSONObject(i)

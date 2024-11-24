@@ -90,7 +90,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
             submitForm()
         }
 
-        // Load the user's email from SharedPreferences
+        // Loads the user's email from SharedPreferences
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
         etEmail.setText(userEmail)
@@ -124,7 +124,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
     }
 
     private fun setupValidations() {
-        // Name Validation
+        // Names Validation
         etName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 validateName()
@@ -179,6 +179,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
         })
     }
 
+    // Validates the name
     private fun validateName(): Boolean {
         val name = etName.text.toString().trim()
         return if (name.length < 2) {
@@ -193,6 +194,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
         }
     }
 
+    // method to validate surname
     private fun validateSurname(): Boolean {
         val surname = etSurname.text.toString().trim()
         return if (surname.length < 2) {
@@ -207,6 +209,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
         }
     }
 
+    // method to validate SA number
     private fun validateSouthAfricanIDNumber(): Boolean {
         val idNumber = etIdNumber.text.toString().trim()
         val idRegex = """^\d{13}$""".toRegex()
@@ -274,6 +277,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
         }
     }
 
+     // Validation of fields
     private fun validateAllFields(): Boolean {
         return validateName() &&
                 validateSurname() &&
@@ -288,6 +292,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
                 acceptanceLetterUri != null
     }
 
+    // Displays a DatePicker dialog
     private fun pickDateOfBirth() {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -300,6 +305,8 @@ class BursaryApplicationActivity : AppCompatActivity() {
         }, year, month, day)
         datePickerDialog.show()
     }
+
+    //Launches an intent to pick a file
     private fun pickFile(requestCode: Int) {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
@@ -307,7 +314,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data) // Processes the selected file based on the request code
         if (resultCode == RESULT_OK && data != null) {
             val fileUri = data.data
             when (requestCode) {
@@ -339,6 +346,7 @@ class BursaryApplicationActivity : AppCompatActivity() {
     }
 
 
+    // changes the image photo into a uri base64
     private fun getBase64FromUri(uri: Uri?): String? {
         if (uri == null) return null
 
@@ -351,7 +359,10 @@ class BursaryApplicationActivity : AppCompatActivity() {
             null
         }
     }
+
+    // Submit data to Supabase using the below method
     private fun submitForm() {
+        // Validates all fields before submission
         if (!validateAllFields()) {
             Toast.makeText(this, "Please correct all errors before submitting", Toast.LENGTH_SHORT).show()
             return

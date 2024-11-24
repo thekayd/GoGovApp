@@ -38,21 +38,26 @@ class AdminUserFeedbackActivity : AppCompatActivity() {
         fetchFeedback()
     }
 
+    // Function to fetch user feedback data from Supabase
     private fun fetchFeedback() {
         CoroutineScope(Dispatchers.IO).launch {
             val request = Request.Builder()
-                .url(supabaseUrl)
+                .url(supabaseUrl) // Specifies the endpoint to fetch feedback
                 .get()
                 .addHeader("apikey", supabaseKey)
                 .build()
 
+            // Executes the network request and handle the response
             client.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {
+                    // Parses the JSON response and create a list of UserFeedback objects
                     val feedbackList = mutableListOf<UserFeedback>()
-                    val jsonArray = JSONArray(response.body?.string() ?: "")
+                    val jsonArray = JSONArray(response.body?.string() ?: "") // Converts response body to JSON array
+                    // Loops through the JSON array and map each object to a UserFeedback instance
                     for (i in 0 until jsonArray.length()) {
                         val jsonObject = jsonArray.getJSONObject(i)
                         val rating = if (jsonObject.isNull("rating")) 0.0 else jsonObject.getDouble("rating")
+                        // Creates UserFeedback object from JSON data
                         val feedback = UserFeedback(
                             id = jsonObject.getString("id"),
                             email = jsonObject.getString("email"),
@@ -60,8 +65,9 @@ class AdminUserFeedbackActivity : AppCompatActivity() {
                             rating = rating.toFloat(),
                             feedbackText = jsonObject.getString("feedback")
                         )
-                        feedbackList.add(feedback)
+                        feedbackList.add(feedback) // Adds the feedback to the list
                     }
+                    // Updates the adapter on the main thread with the fetched feedback
                     withContext(Dispatchers.Main) {
                         feedbackAdapter.updateFeedbackList(feedbackList)
                     }

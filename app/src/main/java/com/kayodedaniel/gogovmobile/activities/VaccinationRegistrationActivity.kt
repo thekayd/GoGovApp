@@ -83,7 +83,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
             submitForm()
         }
 
-        // Load the user's email from SharedPreferences
+        // Loads the user's email from SharedPreferences
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userEmail = sharedPref.getString("USER_EMAIL", "") ?: ""
         etEmail.setText(userEmail)
@@ -159,7 +159,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            // Convert to ISO 8601 format
+            // Converts to ISO 8601 format
             selectedDob = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
             btnPickDob.text = selectedDob // Display in button
         }, year, month, day)
@@ -272,7 +272,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
             errorMessages.add("Please provide consent to continue")
         }
 
-        // Display all validation errors if any
+        // Displays all validation errors if any
         if (!isValid) {
             val errorMessage = errorMessages.joinToString("\n")
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
@@ -282,12 +282,14 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
         return isValid
     }
 
+    // generates app id for user payment
     private fun generateApplicationId(): String {
         val timestamp = System.currentTimeMillis()
         val random = Random().nextInt(1000)
         return "VAC$timestamp$random"
     }
 
+    // submits form for user
     @RequiresApi(Build.VERSION_CODES.O)
     private fun submitForm() {
         Log.d(TAG, "submitForm: Attempting to submit form")
@@ -323,6 +325,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
             return
         }
 
+        // puts the application details into supabase for saving
         val json = JSONObject().apply {
            // put("application_id", applicationId)
             put("name", name)
@@ -361,6 +364,7 @@ class VaccinationRegistrationActivity : AppCompatActivity() {
                 val client = OkHttpClient()
                 val response = client.newCall(request).execute()
 
+                // request on suoabase url and saving information and using intent where needed
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Log.d(TAG, "submitForm: Registration successful")

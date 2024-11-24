@@ -12,6 +12,7 @@ class StatusActivity : AppCompatActivity() {
 
     private lateinit var firestore: FirebaseFirestore
 
+    // status activity scrapped as we are using supabase instead
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_status)

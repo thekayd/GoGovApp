@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView
 import com.kayodedaniel.gogovmobile.R
 
 class AdminDashboardActivity : AppCompatActivity() {
+    //card view intents
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_dashboard)
@@ -39,6 +40,6 @@ class AdminDashboardActivity : AppCompatActivity() {
         findViewById<CardView>(R.id.cardLogout).setOnClickListener {
             finish() // Logs out the admin by closing the activity
         }
-        // Implement the functionality for approving applications and viewing analytics here
+
     }
 }

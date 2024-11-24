@@ -11,6 +11,7 @@ class ViewApplicationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_application)
 
+        // card views for viewing application  on click
         findViewById<CardView>(R.id.cardDriversLicense).setOnClickListener {
             val intent = Intent(this, CategoryApplicationsActivity::class.java)
             intent.putExtra("category", "drivers_license")

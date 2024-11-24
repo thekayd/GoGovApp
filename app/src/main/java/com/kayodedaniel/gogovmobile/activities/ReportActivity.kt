@@ -57,6 +57,7 @@ class ReportActivity : AppCompatActivity() {
         categorySpinner.adapter = adapter
     }
 
+    // submit button for report
     private fun setupSubmitButton() {
         submitButton.setOnClickListener {
             val reportData = ReportData(

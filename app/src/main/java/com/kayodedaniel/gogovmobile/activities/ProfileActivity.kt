@@ -52,13 +52,14 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
-        // Load email from SharedPreferences
+        // Loads email from SharedPreferences
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userEmail = sharedPref.getString("USER_EMAIL", "")
         emailInput.setText(userEmail)
     }
 
     private fun setupClickListeners() {
+        // allows for updating users
         updateButton.setOnClickListener {
             if (validateInputs()) {
                 updateUserProfile()
@@ -72,6 +73,7 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    // validates users
     private fun validateInputs(): Boolean {
         val email = emailInput.text.toString().trim()
         val password = passwordInput.text.toString()
@@ -96,11 +98,12 @@ class ProfileActivity : AppCompatActivity() {
         return true
     }
 
+    // gets access token from user preference email
     private fun getUserAccessToken(): String {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val token = sharedPref.getString("ACCESS_TOKEN", "") ?: ""
 
-        // If token is empty, redirect to login
+        // If token is empty, redirects to login
         if (token.isEmpty()) {
             runOnUiThread {
                 Toast.makeText(this, "Session expired. Please login again", Toast.LENGTH_LONG).show()
@@ -110,6 +113,7 @@ class ProfileActivity : AppCompatActivity() {
         return token
     }
 
+    // redirect login function
     private fun redirectToLogin() {
         val intent = Intent(this, SignInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -120,7 +124,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateUserProfile() {
         showLoading(true)
 
-        // Get token before making request
+        // Gets token before making request
         val accessToken = getUserAccessToken()
         if (accessToken.isEmpty()) {
             return // The getUserAccessToken function will handle the redirect
@@ -128,9 +132,9 @@ class ProfileActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Only proceed with password update if a new password is provided
+                // Only proceeds with password update if a new password is provided
                 if (passwordInput.text.toString().isNotEmpty()) {
-                    // First update the password
+                    //  updates the password first
                     val passwordJson = JSONObject().apply {
                         put("password", passwordInput.text.toString())
                     }
@@ -145,6 +149,7 @@ class ProfileActivity : AppCompatActivity() {
                         .addHeader("Authorization", "Bearer $accessToken")
                         .build()
 
+                    // parses to supabase
                     client.newCall(passwordRequest).execute().use { response ->
                         val responseBody = response.body?.string() ?: "Unknown error"
 
@@ -178,7 +183,7 @@ class ProfileActivity : AppCompatActivity() {
                         }
                     }
 
-                    // If password update was successful, show success message
+                    // If password update was successful, it shows success message
                     withContext(Dispatchers.Main) {
                         showLoading(false)
                         Toast.makeText(
@@ -209,11 +214,13 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
+    // progress bar loading function
     private fun showLoading(show: Boolean) {
         progressBar.visibility = if (show) View.VISIBLE else View.GONE
         updateButton.isEnabled = !show
     }
 
+    // error message parsing
     private fun parseErrorMessage(responseBody: String): String {
         return try {
             val jsonObject = JSONObject(responseBody)
@@ -223,6 +230,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    // saves email preferences
     private fun saveEmailToPreferences(email: String) {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {

@@ -10,11 +10,13 @@ import com.kayodedaniel.gogovmobile.R
 
 class AlarmReceiver : BroadcastReceiver() {
 
+    // method receives the names, surnames and the time of appointment
     override fun onReceive(context: Context, intent: Intent) {
         val name = intent.getStringExtra("name") ?: ""
         val surname = intent.getStringExtra("surname") ?: ""
         val appointmentTime = intent.getStringExtra("appointment_time") ?: ""
 
+        // calling the notification manager for notifocations for reminders
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelId = "appointment_reminder_channel"
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -25,6 +27,7 @@ class AlarmReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
 
+        // overall design of the notification
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("Appointment Reminder")

@@ -76,7 +76,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.etEmail)
         phoneEditText = findViewById(R.id.etPhone)
         dateTextView = findViewById(R.id.tvSelectedDate)
-        timeSpinner = findViewById(R.id.spinnerTimeSlot) // Update time view to Spinner
+        timeSpinner = findViewById(R.id.spinnerTimeSlot)
         scheduleButton = findViewById(R.id.btnScheduleAppointment)
         bottomNavigationView = findViewById(R.id.bottom_navigation)
     }
@@ -86,11 +86,14 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         scheduleButton.setOnClickListener { validateAndScheduleAppointment() }
     }
 
+    // loads user preference email
     private fun loadUserEmail() {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val userEmail = sharedPref.getString("USER_EMAIL", null)
         emailEditText.setText(userEmail)
     }
+
+    // request permission on notification
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -105,12 +108,14 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
             }
         }
     }
+
+    // displays the notification message using this method
     private fun showAppointmentNotification(name: String, date: String, time: String) {
         val notificationId = 1
         val appointmentDetails = "Appointment for $name on $date at $time"
 
         try {
-            // First check if notifications are enabled for the app
+            // First checks if notifications are enabled for the app
             val notificationManager = NotificationManagerCompat.from(this)
             if (!notificationManager.areNotificationsEnabled()) {
                 Log.e("Notification", "Notifications are disabled for the app")
@@ -119,7 +124,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                     "Please enable notifications in system settings to receive appointment reminders",
                     Toast.LENGTH_LONG
                 ).show()
-                // Optionally open notification settings
+                // Optionally opens notification settings
                 val intent = Intent().apply {
                     action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
                     putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
@@ -128,7 +133,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                 return
             }
 
-            // Check for POST_NOTIFICATIONS permission
+            // Checks for POST_NOTIFICATIONS permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 if (ContextCompat.checkSelfPermission(
                         this,
@@ -136,7 +141,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                     ) != PackageManager.PERMISSION_GRANTED
                 ) {
                     Log.e("Notification", "POST_NOTIFICATIONS permission not granted")
-                    // Request the permission
+                    // Requests the permission
                     requestPermissions(
                         arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
                         1
@@ -145,7 +150,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                 }
             }
 
-            // Create the notification
+            // Creates the notification
             val builder = NotificationCompat.Builder(this, "appointment_channel")
                 .setSmallIcon(R.drawable.ic_notification) // Make sure this exists
                 .setContentTitle("Appointment Scheduled")
@@ -153,7 +158,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
 
-            // Create a PendingIntent for when the notification is tapped
+            // Creates a PendingIntent for when the notification is tapped
             val intent = Intent(this, ViewAppointmentActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(
                 this,
@@ -163,7 +168,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
             )
             builder.setContentIntent(pendingIntent)
 
-            // Show the notification
+            // Shows the notification
             notificationManager.notify(notificationId, builder.build())
             Log.d("Notification", "Notification sent successfully")
 
@@ -176,7 +181,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
             ).show()
         }
     }
-    // Update createNotificationChannel to include logging
+    // Updates createNotificationChannel to include logging
     private fun createNotificationChannel() {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -200,7 +205,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         }
     }
     private fun scheduleReminder(name: String, surname: String, date: String, time: String) {
-        // For Android 12+ check for SCHEDULE_EXACT_ALARM permission
+        // For Android 12+ checks for SCHEDULE_EXACT_ALARM permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!getSystemService(AlarmManager::class.java).canScheduleExactAlarms()) {
                 // Request permission from the user
@@ -210,7 +215,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
             }
         }
 
-        // Alarm scheduling code remains the same
+        // Alarm scheduling code
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val appointmentDateTime = dateFormat.parse("$date $time")?.time ?: return
@@ -259,7 +264,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
     }
 
     private fun setupTimeSpinner() {
-        // Create time slots in 30-minute intervals from 10:00 AM to 4:00 PM
+        // Creates time slots in 30-minute intervals from 10:00 AM to 4:00 PM
         val timeSlots = mutableListOf<String>()
         val startHour = 10
         val endHour = 16
@@ -271,7 +276,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
             if (hour != endHour) timeSlots.add("$timeFormatHalf")
         }
 
-        // Set up ArrayAdapter for Spinner
+        // Sets up ArrayAdapter for Spinner
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeSlots)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         timeSpinner.adapter = adapter
@@ -293,6 +298,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         ).show()
     }
 
+    // method for validating scheduling appointment
     private fun validateAndScheduleAppointment() {
         val name = nameEditText.text.toString()
         val surname = surnameEditText.text.toString()
@@ -347,6 +353,7 @@ class ScheduleAppointmentActivity : AppCompatActivity() {
         }
     }
 
+    // data method - saves the appoitment into supabase
     private fun saveAppointment(
         name: String,
         surname: String,

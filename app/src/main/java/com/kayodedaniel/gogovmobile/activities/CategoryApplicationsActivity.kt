@@ -39,6 +39,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
         fetchApplications(category)
     }
 
+    // displays dialog of users strings
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showStatusDialog(
         category: String,
@@ -70,6 +71,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
             .show()
     }
 
+    // allows for permission for sms notifications
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -80,6 +82,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
         smsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    // fetches the applications data
     @RequiresApi(Build.VERSION_CODES.O)
     private fun fetchApplications(category: String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -101,6 +104,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
                     return@launch
                 }
 
+                // sorts through the applications array and category
                 val applicationsArray = JSONArray(responseBody)
                 withContext(Dispatchers.Main) {
                     displayApplications(applicationsArray, category)
@@ -113,6 +117,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
         }
     }
 
+    // displays each application and their details
     @RequiresApi(Build.VERSION_CODES.O)
     private fun displayApplications(applications: JSONArray, category: String) {
         val container = findViewById<LinearLayout>(R.id.applicationsContainer)
@@ -133,6 +138,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
 
             val applicationId = application.optString("id")
 
+            // approval status button
             val approveButton = Button(this).apply {
                 text = "Approve"
                 setOnClickListener {
@@ -147,6 +153,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
             }
             buttonsContainer.addView(approveButton)
 
+            // rejection status button
             val rejectButton = Button(this).apply {
                 text = "Reject"
                 setOnClickListener {
@@ -161,6 +168,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
             }
             buttonsContainer.addView(rejectButton)
 
+            //in progress status button
             val inProgressButton = Button(this).apply {
                 text = "In Progress"
                 setOnClickListener {
@@ -178,6 +186,7 @@ class CategoryApplicationsActivity : AppCompatActivity() {
         }
     }
 
+    // formats each applications details
     private fun formatApplicationDetails(details: JSONObject, applicationType: String): String {
         val formattedDetails = StringBuilder()
 

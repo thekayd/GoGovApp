@@ -47,6 +47,7 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
 
         loadSchedules()
     }
+    // shows dialog for calander
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showStatusDialog(
         schedule: Schedule,
@@ -61,6 +62,8 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
             .setNegativeButton("No", null)
             .show()
     }
+
+    //loads all the schedules for admin
     fun loadSchedules() {
         CoroutineScope(Dispatchers.IO).launch {
             val request = Request.Builder()
@@ -69,6 +72,7 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
                 .addHeader("apikey", supabaseKey)
                 .build()
 
+            // call the requests and gets the json string for each item
             client.newCall(request).execute().use { response ->
                 val responseBody = response.body?.string()
                 if (response.isSuccessful && !responseBody.isNullOrEmpty()) {
@@ -95,16 +99,19 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
         }
     }
 
+    // approval method
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onApproveClick(schedule: Schedule) {
         updateScheduleStatus(schedule, "Approved")
     }
 
+    // decline method
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onDeclineClick(schedule: Schedule) {
         updateScheduleStatus(schedule, "Declined")
     }
 
+    //scheduling method
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onRescheduleClick(schedule: Schedule) {
         val fragment = UpdateScheduleFragment(schedule) { updatedSchedule ->
@@ -114,6 +121,7 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
     }
 
 
+    // method for updating schedules for later dates
     @RequiresApi(Build.VERSION_CODES.O)
     private fun updateScheduleStatus(schedule: Schedule, newStatus: String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -158,12 +166,16 @@ class ScheduleAdminActivity : AppCompatActivity(), ScheduleAdapter.OnScheduleCli
             }
         }
     }
+
+    // method for using phone number to send verified sms messages
     @RequiresApi(Build.VERSION_CODES.O)
     private fun sendRescheduleSMS(phoneNumber: String, date: String, time: String) {
         val formattedPhone = smsManager.formatPhoneNumber(phoneNumber)
         val message = "Your appointment has been rescheduled to $date at $time. Thank you for using GoGov."
         smsManager.sendStatusUpdateSMS(formattedPhone, "Appointment Reschedule", message)
     }
+
+    // method for sending updated appointment sms messages
     @RequiresApi(Build.VERSION_CODES.O)
     private fun sendStatusUpdateSMS(phoneNumber: String, newStatus: String) {
         val formattedPhone = smsManager.formatPhoneNumber(phoneNumber)

@@ -10,6 +10,7 @@ import com.kayodedaniel.gogovmobile.R
 
 class IDApplicationActivity : AppCompatActivity() {
 
+    // ID application actitiy (for future updates)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_id_application)
@@ -17,7 +18,7 @@ class IDApplicationActivity : AppCompatActivity() {
         val btnSubmitApplication: Button = findViewById(R.id.btn_submit_application)
 
         btnSubmitApplication.setOnClickListener {
-            // Code to handle form submission
+
         }
     }
 }

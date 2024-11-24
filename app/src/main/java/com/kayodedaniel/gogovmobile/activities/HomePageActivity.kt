@@ -17,10 +17,10 @@ class HomePageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
-        // Initialize NotificationHelper
+        // Initializes NotificationHelper
         notificationHelper = NotificationHelper(this)
 
-        // Check notification permission when the app opens
+        // Checks notification permission when the app opens
         if (!notificationHelper.hasNotificationPermission()) {
             notificationHelper.requestNotificationPermission()
         }
@@ -32,10 +32,10 @@ class HomePageActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Set Home as selected
+        // Sets Home as selected
         bottomNavigationView.selectedItemId = R.id.nav_home
 
-        // Handle navigation item clicks
+        // Handles navigation item clicks
         bottomNavigationView.setOnNavigationItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.nav_home -> true

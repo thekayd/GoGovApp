@@ -34,6 +34,7 @@ class ReportAdapter(
     private val onResolveClick: (UserReport) -> Unit
 ) : RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
 
+    // method for holding the views that display texts
     inner class ReportViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val categoryTextView: android.widget.TextView = itemView.findViewById(R.id.tvCategory)
         val emailTextView: android.widget.TextView = itemView.findViewById(R.id.tvEmail)
@@ -48,6 +49,7 @@ class ReportAdapter(
         return ReportViewHolder(view)
     }
 
+    // view binder holder for holding each item in list
     override fun onBindViewHolder(holder: ReportViewHolder, position: Int) {
         val report = reports[position]
         holder.categoryTextView.text = report.category
@@ -60,6 +62,7 @@ class ReportAdapter(
         }
     }
 
+    // gets the size of each report
     override fun getItemCount() = reports.size
 }
 
@@ -82,6 +85,7 @@ class IssuesReportAdminActivity : AppCompatActivity() {
         fetchReports()
     }
 
+     // fetches the results for each appliacation, and gets the requests from the database
     @RequiresApi(Build.VERSION_CODES.O)
     private fun fetchReports() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -124,6 +128,7 @@ class IssuesReportAdminActivity : AppCompatActivity() {
         }
     }
 
+    // parses the reports using the object and user report body
     private fun parseReports(responseBody: String): List<UserReport> {
         val gson = Gson()
         val listType = object : TypeToken<List<UserReport>>() {}.type
@@ -132,12 +137,12 @@ class IssuesReportAdminActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun resolveReport(report: UserReport) {
-        // Switch to main thread for SMS sending
+        // Switches to main thread for SMS sending
         Handler(Looper.getMainLooper()).post {
             val smsManager = SMSNotificationManager(this)
             smsManager.sendStatusUpdateSMS(report.phone, report.category, "Resolved")
 
-            // Proceed with deletion on IO thread
+            // Proceeds with deletion on IO thread
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val deleteRequest = Request.Builder()
@@ -156,7 +161,7 @@ class IssuesReportAdminActivity : AppCompatActivity() {
                                 "Report resolved and user notified",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            fetchReports() // Refresh the list
+                            fetchReports() // Refreshes the list
                         } else {
                             Toast.makeText(
                                 this@IssuesReportAdminActivity,

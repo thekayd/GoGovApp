@@ -83,6 +83,7 @@ class AdminReportActivity : AppCompatActivity() {
         serviceGraph.addEdge("vaccination_applications", "scheduled_appointments")
     }
 
+    //spinners for categories
     private fun setupSpinners() {
         val reportTypes = arrayOf(
             "All Services Overview",
@@ -105,12 +106,14 @@ class AdminReportActivity : AppCompatActivity() {
         dateRangeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dateRanges)
     }
 
+    // generates the repot
     private fun setupGenerateButton() {
         generateReportButton.setOnClickListener {
             loadReport()
         }
     }
 
+    // method to load all the deatils for the reports and display it
     private fun loadReport() {
         progressBar.visibility = View.VISIBLE
         reportContentLayout.removeAllViews()
@@ -135,6 +138,7 @@ class AdminReportActivity : AppCompatActivity() {
         }
     }
 
+    // method for displaying all the functions of the services report in detail, for each application
     private suspend fun displayAllServicesReport(dateRange: Long) {
         val bursaryData = getApplicationData("bursary_applications", dateRange)
         val driversLicenseData = getApplicationData("drivers_license_applications", dateRange)
@@ -216,6 +220,7 @@ class AdminReportActivity : AppCompatActivity() {
         }
     }
 
+    // tree node for report
     private fun buildReportTree(endpoint: String, data: ApplicationData): ReportNode {
         return ReportNode(endpoint, data).apply {
             children.add(ReportNode("Pending", ApplicationData(data.pending, data.pending, 0, 0)))
@@ -231,6 +236,7 @@ class AdminReportActivity : AppCompatActivity() {
         reportContentLayout.addView(sectionView)
     }
 
+    // fetching the applictions data from supabase and displaying its status
     private suspend fun getApplicationData(endpoint: String, dateRange: Long): ApplicationData {
         val url = "$supabaseUrl/$endpoint?select=*"
         val request = Request.Builder()
@@ -270,6 +276,7 @@ class AdminReportActivity : AppCompatActivity() {
         }
     }
 
+    // ranges for the dates
     private fun getDateRangeInMillis(range: String): Long {
         val calendar = Calendar.getInstance()
         when (range) {
@@ -282,6 +289,7 @@ class AdminReportActivity : AppCompatActivity() {
         return calendar.timeInMillis
     }
 
+    // export button for the exporting of reports
     private fun addExportButton() {
         val exportButton = Button(this).apply {
             text = "Export Report as PDF"
@@ -295,7 +303,7 @@ class AdminReportActivity : AppCompatActivity() {
     private fun generateAndSharePDF() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Create a simple text file with the report content
+                // Creates a simple text file with the report content
                 val reportContent = StringBuilder()
                 withContext(Dispatchers.Main) {
                     for (i in 0 until reportContentLayout.childCount) {
@@ -327,6 +335,7 @@ class AdminReportActivity : AppCompatActivity() {
         }
     }
 
+    // method for granting the user permission fo share the report and starting up its respective inteent
     private fun sharePDF(uri: Uri) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
@@ -336,6 +345,7 @@ class AdminReportActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(intent, "Share Report"))
     }
 
+    //data class for the applications data
     data class ApplicationData(
         val count: Int,
         val pending: Int,

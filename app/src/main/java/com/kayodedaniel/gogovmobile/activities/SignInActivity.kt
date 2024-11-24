@@ -40,7 +40,7 @@ class SignInActivity : AppCompatActivity() {
         val adminLoginText = findViewById<TextView>(R.id.textAdminLogin)
         val biometricManager = BiometricManager.from(this)
 
-        // Check if the device and user support biometrics
+        // Checks if the device and user support biometrics
         if (biometricManager.canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS) {
             showBiometricPrompt()
         }
@@ -49,6 +49,7 @@ class SignInActivity : AppCompatActivity() {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
 
+            // validation for textboxes
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
             } else {
@@ -68,6 +69,7 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    // biometric prompt method for identification. uses the users existing fingerprint on device to access application
     private fun showBiometricPrompt() {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Biometric Login")
@@ -75,6 +77,7 @@ class SignInActivity : AppCompatActivity() {
             .setNegativeButtonText("Cancel")
             .build()
 
+        // uses biometric user preference on authentication succession
         val biometricPrompt = BiometricPrompt(this, ContextCompat.getMainExecutor(this),
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -88,6 +91,7 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
 
+                // authentication error
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
                     Toast.makeText(this@SignInActivity, "Authentication error: $errString", Toast.LENGTH_SHORT).show()
@@ -99,9 +103,10 @@ class SignInActivity : AppCompatActivity() {
                 }
             })
 
-        biometricPrompt.authenticate(promptInfo)
+        biometricPrompt.authenticate(promptInfo) // uses authentication prompt for biometrics
     }
 
+    // logs in user using access tokens and getting json for supabase auth
     private fun loginUser(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -152,12 +157,14 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    // navigates to home page
     private fun navigateToHome() {
         val intent = Intent(this, HomePageActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    // uses email and access token to sign in to application from user preference
     private fun saveUserDataToPreferences(email: String, accessToken: String, userId: String?) {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         with(sharedPref.edit()) {
@@ -168,6 +175,7 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    // this parses an error message when authentication fails
     private fun parseErrorMessage(responseBody: String): String {
         return try {
             val jsonObject = JSONObject(responseBody)

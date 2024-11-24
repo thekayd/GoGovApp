@@ -1,7 +1,7 @@
 package com.kayodedaniel.gogovmobile.activities
 
 data class DriverApplication(
-    val user_id: String, // This should be the authenticated user ID from Supabase Auth
+    val user_id: String, // data class for drivers application
     val name: String,
     val surname: String,
     val id_number: String,

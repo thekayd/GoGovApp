@@ -21,6 +21,7 @@ import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
+// class for updating schedule - user side
 class UpdateScheduleFragment(private val schedule: Schedule,
                              private val onScheduleUpdated: (updatedSchedule: Schedule) -> Unit) : BottomSheetDialogFragment() {
 
@@ -37,7 +38,7 @@ class UpdateScheduleFragment(private val schedule: Schedule,
         timeSpinner = view.findViewById(R.id.spinnerTime)
         updateButton = view.findViewById(R.id.btnUpdate)
 
-        // Set initial values
+        // Sets initial values
         dateTextView.text = schedule.appointmentDate
         setupTimeSpinner()
 
@@ -47,6 +48,7 @@ class UpdateScheduleFragment(private val schedule: Schedule,
         return view
     }
 
+    // uses date picker
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
         DatePickerDialog(requireContext(), { _, year, month, day ->
@@ -54,6 +56,7 @@ class UpdateScheduleFragment(private val schedule: Schedule,
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
     }
 
+    // spinner time setup
     private fun setupTimeSpinner() {
         val times = arrayOf("10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00")
         timeSpinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, times)
@@ -63,7 +66,7 @@ class UpdateScheduleFragment(private val schedule: Schedule,
         val date = dateTextView.text.toString()
         val time = timeSpinner.selectedItem.toString()
 
-        // Construct JSON body with updated date and time
+        // Constructs JSON body with updated date and time
         val json = JSONObject().apply {
             put("appointment_date", date)
             put("appointment_time", time)
@@ -80,11 +83,11 @@ class UpdateScheduleFragment(private val schedule: Schedule,
             client.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {
                     withContext(Dispatchers.Main) {
-                        // Update the schedule object
+                        // Updates the schedule object
                         schedule.appointmentDate = date
                         schedule.appointmentTime = time
 
-                        // Pass updated schedule back to activity
+                        // Passes updated schedule back to activity
                         onScheduleUpdated(schedule)
                         Toast.makeText(requireContext(), "Schedule updated successfully", Toast.LENGTH_SHORT).show()
                         (activity as? ScheduleAdminActivity)?.loadSchedules() // Refresh schedules in activity

@@ -46,13 +46,14 @@ class ViewAppointmentActivity : AppCompatActivity(), AppointmentAdapter.OnAppoin
         recyclerView = findViewById(R.id.recyclerViewAppointments)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialize the adapter with an empty list
+        // Initializes the adapter with an empty list
         adapter = AppointmentAdapter(emptyList(), this)
         recyclerView.adapter = adapter
 
         loadAppointments()
     }
 
+    // loads the appoitment details for admin
     fun loadAppointments() {
         val sharedPref = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val email = sharedPref.getString("USER_EMAIL", null)
@@ -76,6 +77,7 @@ class ViewAppointmentActivity : AppCompatActivity(), AppointmentAdapter.OnAppoin
                             val appointmentsArray = JSONArray(responseBody)
                             val appointments = mutableListOf<Appointment>()
 
+                            // receiving array list for the json
                             for (i in 0 until appointmentsArray.length()) {
                                 val appointmentJson = appointmentsArray.getJSONObject(i)
                                 val appointment = Appointment(
@@ -114,11 +116,14 @@ class ViewAppointmentActivity : AppCompatActivity(), AppointmentAdapter.OnAppoin
             Toast.makeText(this, "User email not found", Toast.LENGTH_SHORT).show()
         }
     }
+
+    // activiating fragment for update
     override fun onUpdateClick(appointment: Appointment) {
         val updateFragment = UpdateAppointmentFragment(appointment)
         updateFragment.show(supportFragmentManager, "UpdateAppointmentFragment")
     }
 
+    // cancels users appointments
     override fun onCancelClick(appointment: Appointment) {
         AlertDialog.Builder(this)
             .setTitle("Cancel Appointment")
@@ -134,6 +139,7 @@ class ViewAppointmentActivity : AppCompatActivity(), AppointmentAdapter.OnAppoin
             .show()
     }
 
+    // cancels users appointment method
     private fun cancelAppointment(appointment: Appointment) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -168,6 +174,7 @@ class ViewAppointmentActivity : AppCompatActivity(), AppointmentAdapter.OnAppoin
     }
 }
 
+// fragment class for updating
 class UpdateAppointmentFragment(private val appointment: Appointment) : BottomSheetDialogFragment() {
 
     private lateinit var dateTextView: TextView
@@ -252,7 +259,7 @@ class UpdateAppointmentFragment(private val appointment: Appointment) : BottomSh
                 val json = JSONObject().apply {
                     put("appointment_date", date)
                     put("appointment_time", time)
-                }
+                } // puts the json strings and adding them intot he database, changing the original values to updated values
 
                 val body = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
                 val request = Request.Builder()
@@ -262,6 +269,7 @@ class UpdateAppointmentFragment(private val appointment: Appointment) : BottomSh
                     .addHeader("Content-Type", "application/json")
                     .build()
 
+                // intents and toasts for success
                 client.newCall(request).execute().use { response ->
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {

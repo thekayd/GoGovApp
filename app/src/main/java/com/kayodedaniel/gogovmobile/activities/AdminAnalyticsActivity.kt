@@ -14,11 +14,13 @@ import okhttp3.Request
 import org.json.JSONArray
 
 
+// Activity to display various analytics for admin users using charts
 class AdminAnalyticsActivity : AppCompatActivity() {
 
     private val supabaseUrl = "https://bgckkkxjfnkwgjzlancs.supabase.co/rest/v1"
     private val supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnY2tra3hqZm5rd2dqemxhbmNzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjcwOTQ4NDYsImV4cCI6MjA0MjY3MDg0Nn0.J63JbMamOasx251uRzmP8Z2WcrkgYBbzueFCb2B3eGo"
 
+    // Chart components for different data categories
     private lateinit var bursaryBarChart: BarChart
     private lateinit var driversLicenseBarChart: BarChart
     private lateinit var passportBarChart: BarChart
@@ -38,7 +40,7 @@ class AdminAnalyticsActivity : AppCompatActivity() {
         scheduledBarChart = findViewById(R.id.scheduledBarChart)
         feedbackLineChart = findViewById(R.id.feedbackLineChart)
 
-        // Load data for each chart with a distinct color
+        // Loads data for each chart with a distinct color
         loadApplicationData("bursary_applications", bursaryBarChart, "Bursary Applications", Color.BLUE)
         loadApplicationData("drivers_license_applications", driversLicenseBarChart, "Driver's License Applications", Color.RED)
         loadApplicationData("passport_applications", passportBarChart, "Passport Applications", Color.GREEN)
@@ -47,10 +49,13 @@ class AdminAnalyticsActivity : AppCompatActivity() {
         loadFeedbackData()
     }
 
+    // Function to load data for a specific category and display it in a bar chart
     private fun loadApplicationData(endpoint: String, barChart: BarChart, label: String, color: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                // Fetches application count from the API
                 val count = getApplicationCount(endpoint)
+                // Creates bar chart data entry with the count
                 val entries = listOf(BarEntry(0f, count.toFloat()))
                 val barDataSet = BarDataSet(entries, label).apply {
                     setColor(color)
@@ -69,11 +74,14 @@ class AdminAnalyticsActivity : AppCompatActivity() {
         }
     }
 
+    // Functions to load user feedback data and displays it in a line chart
     private fun loadFeedbackData() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                // Fetches feedback counts from the API
                 val feedbackCounts = getFeedbackCount()
                 val entries = ArrayList<Entry>()
+                // Adds each feedback count as a data point
                 feedbackCounts.forEachIndexed { index, count ->
                     entries.add(Entry(index.toFloat(), count.toFloat()))
                 }
@@ -95,6 +103,7 @@ class AdminAnalyticsActivity : AppCompatActivity() {
         }
     }
 
+    // Function to fetch application count from the specified API endpoint
     private fun getApplicationCount(endpoint: String): Int {
         val url = "$supabaseUrl/$endpoint?select=*"
         val request = Request.Builder()
@@ -108,6 +117,7 @@ class AdminAnalyticsActivity : AppCompatActivity() {
         }
     }
 
+    // Function to fetch feedback counts from the API
     private fun getFeedbackCount(): List<Int> {
         val url = "$supabaseUrl/user_feedback?select=*"
         val request = Request.Builder()
@@ -118,7 +128,7 @@ class AdminAnalyticsActivity : AppCompatActivity() {
             if (!response.isSuccessful) throw Exception("Error: ${response.message}")
             val jsonArray = JSONArray(response.body?.string())
 
-            // Build cumulative feedback counts list
+            // Builds cumulative feedback counts list
             val feedbackCounts = mutableListOf<Int>()
             for (i in 0 until jsonArray.length()) {
                 feedbackCounts.add(i + 1) // Cumulative count, incrementing by 1
