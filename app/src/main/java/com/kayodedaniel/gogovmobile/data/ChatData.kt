@@ -1,17 +1,33 @@
 package com.kayodedaniel.gogovmobile.data
 
+import android.content.Context
 import android.util.Log
+import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.network.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
-// object class for the chat data and system prompts as well as response access
+// Object class for the chat data and system prompts as well as response access
 object ChatData {
+
     @SuppressWarnings("all")
-    private const val API_KEY = ""
+    private var API_KEY: String? = null
     private const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
+
+    fun initializeApiKey(context: Context) {
+        try {
+            val inputStream = context.resources.openRawResource(R.raw.api_key)
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            API_KEY = reader.readLine()
+            inputStream.close()
+        } catch (e: Exception) {
+            Log.e("ChatData", "Failed to read API key file: ${e.message}")
+        }
+    }
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -20,7 +36,6 @@ object ChatData {
 
     private val geminiApiService = retrofit.create(GeminiApiService::class.java)
 
-    // Updated system prompt to include email support guidance
     private val SYSTEM_PROMPT = """
     You are an AI assistant for the GoGov Mobile App. Provide accurate, helpful information about:
     - App features and navigation
@@ -40,7 +55,7 @@ object ChatData {
     1. Check 'Feedback' in app Settings
     2. Use 'Report Issue' in Settings page
     3. Contact support via official email
-    
+
     Key Knowledge Sources:
     ${ChatbotKnowledge.APP_OVERVIEW}
     ${ChatbotKnowledge.FEATURES}
@@ -54,8 +69,9 @@ object ChatData {
     - Provide clear, step-by-step instructions
     """
 
-    // method for getting system prompt
-    suspend fun getResponse(prompt: String): Chat {
+    suspend fun getResponse(context: Context, prompt: String): Chat {
+        if (API_KEY == null) initializeApiKey(context)
+
         return try {
             val request = GeminiRequest(
                 contents = listOf(
@@ -65,14 +81,14 @@ object ChatData {
                     ))
                 )
             )
+
             val response = withContext(Dispatchers.IO) {
-                geminiApiService.generateContent(API_KEY, request) // using api key for response
+                geminiApiService.generateContent(API_KEY.orEmpty(), request) // Safely using API_KEY
             }
 
             val responseText = response.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text
                 ?: "I apologize, but I couldn't generate a response."
 
-            // Adds email support fallback for unresolvable queries
             val finalResponse = if (responseText.contains("I apologize") || responseText.length < 10) {
                 "I'm unable to fully resolve your query. Please:\n" +
                         "1. Visit 'Feedback' in app Settings\n" +

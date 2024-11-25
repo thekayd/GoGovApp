@@ -24,7 +24,6 @@ import com.kayodedaniel.gogovmobile.R
 import com.kayodedaniel.gogovmobile.ui.theme.GeminiChatBotTheme
 
 class ChatBotActivity : ComponentActivity() {
-    // gemini chat bot interface, including, designing, width, shape, colors, fills, colors, padding, modifiers and values
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -100,7 +99,7 @@ class ChatBotActivity : ComponentActivity() {
                     modifier = Modifier.weight(1f),
                     value = chatState.prompt,
                     onValueChange = {
-                        chatViewModel.onEvent(ChatUIEvent.updatePrompt(it))
+                        chatViewModel.onEvent(this@ChatBotActivity, ChatUIEvent.updatePrompt(it))
                     },
                     placeholder = {
                         Text(text = "Ask about GoGov services...")
@@ -114,7 +113,10 @@ class ChatBotActivity : ComponentActivity() {
                 IconButton(
                     onClick = {
                         if (chatState.prompt.isNotEmpty()) {
-                            chatViewModel.onEvent(ChatUIEvent.sendPrompt(chatState.prompt, null))
+                            chatViewModel.onEvent(
+                                this@ChatBotActivity,
+                                ChatUIEvent.sendPrompt(chatState.prompt, null)
+                            )
                         }
                     }
                 ) {

@@ -1,5 +1,6 @@
 package com.kayodedaniel.gogovmobile
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -16,16 +17,16 @@ class ChatViewModel : ViewModel() {
     val chatState = _chatState.asStateFlow()
 
     // send prompt method to system chat
-    fun onEvent(event: ChatUIEvent) {
+    fun onEvent(context: Context, event: ChatUIEvent) {
         when (event) {
             is ChatUIEvent.sendPrompt -> {
                 if (event.prompt.isNotEmpty()) {
                     addPrompt(event.prompt, event.bitmap)
                     _chatState.update { it.copy(isTyping = true) }
                     if (event.bitmap != null) {
-                    //    getResponseWithImage(event.prompt, event.bitmap)
+                        // getResponseWithImage(context, event.prompt, event.bitmap)
                     } else {
-                        getResponse(event.prompt)
+                        getResponse(context, event.prompt) // Pass context here
                     }
                 }
             }
@@ -36,6 +37,7 @@ class ChatViewModel : ViewModel() {
             }
         }
     }
+
 
     // adds prompt to system chat
     private fun addPrompt(prompt: String, bitmap: Bitmap?) {
@@ -51,10 +53,10 @@ class ChatViewModel : ViewModel() {
     }
 
     // gets response for data chat
-    private fun getResponse(prompt: String) {
+    private fun getResponse(context: Context, prompt: String) {
         viewModelScope.launch {
             try {
-                val chat = ChatData.getResponse(prompt)
+                val chat = ChatData.getResponse(context, prompt) // Pass context here
                 _chatState.update {
                     it.copy(
                         chatList = it.chatList.toMutableList().apply {
