@@ -95,7 +95,7 @@ class SignUpActivity : AppCompatActivity() {
                         val verificationCode = (100000..999999).random().toString()
 
                         // Sends verification email
-                        EmailSender.sendVerificationEmail(email, verificationCode)
+                        EmailSender.sendVerificationEmail(this@SignUpActivity, email, verificationCode)
 
                         withContext(Dispatchers.Main) {
                             saveUserDataToPreferences(email, accessToken, userId)

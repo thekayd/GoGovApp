@@ -1,5 +1,10 @@
 package com.kayodedaniel.gogovmobile.activities
+
+import android.content.Context
 import android.util.Log
+import com.kayodedaniel.gogovmobile.R
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.util.*
 import javax.mail.Authenticator
 import javax.mail.Message
@@ -8,15 +13,29 @@ import javax.mail.Session
 import javax.mail.Transport
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
+
 @SuppressWarnings("all")
 object EmailSender {
 
     private const val SMTP_HOST = "smtp.gmail.com"
     private const val SMTP_PORT = "587"
     private const val EMAIL = "mini7rush@gmail.com"
-    private const val PASSWORD = "cntqypdiusmbomao"
+    private var PASSWORD: String? = null
 
-    fun sendVerificationEmail(toEmail: String, verificationCode: String) {
+    fun initializePassword(context: Context) {
+        try {
+            val inputStream = context.resources.openRawResource(R.raw.email_password)
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            PASSWORD = reader.readLine()
+            inputStream.close()
+        } catch (e: Exception) {
+            Log.e("EmailSender", "Failed to read password file: ${e.message}")
+        }
+    }
+
+    fun sendVerificationEmail(context: Context, toEmail: String, verificationCode: String) {
+        if (PASSWORD == null) initializePassword(context)
+
         try {
             val props = Properties().apply {
                 put("mail.smtp.auth", "true")

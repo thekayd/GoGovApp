@@ -58,7 +58,7 @@ class VerifyEmailActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                EmailSender.sendVerificationEmail(email, verificationCode)
+                EmailSender.sendVerificationEmail(this@VerifyEmailActivity, email, verificationCode)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@VerifyEmailActivity, "Verification code resent to $email", Toast.LENGTH_SHORT).show()
                 }
